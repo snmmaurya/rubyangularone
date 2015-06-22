@@ -1,0 +1,81 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Welcome at My Site!
+            <!-- Welcome to Ocean of Solutions -->
+            <!-- <small>About Me !</small> -->
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Intro Content -->
+<div class="row">
+    <div class="col-md-4">
+        <%= image_tag @snmmaurya.image_url, height: 450, width: 750, class: "img-responsive" %>
+    </div>
+    <div class="col-md-8">
+        <h2><!--About Solutions Ocean-->About <%= @snmmaurya.full_name %></h2>
+        <p><%= @snmmaurya.infos.last.about_yourself %></p>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3 class="pull-center">Personal Information</h3>
+  </div>
+  <div class="col-sm-6">
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Name</label></div>
+          <div class="col-sm-9"><%= @snmmaurya.full_name %></div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Email</label></div>
+          <div class="col-sm-9"><%= @snmmaurya.email %></div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Contact</label></div>
+          <div class="col-sm-9"><%= @snmmaurya.infos.last.contact %></div>
+      </div>
+  </div>
+
+
+  <div class="col-sm-6">
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Date Of birth</label></div>
+          <div class="col-sm-9"><%= time_format(@snmmaurya.infos.last.date_of_birth, format=1) %></div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Address</label></div>
+          <div class="col-sm-9"><%= @snmmaurya.infos.last.address %></div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Website</label></div>
+          <div class="col-sm-9"><a href="http://www.snmmaurya.com">http://www.snmmaurya.com</a></div>
+      </div>
+  </div>
+</div>
+<!-- /.row -->
+<!-- My Solutions -->
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">My Solutions</h2>
+    </div>
+    <div class="container">
+      <div class="col-xs-12">
+        <div id="myCarousel" class="carousel slide">
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+            <%= solutions %>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- /.row -->
+
+
+
+
+<!-- https://www.youtube.com/watch?v=vMjR8Op23K4 -->

@@ -1,0 +1,2 @@
+module Administrator::ApisHelper
+end

@@ -1,0 +1,20 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Development
+           <small>Update Development</small>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Development Content -->
+<div class="row">
+  <%= form_for([:administrator, @development]) do |form| %>
+    <%= render partial: "shared/error_messages", locals: {error: @development}  %>    
+    <div class="control-group form-group">
+      <%= render partial: "form", locals: {form: form, buttons: link_to(:Show, administrator_development_path(@development), class: "btn btn-default")} %>      
+    </div>
+  <% end %>
+</div>

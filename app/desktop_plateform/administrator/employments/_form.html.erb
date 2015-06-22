@@ -1,0 +1,30 @@
+<div class="controls">
+  <%= form.label :Role %>
+  <%= form.text_field :role, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Company %>
+  <%= form.text_field :company, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Status %>        
+  <%= form.text_field :status, class: "form-control" %>
+</div>
+<div class="controls">
+  <%= form.label :Description %>
+  <%= form.text_area :description, class: "form-control" %>
+</div>
+<div class="controls">
+  <%= form.label :joined_at %>
+  <%= form.text_field :joined_at, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :leaved_at %>
+  <%= form.text_field :leaved_at, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, administrator_employments_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>

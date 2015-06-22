@@ -1,0 +1,30 @@
+<div class="controls">
+  <%= form.label :Title %>
+  <%= form.text_field :title, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :College %>
+  <%= form.text_field :school, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Status %>        
+  <%= form.text_field :status, class: "form-control" %>
+</div>
+<div class="controls">
+  <%= form.label :Description %>
+  <%= form.text_area :description, class: "form-control" %>
+</div>
+<div class="controls">
+  <%= form.label :started_at %>
+  <%= form.text_field :started_at, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :completed_at %>
+  <%= form.text_field :completed_at, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, administrator_educations_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>

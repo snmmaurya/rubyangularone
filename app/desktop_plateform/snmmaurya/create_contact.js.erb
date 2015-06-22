@@ -1,0 +1,7 @@
+$("#error_messages, #success").html("");
+<% if @contact.errors.present? %>
+	$("#error_messages").html("<%= j render partial: "shared/error_messages", locals: {error: @contact} %>");
+<% else %>
+	$("#success").html("<div class='notice alert alert-success'>Contact Saved Succesfully!</div>");
+<% end %>
+$("#contactForm").reset();

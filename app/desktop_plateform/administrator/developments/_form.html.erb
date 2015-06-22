@@ -1,0 +1,14 @@
+<div class="controls">
+  <%= form.label :Title %>
+  <%= form.text_field :title, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label "Dev Type" %>
+  <%= form.select :dev_type, options_for_select([["WEB","WEB"],["MOBILE","MOBILE"]], @development.dev_type), {}, class: "form-control", required: false %>
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, administrator_developments_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>

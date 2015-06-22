@@ -1,0 +1,29 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Development
+           <small>Show Development</small>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Development Content -->
+<div class="row">
+  <div class="control-group form-group">
+		<div class="controls">
+  		<label>Title</label>
+  		<%= @development.title %>
+		</div>
+    <div class="controls">
+      <label>Dev Type</label>
+      <%= @development.dev_type %>
+    </div>
+		<div class="controls">
+			<%= link_to :Back, administrator_developments_path, class: "btn btn-default" %>			
+			<%= link_to :Edit, edit_administrator_development_path(@development), class: "btn btn-info" %>
+      <%= link_to :Destroy, administrator_development_path(@development), method: :delete, data: {confirm: "Are you sure!"}, class: "btn btn-danger" %>
+		</div>
+   </div>
+</div>

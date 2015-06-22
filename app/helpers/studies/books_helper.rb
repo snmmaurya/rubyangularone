@@ -1,0 +1,2 @@
+module Studies::BooksHelper
+end

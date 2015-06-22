@@ -1,0 +1,20 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Api
+           <small>New Api</small>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Api Content -->
+<div class="row">
+  <%= form_for([:administrator, @api]) do |form| %>
+    <%= render partial: "shared/error_messages", locals: {error: @api}  %>    
+    <div class="control-group form-group">
+      <%= render partial: "form", locals: {form: form} %>
+    </div>
+  <% end %>
+</div>

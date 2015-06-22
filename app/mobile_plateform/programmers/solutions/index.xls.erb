@@ -1,0 +1,10 @@
+<table>
+  <tr><th>Sr</th><th>Title</th><th>Description</th></tr>
+  <% if @solutions.present? %>
+    <% counter = 0; @solutions.each do |solution| %>
+      <tr><td><%= counter += 1%></td><td><%= solution.solution %></td><td><%=solution.description %></td></tr>
+    <% end %>
+  <% else %>
+    <tr><td colspan="3">Solution not found</td></tr>
+  <% end %>
+</table>

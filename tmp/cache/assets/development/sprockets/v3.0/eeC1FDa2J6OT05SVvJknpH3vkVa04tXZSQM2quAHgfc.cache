@@ -1,0 +1,11 @@
+{:uriI"£file:///var/www/snmmaurya/app/assets/application/templates/shared/solutions.html?type=text/html&id=9d090a6114d704ad222302bb0278760c5f9f360f760116c380a4660f4f1301c0:ET:load_pathI"./var/www/snmmaurya/app/assets/application;F:filenameI"N/var/www/snmmaurya/app/assets/application/templates/shared/solutions.html;T:	nameI"templates/shared/solutions;T:logical_pathI"$templates/shared/solutions.html;T:content_typeI"text/html;T:sourceI"%<div class="col-lg-12">
+  <h2 class="page-header">My Solutions</h2>
+</div>
+<a ng-start="solution in response" href="">
+  <div class="col-sm-2 col-sm-12"> 
+    <img width="700" height="400" src="/uploads/images/ruby_transparent.png" class="img-responsive" alt="Ruby" title="Ruby">
+  </div>
+</a>;T:metadata{	:dependencieso:Set:
+@hash{	I"environment-version;TTI"environment-paths;TTI"2processors:type=text/html&file_type=text/html;TTI"\file-digest:///var/www/snmmaurya/app/assets/application/templates/shared/solutions.html;TT:charsetI"
+utf-8;F:digest"%¢y41óÁmqÓ»¦8ûngñcd†@¹…Šª&Î[:lengthi%:dependencies_digest"%š_öž4AÉ:ëûìêÔDÍ™®]" „¸¼bK©È'ú:idI"E9d090a6114d704ad222302bb0278760c5f9f360f760116c380a4660f4f1301c0;F:
+mtimel+ó¤†U

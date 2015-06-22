@@ -1,0 +1,75 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Signup
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Intro Content -->
+<div class="row">
+<div class="col-sm-8">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+    <!-- hidden fields -->
+    <% if params[:provider].present? || (params[:user].present? && params[:user][:provider].present?) %>
+      <!-- user comes from omniauth callback -->
+      <%= f.hidden_field :remote_image_url %>
+      <%= f.hidden_field :uid %>
+      <%= f.hidden_field :provider %>
+    <% end %>          
+    <div class="control-group form-group">
+      <div class="controls">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control", required: false, maxlength: 250 %>
+      </div>
+      <div class="controls">
+        <%= f.label :password %>
+        <% if @validatable %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      </div>
+      <div class="controls">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+      </div>
+      <div class="controls">
+        <%= f.label :username %>
+        <%= f.text_field :username, class: "form-control", required: false, maxlength: 250 %>
+      </div>
+      <% resource.infos.build if !resource.errors.any? || resource.new_record? %>
+      <%= f.fields_for :infos do |info_form| %>
+        <div class="controls">
+          <%= info_form.label :fname %>
+          <%= info_form.text_field :fname, class: "form-control", required: false, maxlength: 250 %>
+        </div>
+        <div class="controls">
+          <%= info_form.label :lname %>
+          <%= info_form.text_field :lname, class: "form-control", required: false, maxlength: 250 %>
+        </div>
+      <% end %>
+      <div class="controls">
+        <br>
+        <%= f.submit "Sign up", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="col-sm-4">
+  <label class="text-center center-block">-----Or Signup with-----</label>
+    <%= link_to "<i class='fa fa-github'></i> Signup with Github".html_safe, user_omniauth_authorize_path(:github), class: "btn btn-block btn-social btn-github" %>
+
+    <%= link_to "<i class='fa fa-twitter'></i> Signup with Twitter".html_safe, user_omniauth_authorize_path(:twitter), class: "btn btn-block btn-social btn-twitter" %>
+
+    <%= link_to "<i class='fa fa-google'></i> Signup with Google".html_safe, user_omniauth_authorize_path(:google_oauth2), class: "btn btn-block btn-social btn-google" %>
+
+    <%= link_to "<i class='fa fa-facebook'></i> Signup with Facebook".html_safe, user_omniauth_authorize_path(:facebook), class: "btn btn-block btn-social btn-facebook" %>
+  </div>
+  <div class="col-sm-4">
+    <br><br>
+    <%= render "users/shared/links" %>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<% if problems.present? %>
+  <% problems.each do |problem| %>
+    <div class="col-lg-12">
+      <div class="well">
+        <p><%= problem.problem.html_safe %></p>
+        <div class="panel-body">
+          <div class="col-sm-12 col-lg-3">
+            <%= link_to "Available Answers [#{problem.answers.count}]",  programmers_solution_problem_answers_path(solution, problem) %>
+          </div>
+          <div class="col-sm-12 col-lg-3">
+            Creted At [<%= time_format problem.created_at, format=false %>]
+          </div>
+          <div class="col-sm-12 col-lg-3 text-right period">
+            Created By <em>[<%= link_to problem.user.username, profile_user_path(problem.user.username)%>]</em>
+          </div>
+          <div class="col-sm-12 col-lg-3 text-right period">
+            <%= link_to :VIEW, programmers_solution_problem_answers_path(solution, problem) %>
+            <% if (current_user && current_user.id == problem.user_id) || admin? %>
+              <%= link_to :EDIT, edit_programmers_solution_problem_path(solution, problem), remote: true %>
+              <%= link_to :DELETE, programmers_solution_problem_path(solution, problem), method: :delete, data: {confirm: "Are you sure!"} %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>    
+  <% end %>
+  <% else %>
+  <div class="col-lg-12 text-center">
+  	<div class="data-not-found">---- Data not found ! ----</div>
+  </div>
+  <% end %>
+
+  <div class="col-lg-12">
+  <%= link_to "Go Back", programmers_solutions_path, class: "btn btn-default pull" %>
+  <%= paginate problems %>
+  </div>

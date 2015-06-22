@@ -1,0 +1,12 @@
+<%= form_for problem, url: programmers_solution_problem_path(solution, problem), method: :patch, html: {id: :problemForm}, remote: true do |form| %>
+  <!-- For success/fail messages -->
+  <div id="success"><%= render partial: "shared/error_messages", locals: {error: problem} %></div>
+  <div class="control-group form-group">
+      <div class="controls">
+          <label>Descibe Your Problem:</label>
+          <%= form.text_area :problem, class: "form-control", required: true, placeholder: "Problem !", maxlength: 500 %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+      </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit Problem</button>
+<% end %>

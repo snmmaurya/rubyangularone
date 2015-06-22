@@ -1,0 +1,49 @@
+<meta http-equiv="refresh" content="1;url=<%= session[:origin] || root_url %>" />
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Welcome at My Site!
+            <!-- Welcome to Ocean of Solutions -->
+            <!-- <small>About Me !</small> -->
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Intro Content -->
+<div class="row">
+    <div class="col-md-12 text-center">
+    <p class="success alert alert-success">
+      Thank You for signing up, we have sent an email on your registrered email id with confirmation code, Please confirm your email to continue!
+    </p>  
+      <%= image_tag "thanks.png", title: "Thank You" %>
+    </div>
+</div>
+
+<div class="row">
+  
+</div>
+<!-- /.row -->
+<!-- My Solutions -->
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">My Solutions</h2>
+    </div>
+    <div class="container">
+      <div class="col-xs-12">
+        <div id="myCarousel" class="carousel slide">
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+            <%= solutions %>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- /.row -->
+
+
+
+
+<!-- https://www.youtube.com/watch?v=vMjR8Op23K4 -->

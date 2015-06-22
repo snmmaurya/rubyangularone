@@ -1,0 +1,22 @@
+<div class="controls">
+  <%= form.label :Title %>
+  <%= form.text_field :solution, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Description %>
+  <%= form.text_area :description, class: "form-control" %>
+</div>
+<div class="controls">
+  <%= form.label :Image %>
+  <%= form.file_field :image, class: "form-control", required: false, maxlength: 250 %>
+  <% if @solution.image.present? %>
+    <%= image_tag(@solution.image, size: "100x100", alt: @solution.title, class: "img-responsive") %>
+  <% end %>
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, programmers_solutions_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>
+

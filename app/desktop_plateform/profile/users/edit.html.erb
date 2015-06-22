@@ -1,0 +1,103 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Update Your Profile:
+            <%= (current_user && current_user == @this_user) ? current_user.username : @this_user.username%>
+            <!-- <small>About Me !</small> -->
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Intro Content -->
+<div class="row">
+    <div class="col-md-12">
+      <div class="user-settings-tabs row" id="ui-tab">
+        <ul class="tabs">
+            <li class="active">
+                <%= link_to "Your Profile", "#tab1" %>
+            </li>
+            <li><%= link_to "Password Settings", "#tab2" %></li>
+        </ul>
+        <div class="row">
+          <div id="tab1">
+            <%= form_for @user, url: profile_user_path(@user), method: :put, html: {id: :profileForm} do |user_form| %>
+              <%= render partial: "shared/error_messages", locals: {error: @user} %>
+              <div class="control-group form-group">                
+              <% @user.infos.build if @user.errors.nil? || @user.new_record? %>
+                  <%= user_form.fields_for :infos do |information_form| %>
+                    <div class="controls">
+                      <label>First Name:</label>
+                      <%= information_form.text_field :fname, class: "form-control", required: false, maxlength: 250 %>
+                    </div>
+                    <div class="controls">
+                      <label>Last Name:</label>
+                      <%= information_form.text_field :lname, class: "form-control", required: false, maxlength: 250 %>
+                    </div>
+                    <div class="controls">
+                      <label>Contact:</label>
+                      <%= information_form.text_field :contact, class: "form-control", required: false, maxlength: 250 %>
+                    </div>
+                    <div class="controls">
+                      <label>About Yourself:</label>
+                      <%= information_form.text_area :about_yourself, class: "form-control", required: false %>
+                    </div>
+                    <div class="controls">
+                      <label>Gender:</label>
+                      <%= information_form.select(:gender, options_for_select(dropdown :gender), {prompt: "Select"}, {class: "form-control"}) %>
+                    </div>
+                    <div class="controls">
+                      <label>Martial Status:</label>
+                      <%= information_form.select(:martial_status, options_for_select(dropdown :martial), {prompt: "Select"}, {class: "form-control"}) %>
+                    </div>
+                    <div class="controls">
+                      <label>Address:</label>
+                      <%= information_form.text_area :address, class: "form-control", required: false, maxlength: 250 %>
+                    </div>
+                  <% end %>
+                  <% if @user.image.present? %>
+                  <div class="controls">
+                    <label>Your Photo:</label>
+                    <%= image_tag @user.image.url, size: "150x150" %>                          
+                  </div>
+                  <% end %>
+                  <div class="controls">
+                    <label>Upload Photo:</label>
+                    <%= user_form.file_field :image, class: "form-control", required: false, maxlength: 250 %>                  
+                  </div>
+                  <div class="controls">
+                    <label>Upload Resume PDF:</label>
+                    <%= user_form.file_field :resume_pdf, class: "form-control", required: false, maxlength: 250 %>                  
+                  </div>
+                  <div class="controls">
+                    <label>Upload Resume DOC:</label>
+                    <%= user_form.file_field :resume_doc, class: "form-control", required: false, maxlength: 250 %>               
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Update</button>
+            <% end %>
+          </div>
+          <div id="tab2">
+              
+          </div>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+
+<% content_for :script do %>
+  <script>
+    $(function () {
+      <% if params[:tab].present? %>
+        $('#ui-tab').tabs({active: <%= params[:tab] %>});
+      <% else %>
+        $("#ui-tab").tabs();
+      <% end %>
+    })
+    var a={},b={key:'b'},c={key:'c'};
+    a[b]=123;
+    a[c]=456;
+    console.log(a[b])
+  </script>
+<% end %>

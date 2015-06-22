@@ -1,0 +1,14 @@
+$("#error_messages, #success").html("");
+<% if @answer.errors.present? %>
+	$("#answerFormContainer").html("<%= j render partial: "new", locals: {problem: @problem, solution: @solution, answer: @answer} %>");
+<% else %>
+	$("#success").html("<div class='notice alert alert-success'>Thanks for your Contribution!</div>");
+	$("#answerForm")[0].reset();
+	$.ajax({
+		url: "<%=programmers_solution_problem_answers_path(@solution, @problem)%>",
+		type: "Get",
+		dataType: "script",
+		complete: function(){
+		}
+	});
+<% end %>

@@ -1,0 +1,7 @@
+<% if @lessions.present? %>
+  <% @lessions.each do |lession| %>
+    <%= link_to lession.title, studies_book_lession_path(@book, lession), class: "block #{selected(studies_book_lession_path(@book, lession))}" %><hr>                   
+  <% end %>
+<% else %>
+  <%= render partial: "shared/not_found", locals: {title: :lession} %>
+<% end %>

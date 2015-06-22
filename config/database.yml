@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: snm_development
+  username: snmmaurya
+  password: snmmaurya
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: snm_test
+  host: localhost
+  username: snmmaurya
+  password: snmmaurya
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: snm
+  host: localhost
+  username: snmmaurya
+  password: snmmaurya

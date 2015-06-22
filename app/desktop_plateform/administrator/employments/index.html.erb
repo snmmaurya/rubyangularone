@@ -1,0 +1,49 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Employment
+           <small>All Employments</small>
+           <%= link_to :new, new_administrator_employment_path, class: "btn btn-xs btn-primary" %>
+
+           <%= link_to "Download XLS", administrator_employments_path(download: :true), class: "btn btn-xs btn-info" %>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Content -->
+<div class="row">
+	<div class="table-responsive">
+	  <table class="table table-bordered table-hover table-striped">
+	      <thead>
+	          <tr>
+	              <th>Sr</th>
+	              <th>Role</th>
+	              <th>Company</th>
+	              <th>Actions</th>
+	          </tr>
+	      </thead>
+	      <tbody>
+	      <% if @employments.present? %>
+	      <% counter = 0 %>
+		      <% @employments.each do |employment| %>
+		          <tr>
+		              <td><%= counter = counter + 1 %></td>
+		              <td><%= employment.role %></td>
+                  <td><%= employment.company %></td>
+		              <td>
+		              	<%= link_to :view, administrator_employment_path(employment), class: "btn btn-xs btn-default" %>
+		              	<%= link_to :edit, edit_administrator_employment_path(employment), class: "btn btn-xs btn-info" %>
+		              	<%= link_to :delete, administrator_employment_path(employment), method: :delete, data: {confirm: "Are you sure!"}, class: "btn btn-xs btn-danger" %>
+		              </td>            	              
+		          </tr>
+		      <% end %>
+		    <% else %>
+		    	<tr><td colspan="5" class="text-center">Data not found!</td></tr>  
+	      <% end %>    	         
+	      </tbody>
+	  </table>
+	</div>
+</div>
+<!-- /.row -->

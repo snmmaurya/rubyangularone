@@ -1,0 +1,30 @@
+<div class="controls">
+  <%= form.label :Title %>
+  <%= form.text_field :title, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Url %>
+  <%= form.text_field :url, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Tools %>        
+  <%= form.text_field :tools, class: "form-control", placeholder: "Separate by semicolon(;) Like Ruby;MySQL;Jquery" %>
+</div>
+<div class="controls">
+  <%= form.label :Description %>
+  <%= form.text_area :description, class: "form-control" %>
+</div>
+<div class="controls">
+  <%= form.label :Image %>
+  <%= form.file_field :image, class: "form-control", required: false, maxlength: 250 %>
+  <% if @portfolio.image.present? %>
+    <%= image_tag(@portfolio.image, size: "100x100", alt: @portfolio.title, class: "img-responsive border-gray") %>
+  <% end %>
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, administrator_portfolios_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>
+

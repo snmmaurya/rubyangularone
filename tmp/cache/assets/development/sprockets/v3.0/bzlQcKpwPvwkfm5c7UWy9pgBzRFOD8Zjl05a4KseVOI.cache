@@ -1,0 +1,67 @@
+{:uriI"ófile:///var/www/snmmaurya/app/assets/application/templates/home.html?type=text/html&id=050b5985d575c31692f5ffc0c0f79a318b4f73bfa1bdb557ef9243ccd43b2ff2:ET:load_pathI"./var/www/snmmaurya/app/assets/application;F:filenameI"B/var/www/snmmaurya/app/assets/application/templates/home.html;T:	nameI"templates/home;T:logical_pathI"templates/home.html;T:content_typeI"text/html;T:sourceI"£<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Welcome at My Site!
+            <!-- Welcome to Ocean of Solutions -->
+            <!-- <small>About Me !</small> -->
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Intro Content -->
+<div class="row">
+    <div class="col-md-4">
+        <img src="/uploads/ruby.jpg" height="450" width="750" class="img-responsive" />
+    </div>
+    <div class="col-md-8">
+        <h2><!--About Solutions Ocean-->About {{snmmaurya.fname}} {{snmmaurya.lname}}</h2>
+        <p>{{snmmaurya.about_yourself}}</p>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3 class="pull-center">Personal Information</h3>
+  </div>
+  <div class="col-sm-6">
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Name</label></div>
+          <div class="col-sm-9">{{snmmaurya.fname}} {{snmmaurya.lname}}</div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Email</label></div>
+          <div class="col-sm-9">{{snmmaurya.email}}</div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Contact</label></div>
+          <div class="col-sm-9">{{snmmaurya.contact}}</div>
+      </div>
+  </div>
+
+
+  <div class="col-sm-6">
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Date Of birth</label></div>
+          <div class="col-sm-9">{{snmmaurya.date_of_birth}}</div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Address</label></div>
+          <div class="col-sm-9">{{snmmaurya.address}}</div>
+      </div>
+      <div class="col-sm-12">
+          <div class="col-sm-3"><label>Website</label></div>
+          <div class="col-sm-9"><a href="{{snmmaurya.web_site}}">{{snmmaurya.web_site}}</a></div>
+      </div>
+  </div>
+</div>
+<!-- /.row -->
+
+
+
+
+<!-- https://www.youtube.com/watch?v=vMjR8Op23K4 -->;T:metadata{	:dependencieso:Set:
+@hash{	I"environment-version;TTI"environment-paths;TTI"2processors:type=text/html&file_type=text/html;TTI"Pfile-digest:///var/www/snmmaurya/app/assets/application/templates/home.html;TT:charsetI"
+utf-8;F:digest"%éTñjÈeÔV€EBç˜†˙Z–Y¸ã∫/¯øx:lengthi£:dependencies_digest"%Qróã‡∫'hè›◊»yP@…y?¢Ÿ~¬õOΩË[>:idI"E050b5985d575c31692f5ffc0c0f79a318b4f73bfa1bdb557ef9243ccd43b2ff2;F:
+mtimel+ç}ÜU

@@ -1,0 +1,39 @@
+<% title "Downloads : Linkis.in" %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumbs({"Home" => {path: "/"}, "Downloads" => {}}, "", "active")%>
+<% end %>
+<% content_for :article do %>
+	<div class="row borderall">
+		<div class="col-sm-12 col-md-12">
+			<h2 class="h1 pull-left marginbottom20">Downloads 
+			<span class="global_color">List</span></h2> 	
+		</div>
+	</div>
+	<div class="table-responsive nobordertop row">
+		<table class="table h6 nomargin table-bordered">
+			<tr>
+				<th>Sr.</th>
+				<th>Name</th>
+				<th>Format</th>
+				<th>Started at</th>
+				<th>Status</th>
+			</tr>
+			<% if @downloads.present? %>
+				<% i = 1 %>
+				<% @downloads.each do |download| %>
+				<tr>
+					<td><%= i %></td>
+					<td><%= download.name %></td>
+					<td><%= download.try(:file_extension).upcase %></td>
+					<td><%= format_time(download.created_at) %></td>
+					<td><%= (download.ready_for_download) ? link_to(:download, "#{download.download}") : "<i class='fa fa-2x global_color fa-refresh fa-spin mine'></i>".html_safe %></td>
+				</tr>
+				<% i+=1 %>
+				<% end %>			
+			<% else %>
+				<tr><td colspan="4">Download not found!</td></tr>
+			<% end %>
+		</table>
+		<%= paginate @downloads %>
+	</div>
+<% end %>

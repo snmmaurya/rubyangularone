@@ -1,0 +1,32 @@
+<% if answers.present? %>
+  <% answers.each do |answer| %>
+    <div class="col-lg-12">
+      <div class="well">
+        <p><%= answer.answer %></p>
+        <div class="panel-body">                    
+          <div class="col-sm-12 col-lg-4">
+            <% if (current_user && current_user.id == answer.user_id) || admin? %>
+              <%= link_to :EDIT, edit_programmers_solution_problem_answer_path(solution, problem, answer), remote: true %>
+              <%= link_to :DELETE, programmers_solution_problem_answer_path(solution, problem, answer), method: :delete, data: {confirm: "Are you sure!"} %>
+            <% end %>
+          </div>
+          <div class="col-sm-12 col-lg-4">
+            Creted At [<%= time_format answer.created_at, format=false %>]
+          </div>
+          <div class="col-sm-12 col-lg-4 text-right period">
+            Created By <em>[<%= link_to answer.user.username, profile_user_path(answer.user.username)%>]</em>
+          </div>
+        </div>
+      </div>
+    </div>    
+  <% end %>
+  <% else %>
+  <div class="col-lg-12 text-center">
+  	<div class="data-not-found">---- Data not found ! ----</div>
+  </div>
+  <% end %>
+
+  <div class="col-lg-12">
+  <%= link_to "Go Back", programmers_solution_problems_path(@solution), class: "btn btn-default pull" %>
+  <%= paginate answers %>
+  </div>

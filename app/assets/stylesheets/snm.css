@@ -1,0 +1,63 @@
+.tag-line
+{
+	font-size: 10px;
+}
+
+.vertical-spacer
+{
+	height: 10px;
+}
+
+.padding-bottom10
+{
+	padding-bottom: 10px;
+}
+
+.padding10
+{
+	padding: 10px;
+}
+
+.padding13
+{
+	padding: 13px;
+}
+
+.border-gray
+{
+	border: 1px solid #CCCCCC;
+}
+
+.carousel-control {
+  padding-top:10%;
+  width:5%;
+}
+
+.btn-github, .btn-google, .btn-twitter, .btn-facebook {
+    /*background-color: #444;
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #fff;*/
+    background-color: #eff7ff;
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.block
+{
+  display: block;
+}
+
+.snm-selected
+{
+  color: #0000FF;
+}
+
+.portfolo-img-size {
+  height: 250px;
+  width: 100%;
+}
+
+.books-img-size, .solutions-img-size {
+  height: 250px !important;
+  width: 100%;
+}

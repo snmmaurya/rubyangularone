@@ -1,0 +1,4 @@
+<%= content_tag 'p', (flash[:success]).html_safe, class: 'success alert alert-success' if flash[:success] %>
+<%= content_tag 'p', (flash[:notice]).html_safe, class: 'success alert alert-success' if flash[:notice] %>
+<%= content_tag 'p', (flash[:error] || flash[:alert]).html_safe, class: 'success alert alert-danger' if flash[:error] || flash[:alert] %>
+<% flash.clear %>
