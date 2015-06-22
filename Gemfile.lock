@@ -412,7 +412,6 @@ DEPENDENCIES
   sidekiq-client-cli
   spreadsheet
   spring
-  sqlite3
   sunspot_rails
   sunspot_solr
   therubyracer
