@@ -41,6 +41,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     app_config (2.5.3)
     arel (6.0.0)
     aws_cf_signer (0.1.3)
@@ -371,6 +373,7 @@ PLATFORMS
 
 DEPENDENCIES
   activemerchant
+  acts-as-taggable-on
   app_config
   bootstrap-wysihtml5-rails
   cancancan

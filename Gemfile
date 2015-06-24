@@ -99,3 +99,5 @@ gem "app_config"
 # gem 'unicorn'
 # gem "unicorn-rails"
 # rails server unicorn  #to run the application under unicorn server
+
+gem 'acts-as-taggable-on'
