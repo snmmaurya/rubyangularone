@@ -27,17 +27,18 @@ gem "unicorn-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'pg'
+gem 'spring'
 
-group :development, :test do
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
-  gem 'pry'
+group :development, :production do  
+  gem 'rails_12factor'  
+  gem 'therubyracer'    
+  gem 'pg'
 end
 
-group :production do
-  gem 'rails_12factor'  
-  gem 'therubyracer'
+group :test do
+  gem 'web-console', '~> 2.0'
+  gem 'pry'
+  gem "sqlite3"
 end
 
 gem 'redis'
