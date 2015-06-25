@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
 
+  acts_as_taggable
+
   # validates :name, presence: true, unless: -> {from_omniauth?}
   validates :username, presence: true
 

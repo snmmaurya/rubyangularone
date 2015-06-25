@@ -1,4 +1,4 @@
-########################### Localhost #######################
+########################## Localhost #######################
 # development:
 #   adapter: postgresql
 #   encoding: unicode

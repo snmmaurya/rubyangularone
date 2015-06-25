@@ -15,25 +15,25 @@ class LivesController < ApplicationController
     # render text: @comments.first.first.comment
     # @coms = @comments.map {}
     # binding.pry
-    @commentss = ""
-    def collect_comments comment
-      # binding.pry
-      comments = Comment.where("comment_id=? AND id !=?", comment.id, comment.id) #child comments
-      if comments.present?
-        comments.each do |child_comment|
-          collect_comments child_comment
-          @commentss += "<div class='container'>#{comment.id} | #{comment.comment_id}</div>"
-          # binding.pry
-        end
-      else
-        # @commentss += "<div class='container'>#{comment.id}</div>"
-      end
-      return @comments
-    end
+    # @commentss = ""
+    # def collect_comments comment
+    #   # binding.pry
+    #   comments = Comment.where("comment_id=? AND id !=?", comment.id, comment.id) #child comments
+    #   if comments.present?
+    #     comments.each do |child_comment|
+    #       collect_comments child_comment
+    #       @commentss += "<div class='container'>#{comment.id} | #{comment.comment_id}</div>"
+    #       # binding.pry
+    #     end
+    #   else
+    #     # @commentss += "<div class='container'>#{comment.id}</div>"
+    #   end
+    #   return @comments
+    # end
 
-    @comments = Comment.where("comment_id = id").each {|comment| collect_comments(comment)}
-    binding.pry
-    render text: @commentss.html_safe
+    # @comments = Comment.where("comment_id = id").each {|comment| collect_comments(comment)}
+    # binding.pry
+    # render text: @commentss.html_safe
     # render text: @comments.first.first.inspect
 
     # render text: Comment.where("id=comment_id").map do |comment|
@@ -59,5 +59,16 @@ class LivesController < ApplicationController
     #   # "<div class='container'>#{comment.comment} #{Comment.where(comment_id: comment.id).map { |child_comment| "<div class='child_comment'>#{child_comment.comment} #{child_comment}</div>" }.join}</div>"
     # end.join.html_safe
     # render text: @comments
+
+
+    #################### Acts as taggable #######################
+
+    u = User.first
+
+    u.tag_list
+
+    development = Development.first
+
+    u.tag(development, with: "welcome, awesome", on: "tags")
   end
 end
