@@ -47,7 +47,7 @@
                 <%= link_to :Signin, new_user_session_path, class: "sign_in" %>
               </li>  
               <% else %>                                 
-              <li class="dropdown settings dashboard administrator_portfolios">
+              <li class="dropdown settings dashboard administrator_portfolios sidekiq">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <%= current_user.username %> <b class="caret"></b>
                   </a>
@@ -59,6 +59,7 @@
                           <%= link_to :Dashboard, profile_user_path(current_user), class: "dashboard" %>
                       </li>
                       <% if admin? %>
+                        <li> <%= link_to 'Monitoring', sidekiq_web_path, class: :sidekiq %> <li>
                         <li>
                           <%= link_to :Portfolio, administrator_portfolios_path, class: "administrator_portfolios" %>
                       </li>
@@ -72,6 +73,22 @@
                   </ul>
               </li>
               <% end %>
+              <li class="others hospitals patients appointments">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Others <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <%= link_to :Doctors, hospitals_doctors_path, class: "hospitals" %>
+                    </li>
+                    <li>
+                      <%= link_to :Patients, hospitals_patients_path, class: "patients" %>
+                    </li>
+                    <li>
+                      <%= link_to :Appointment, hospitals_appointments_path, class: "appointments" %>
+                    </li>                                         
+                  </ul>
+              </li>
           </ul>
       </div>     
       <!-- /.navbar-collapse -->

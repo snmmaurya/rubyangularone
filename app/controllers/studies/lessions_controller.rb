@@ -10,6 +10,8 @@ class Studies::LessionsController < ApplicationController
 	def show
 		if params[:download]
 			filepath = individual_lession(@lession, @lession.title)
+			Download.initialize_background_download({filename: "Portfolio-#{Time.new.strftime("%m%d%Y%H%M%S")}", extension: "xls", title: :Portfolio, user: current_user, params: params})
+			redirect_to downloads_path and return
 			send_file( filepath, filename: "#{@lession.title}.pdf", type: "application/pdf")
 		end
 	end

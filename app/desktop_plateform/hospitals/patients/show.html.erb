@@ -1,0 +1,33 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Patient
+           <small>Show Patient</small>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Patient Content -->
+<div class="row">
+  <div class="control-group form-group">
+		<div class="controls">
+  		<label>Title</label>
+  		<%= @patient.name %>
+		</div>
+    <div class="controls">
+      <label>Problem</label>
+      <%= @patient.problem %>
+    </div>
+    <div class="controls">
+      <label>Profile Image</label>
+      <%= image_tag @patient.pictures.last.image_url, height: 150, width: 200, class: "img-responsive" if @patient.pictures.present? %>
+    </div>
+		<div class="controls">
+			<%= link_to :Back, hospitals_patients_path, class: "btn btn-default" %>			
+			<%= link_to :Edit, edit_hospitals_patient_path(@patient), class: "btn btn-info" %>
+      <%= link_to :Destroy, hospitals_patient_path(@patient), method: :delete, data: {confirm: "Are you sure!"}, class: "btn btn-danger" %>
+		</div>
+   </div>
+</div>

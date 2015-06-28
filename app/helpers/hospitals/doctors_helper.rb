@@ -1,0 +1,2 @@
+module Hospitals::DoctorsHelper
+end

@@ -1,0 +1,49 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Doctor
+           <small>All Doctors</small>
+           <%= link_to :new, new_hospitals_doctor_path, class: "btn btn-xs btn-primary" %>
+
+           <%= link_to "Download XLS", hospitals_doctors_path(download: :true), class: "btn btn-xs btn-info" %>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Content -->
+<div class="row">
+	<div class="table-responsive">
+	  <table class="table table-bordered table-hover table-striped">
+	      <thead>
+	          <tr>
+	              <th>Sr</th>
+	              <th>Name</th>
+	              <th>Practice</th>
+	              <th>Actions</th>
+	          </tr>
+	      </thead>
+	      <tbody>
+	      <% if @doctors.present? %>
+	      <% counter = 0 %>
+		      <% @doctors.each do |doctor| %>
+		          <tr>
+		              <td><%= counter = counter + 1 %></td>
+		              <td><%= doctor.name %></td>
+                  <td><%= doctor.practice %></td>
+		              <td>
+		              	<%= link_to :view, hospitals_doctor_path(doctor), class: "btn btn-xs btn-default" %>
+		              	<%= link_to :edit, edit_hospitals_doctor_path(doctor), class: "btn btn-xs btn-info" %>
+		              	<%= link_to :delete, hospitals_doctor_path(doctor), method: :delete, data: {confirm: "Are you sure!"}, class: "btn btn-xs btn-danger" %>
+		              </td>            	              
+		          </tr>
+		      <% end %>
+		    <% else %>
+		    	<tr><td colspan="5" class="text-center">Data not found!</td></tr>  
+	      <% end %>    	         
+	      </tbody>
+	  </table>
+	</div>
+</div>
+<!-- /.row -->

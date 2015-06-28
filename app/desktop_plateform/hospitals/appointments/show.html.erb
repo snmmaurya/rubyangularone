@@ -1,0 +1,33 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Appointment
+           <small>Show Appointment</small>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Appointment Content -->
+<div class="row">
+  <div class="control-group form-group">
+		<div class="controls">
+  		<label>Doctor</label>
+  		<%= @appointment.doctor.name %>
+		</div>
+    <div class="controls">
+      <label>Patient</label>
+      <%= @appointment.patient.name %>
+    </div>
+    <div class="controls">
+      <label>Appointment On</label>
+      <%= @appointment.appointment_at %>
+    </div>
+		<div class="controls">
+			<%= link_to :Back, hospitals_appointments_path, class: "btn btn-default" %>			
+			<%= link_to :Edit, edit_hospitals_appointment_path(@appointment), class: "btn btn-info" %>
+      <%= link_to :Destroy, hospitals_appointment_path(@appointment), method: :delete, data: {confirm: "Are you sure!"}, class: "btn btn-danger" %>
+		</div>
+   </div>
+</div>

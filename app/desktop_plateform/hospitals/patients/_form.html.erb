@@ -1,0 +1,31 @@
+<div class="controls">
+  <%= form.label :Name %>
+  <%= form.text_field :name, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Email %>
+  <%= form.text_field :email, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Problem %>
+  <%= form.text_field :problem, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Address %>
+  <%= form.text_area :address, class: "form-control", required: false, maxlength: 5000 %>
+</div>
+<div class="controls">
+  <%= form.label :Description %>
+  <%= form.text_area :description, class: "form-control", required: false, maxlength: 5000 %>
+</div>
+<div class="controls">
+  <%= form.label :Picture %>
+  <%= file_field_tag :image, class: "form-control", required: false, maxlength: 5000 %>
+   | Or your profile image will be used as Picture
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, hospitals_patients_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>

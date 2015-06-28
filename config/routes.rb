@@ -61,6 +61,13 @@ Rails.application.routes.draw do
   resources :lives
   resources :posts
 
+  
+  namespace :hospitals do
+    resources :doctors
+    resources :patients
+    resources :appointments
+  end  
+
 #------------------------------ API with AngularJS --------------------------------------#
   namespace :api do
     namespace :v1 do
@@ -71,8 +78,11 @@ Rails.application.routes.draw do
       match "/footer_solutions", to: "snmmaurya#footer_solutions", via: :get
       match "/programmers/solutions/:solution_id/problems", to: "programmers/solutions#problems", via: :get
      end 
-  end  
+  end
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,0 +1,18 @@
+<div class="controls">
+  <%= form.label :Doctors %>
+  <%= form.select :doctor_id, options_for_select(Doctor.select("*").map{|doctor| [doctor.name, doctor.id]}), {}, class: "form-control", required: false %>
+</div>
+<div class="controls">
+  <%= form.label :Patients %>
+  <%= form.select :patient_id, options_for_select(Patient.select("*").map{|patient| [patient.name, patient.id]}), {}, class: "form-control", required: false %>
+</div>
+<div class="controls">
+  <%= form.label "Appointment At" %>
+  <%= form.text_field :appointment_at, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, hospitals_appointments_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>

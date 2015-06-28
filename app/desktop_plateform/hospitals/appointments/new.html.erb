@@ -1,0 +1,20 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Appointment
+           <small>New Appointment</small>
+        </h1>
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Appointment Content -->
+<div class="row">
+  <%= form_for([:hospitals, @appointment], html: {enctype: "multipart/form-data"}) do |form| %>
+    <%= render partial: "shared/error_messages", locals: {error: @appointment}  %>
+    <div class="control-group form-group">
+      <%= render partial: "form", locals: {form: form} %>
+    </div>
+  <% end %>
+</div>
