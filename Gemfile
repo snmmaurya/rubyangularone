@@ -28,14 +28,16 @@ gem "unicorn-rails"
 # gem 'capistrano-rails', group: :development
 
 gem 'spring'
+gem 'therubyracer'
 
-group :development, :production do  
-  gem 'rails_12factor'  
-  gem 'therubyracer'    
-  gem 'pg'
+# Database
+gem 'pg'
+
+group :production do  
+  gem 'rails_12factor'      
 end
 
-group :test do
+group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'pry'
   gem "sqlite3"

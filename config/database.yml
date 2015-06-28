@@ -23,6 +23,14 @@ production:
   username: snmmaurya
   password: snmmaurya
 
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: snm_staging
+  host: localhost
+  username: snmmaurya
+  password: snmmaurya
+
 
 
 
