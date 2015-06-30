@@ -13,18 +13,21 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active">
+        <ul class="nav navbar-nav navbar-right" ng-init="selectedMenu = 'home'">
+          <li ng-class="{'active':selectedMenu === 'home'}" ng-click="selectedMenu = 'home'">
             <a ng-href="#/">Home</a>
           </li>
-          <li>
-            <a ng-href="#/about">About</a>
+          <li ng-class="{'active':selectedMenu === 'about'}" ng-click="selectedMenu = 'about'">
+            <a ng-href="#/about" ng-click="">About</a>
           </li>
-          <li>
+          <li ng-class="{'active':selectedMenu === 'solutions'}" ng-click="selectedMenu = 'solutions'">
             <a ng-href="#/programmers/solutions">Solutions</a>
           </li>
-          <li>
+          <li ng-class="{'active':selectedMenu === 'contact'}" ng-click="selectedMenu = 'contact'">
             <a ng-href="#/contact">Contact</a>
+          </li>
+          <li ng-class="{'active':selectedMenu === 'live'}" ng-click="selectedMenu = 'live'">
+            <a ng-href="#/live">Live</a>
           </li>
           <li>
             <a ng-href="#/portfolios">Portfolio</a>

@@ -1,0 +1,36 @@
+{:uriI"Æfile:///var/www/snmmaurya/app/assets/application/templates/programmers/solutions/index.html?type=text/html&id=f8fac1ed566632c90d7c447ad052f8664930f23e06e336d70d7274318d286d38:ET:load_pathI"./var/www/snmmaurya/app/assets/application;F:filenameI"Y/var/www/snmmaurya/app/assets/application/templates/programmers/solutions/index.html;T:	nameI"*templates/programmers/solutions/index;T:logical_pathI"/templates/programmers/solutions/index.html;T:content_typeI"text/html;T:sourceI"â<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Solutions
+            <small>All Solutions</small>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Team Members -->
+<div class="row" data-ng-controller="programmersSolutionsController">
+    <div class="col-md-4 text-center" ng-repeat="solution in response">    
+        <div class="thumbnail">
+        <a href="/programmers/solutions/{{solution.id}}/problems">
+          <img src="{{solution.image.url}}" size="700x400" alt="{{solution.solution}}" class="img-responsive">
+        </a>
+        <div class="caption">
+          <h3>
+            <a href="#/programmers/solution/problems/{{solution.id}}">
+              {{solution.solution}}
+            </a>
+          </h3>
+          <p>{{solution.description}}</p>
+        </div>
+        </div>      
+    </div>  
+</div>
+
+
+
+
+;T:metadata{	:dependencieso:Set:
+@hash{	I"environment-version;TTI"environment-paths;TTI"2processors:type=text/html&file_type=text/html;TTI"gfile-digest:///var/www/snmmaurya/app/assets/application/templates/programmers/solutions/index.html;TT:charsetI"
+utf-8;F:digest"%VºÚ°ßS[⁄d~%È˙÷Íf+íc´ä!7‹¯LÉN:lengthiâ:dependencies_digest"%ë›ß÷@…ãêOÚ8ï{À^¡tÖ±"ÀVˆwsÎç:idI"Ef8fac1ed566632c90d7c447ad052f8664930f23e06e336d70d7274318d286d38;F:
+mtimel+<ëU

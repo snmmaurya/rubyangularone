@@ -1,0 +1,56 @@
+{:uriI"¨file:///var/www/snmmaurya/app/assets/application/templates/lives/customers/index.html?type=text/html&id=a12918ab24bcb61cd00e1f8bb218af69639387da193faaa05521c69010db4823:ET:load_pathI"./var/www/snmmaurya/app/assets/application;F:filenameI"S/var/www/snmmaurya/app/assets/application/templates/lives/customers/index.html;T:	nameI"$templates/lives/customers/index;T:logical_pathI")templates/lives/customers/index.html;T:content_typeI"text/html;T:sourceI"$<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Customers Management System<br>
+           <form name="customerForm" novalidate>
+            Name<input type="text" ng-model="customerData.name"><br>
+            Emai<input type="text" ng-model="customerData.email"><br>
+            Contact<input type="text" ng-model="customerData.contact"><br>
+            <button type="submit" class="btn btn-primary" ng-click="addCustomer(customerData)" >Add Customer</button>            
+           </form>
+           <br>Search Filter By Name:
+           <input type="text" ng-model="serachFilter">
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Content -->
+<div class="row">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Sr</th>
+                <th>Title</th>
+                <th>Dev Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% if @developments.present? %>
+        <% counter = 0 %>
+          <% @developments.each do |development| %>
+              <tr>
+                  <td><%= counter = counter + 1 %></td>
+                  <td><%= development.title %></td>
+                  <td><%= development.dev_type %></td>
+                  <td>
+                    <%= link_to :view, administrator_development_path(development), class: "btn btn-xs btn-default" %>
+                    <%= link_to :edit, edit_administrator_development_path(development), class: "btn btn-xs btn-info" %>
+                    <%= link_to :delete, administrator_development_path(development), method: :delete, data: {confirm: "Are you sure!"}, class: "btn btn-xs btn-danger" %>
+                  </td>                           
+              </tr>
+          <% end %>
+        <% else %>
+          <tr><td colspan="5" class="text-center">Data not found!</td></tr>  
+        <% end %>              
+        </tbody>
+    </table>
+  </div>
+</div>
+<!-- /.row -->;T:metadata{	:dependencieso:Set:
+@hash{	I"environment-version;TTI"environment-paths;TTI"2processors:type=text/html&file_type=text/html;TTI"afile-digest:///var/www/snmmaurya/app/assets/application/templates/lives/customers/index.html;TT:charsetI"
+utf-8;F:digest"%!ª¡ğæäÉßg‘­‹=¿ï´?)na1şu^‚–,²[ã:lengthi$:dependencies_digest"%køÆD/YÁ§¿ÛwÊZQu1@Ÿo“í.ÄóøË:idI"Ea12918ab24bcb61cd00e1f8bb218af69639387da193faaa05521c69010db4823;F:
+mtimel+úU

@@ -1,0 +1,3 @@
+Polymorphic Association
+has_many :through
+has_and_belongs_to_many

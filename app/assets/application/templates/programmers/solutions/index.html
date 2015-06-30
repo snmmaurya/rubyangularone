@@ -10,10 +10,10 @@
 
 <!-- Team Members -->
 <div class="row" data-ng-controller="programmersSolutionsController">
-    <div class="col-md-4 text-center" ng-repeat="solution in solutions">    
+    <div class="col-md-4 text-center" ng-repeat="solution in response">    
         <div class="thumbnail">
-        <a href="#/programmers/solution/problems/{{solution.id}}">
-          <img src="/uploads/images/{{solution.image}}" size="700x400" alt="{{solution.solution}}" class="img-responsive">
+        <a href="#/programmers/solutions/{{solution.id}}/problems">
+          <img src="{{solution.image.url}}" size="700x400" alt="{{solution.solution}}" class="img-responsive">
         </a>
         <div class="caption">
           <h3>

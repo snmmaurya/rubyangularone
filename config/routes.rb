@@ -75,8 +75,13 @@ Rails.application.routes.draw do
       match "/get_current_user", to: "snmmaurya#get_current_user", via: :get
       match "/home", to: "snmmaurya#home", via: :get
       match "/about", to: "snmmaurya#about", via: :get
+      match "/portfolios", to: "snmmaurya#portfolios", via: :get
+      match "/portfolio/:portfolio_id", to: "snmmaurya#portfolio", via: :get
       match "/footer_solutions", to: "snmmaurya#footer_solutions", via: :get
-      match "/programmers/solutions/:solution_id/problems", to: "programmers/solutions#problems", via: :get
+      match "/programmers/solutions", to: "programmers/solutions#index", via: :get
+      match "/contact", to: "snmmaurya#contact", via: :post
+      match "/programmers/solution/:solution_id/problems", to: "programmers/problems#index", via: :get
+      match "/programmers/solution/:solution_id/problem/:problem_id/answers", to: "programmers/answers#index", via: :get
      end 
   end
 

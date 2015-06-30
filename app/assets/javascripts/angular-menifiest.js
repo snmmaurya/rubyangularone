@@ -28,7 +28,13 @@ END Library Related JS
 /*----------------------------------------------------------------------------
 Controllers related JS
 -----------------------------------------------------------------------------*/
-// require angular/controllers/controllers.js
+//= require controllers/controllers.js
+//= require controllers/snmmaurya_controller.js
+//= require controllers/programmers/solutions_controller.js
+//= require controllers/router_controller.js
+//= require controllers/lives/customer_controller.js
+//= require controllers/programmers/problems_controller.js
+//= require controllers/programmers/answers_controller.js
 /*----------------------------------------------------------------------------
 END Controllers related JS
 -----------------------------------------------------------------------------*/
@@ -37,7 +43,7 @@ END Controllers related JS
 /*----------------------------------------------------------------------------
 Custom Library Related JS
 -----------------------------------------------------------------------------*/
-// require angular/factories/factories.js
+//= require factories/factories.js
 // require angular/services/services.js
 /*----------------------------------------------------------------------------
 END Custom Library Related JS

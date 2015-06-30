@@ -34,7 +34,6 @@
             </div>
         </div>
 
-
         <div class="control-group form-group">
             <div class="controls">
                 <label>Phone Number:</label>
@@ -66,7 +65,9 @@
             </div>
         </div>
         <div id="success" class="{{contactMessageStatus.class}}" ng-model="contactMessageStatus">{{contactMessageStatus.message}}</div>
-        <button type="submit" class="btn btn-primary" ng-click="createContact(contactData)" ng-disabled="contactForm.$invalid">Send Message</button>        
+        <!-- <button type="submit" class="btn btn-primary" ng-click="createContact(contactData)" ng-disabled="contactForm.$invalid">Send Message</button>  -->
+        <button type="submit" class="btn btn-primary" ng-click="createContact(contactData)" >Send Message</button>
+        <button type="reset" class="btn btn-primary" >Reset Message</button>        
 </div>
 
 <!-- Contact Details Column -->

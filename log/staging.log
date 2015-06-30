@@ -1,0 +1,1414 @@
+D, [2015-06-28T13:51:51.339652 #9939] DEBUG -- :   [1m[36mSQL (0.9ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+D, [2015-06-28T13:51:51.540940 #9939] DEBUG -- :   [1m[35m (172.9ms)[0m  CREATE TABLE "answers" ("id" serial primary key, "answer" text, "description" character varying, "status" character varying DEFAULT 'ACTIVE', "created_at" timestamp, "updated_at" timestamp, "problem_id" integer, "user_id" integer, "slug" character varying) 
+D, [2015-06-28T13:51:51.629753 #9939] DEBUG -- :   [1m[36m (72.3ms)[0m  [1mCREATE  INDEX  "index_answers_on_problem_id" ON "answers" USING btree ("problem_id")[0m
+D, [2015-06-28T13:51:51.695893 #9939] DEBUG -- :   [1m[35m (61.4ms)[0m  CREATE  INDEX  "index_answers_on_user_id" ON "answers" USING btree ("user_id")
+D, [2015-06-28T13:51:51.796179 #9939] DEBUG -- :   [1m[36m (98.5ms)[0m  [1mCREATE TABLE "apis" ("id" serial primary key, "title" character varying, "user_id" integer) [0m
+D, [2015-06-28T13:51:51.862805 #9939] DEBUG -- :   [1m[35m (63.4ms)[0m  CREATE TABLE "appointments" ("id" serial primary key, "doctor_id" integer, "patient_id" integer, "appointment_created_at" timestamp, "appointment_at" timestamp) 
+D, [2015-06-28T13:51:51.974576 #9939] DEBUG -- :   [1m[36m (108.7ms)[0m  [1mCREATE TABLE "books" ("id" serial primary key, "title" character varying, "description" text, "image" character varying, "created_at" timestamp, "updated_at" timestamp, "slug" character varying) [0m
+D, [2015-06-28T13:51:52.074689 #9939] DEBUG -- :   [1m[35m (98.0ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "comment" character varying, "status" character varying DEFAULT 'ACTIVE', "comment_id" integer, "user_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+D, [2015-06-28T13:51:52.140894 #9939] DEBUG -- :   [1m[36m (61.2ms)[0m  [1mCREATE  INDEX  "index_comments_on_comment_id" ON "comments" USING btree ("comment_id")[0m
+D, [2015-06-28T13:51:52.207309 #9939] DEBUG -- :   [1m[35m (64.0ms)[0m  CREATE  INDEX  "index_comments_on_user_id" ON "comments" USING btree ("user_id")
+D, [2015-06-28T13:51:52.307166 #9939] DEBUG -- :   [1m[36m (97.9ms)[0m  [1mCREATE TABLE "contacts" ("id" serial primary key, "name" character varying, "email" character varying, "contact" character varying, "message" text, "status" character varying DEFAULT 'ACTIVE', "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:52.407067 #9939] DEBUG -- :   [1m[35m (98.2ms)[0m  CREATE TABLE "countries" ("id" serial primary key, "title" character varying, "iso" character varying, "code" character varying, "currency" character varying, "capital" character varying, "language" character varying, "sex_ratio" character varying, "litracy" character varying, "population" character varying, "created_at" timestamp, "updated_at" timestamp) 
+D, [2015-06-28T13:51:52.529261 #9939] DEBUG -- :   [1m[36m (116.5ms)[0m  [1mCREATE TABLE "delayed_jobs" ("id" serial primary key, "priority" integer DEFAULT 0 NOT NULL, "attempts" integer DEFAULT 0 NOT NULL, "handler" text NOT NULL, "last_error" text, "run_at" timestamp, "locked_at" timestamp, "failed_at" timestamp, "locked_by" character varying, "queue" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:52.606455 #9939] DEBUG -- :   [1m[35m (72.2ms)[0m  CREATE  INDEX  "delayed_jobs_priority" ON "delayed_jobs" USING btree ("priority", "run_at")
+D, [2015-06-28T13:51:52.761718 #9939] DEBUG -- :   [1m[36m (153.5ms)[0m  [1mCREATE TABLE "developments" ("id" serial primary key, "title" character varying, "dev_type" character varying DEFAULT 'WEB', "user_id" integer) [0m
+D, [2015-06-28T13:51:52.883768 #9939] DEBUG -- :   [1m[35m (120.4ms)[0m  CREATE TABLE "doctors" ("id" serial primary key, "name" character varying, "email" character varying, "address" text, "practice" character varying, "description" text, "created_at" timestamp, "updated_at" timestamp) 
+D, [2015-06-28T13:51:53.005700 #9939] DEBUG -- :   [1m[36m (120.2ms)[0m  [1mCREATE TABLE "downloads" ("id" serial primary key, "download" character varying, "filename" character varying, "extension" character varying, "ready_to_download" boolean DEFAULT 'f', "user_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:53.116572 #9939] DEBUG -- :   [1m[35m (109.2ms)[0m  CREATE TABLE "educations" ("id" serial primary key, "title" character varying, "school" character varying, "description" text, "status" character varying DEFAULT 'COMPLETED', "started_at" timestamp, "completed_at" timestamp, "user_id" integer) 
+D, [2015-06-28T13:51:53.216685 #9939] DEBUG -- :   [1m[36m (98.4ms)[0m  [1mCREATE TABLE "employments" ("id" serial primary key, "role" character varying, "company" character varying, "description" text, "status" character varying DEFAULT 'PREVIOUS', "joined_at" timestamp, "leaved_at" timestamp, "user_id" integer) [0m
+D, [2015-06-28T13:51:53.327338 #9939] DEBUG -- :   [1m[35m (107.6ms)[0m  CREATE TABLE "friendly_id_slugs" ("id" serial primary key, "slug" character varying NOT NULL, "sluggable_id" integer NOT NULL, "sluggable_type" character varying(50), "scope" character varying, "created_at" timestamp) 
+D, [2015-06-28T13:51:53.393777 #9939] DEBUG -- :   [1m[36m (64.0ms)[0m  [1mCREATE UNIQUE INDEX  "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope" ON "friendly_id_slugs" USING btree ("slug", "sluggable_type", "scope")[0m
+D, [2015-06-28T13:51:53.460215 #9939] DEBUG -- :   [1m[35m (64.2ms)[0m  CREATE  INDEX  "index_friendly_id_slugs_on_slug_and_sluggable_type" ON "friendly_id_slugs" USING btree ("slug", "sluggable_type")
+D, [2015-06-28T13:51:53.526712 #9939] DEBUG -- :   [1m[36m (64.1ms)[0m  [1mCREATE  INDEX  "index_friendly_id_slugs_on_sluggable_id" ON "friendly_id_slugs" USING btree ("sluggable_id")[0m
+D, [2015-06-28T13:51:53.593061 #9939] DEBUG -- :   [1m[35m (63.5ms)[0m  CREATE  INDEX  "index_friendly_id_slugs_on_sluggable_type" ON "friendly_id_slugs" USING btree ("sluggable_type")
+D, [2015-06-28T13:51:53.693083 #9939] DEBUG -- :   [1m[36m (98.5ms)[0m  [1mCREATE TABLE "identities" ("id" serial primary key, "user_id" integer, "provider" character varying, "uid" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+D, [2015-06-28T13:51:53.870058 #9939] DEBUG -- :   [1m[35m (120.3ms)[0m  CREATE  INDEX  "index_identities_on_user_id" ON "identities" USING btree ("user_id")
+D, [2015-06-28T13:51:53.969855 #9939] DEBUG -- :   [1m[36m (98.3ms)[0m  [1mCREATE TABLE "images" ("id" serial primary key, "image" character varying, "imageable_id" integer, "imageable_type" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:54.047679 #9939] DEBUG -- :   [1m[35m (75.2ms)[0m  CREATE  INDEX  "index_images_on_imageable_id" ON "images" USING btree ("imageable_id")
+D, [2015-06-28T13:51:54.169695 #9939] DEBUG -- :   [1m[36m (118.9ms)[0m  [1mCREATE TABLE "infos" ("id" serial primary key, "fname" character varying, "lname" character varying, "date_of_birth" character varying, "contact" character varying, "gender" character varying, "address" text, "about_yourself" text, "martial_status" character varying, "user_id" integer, "created_at" timestamp, "updated_at" timestamp, "state_id" integer, "country_id" integer, "city" character varying) [0m
+D, [2015-06-28T13:51:54.269151 #9939] DEBUG -- :   [1m[35m (94.7ms)[0m  CREATE  INDEX  "index_infos_on_user_id" ON "infos" USING btree ("user_id")
+D, [2015-06-28T13:51:54.391114 #9939] DEBUG -- :   [1m[36m (120.4ms)[0m  [1mCREATE TABLE "lessions" ("id" serial primary key, "title" character varying, "description" text, "book_id" integer, "created_at" timestamp, "updated_at" timestamp, "slug" character varying) [0m
+D, [2015-06-28T13:51:54.513281 #9939] DEBUG -- :   [1m[35m (120.2ms)[0m  CREATE TABLE "patients" ("id" serial primary key, "name" character varying, "email" character varying, "address" text, "problem" character varying, "description" text, "created_at" timestamp, "updated_at" timestamp) 
+D, [2015-06-28T13:51:54.635125 #9939] DEBUG -- :   [1m[36m (119.1ms)[0m  [1mCREATE TABLE "pictures" ("id" serial primary key, "image" character varying, "picturable_id" integer, "picturable_type" character varying) [0m
+D, [2015-06-28T13:51:54.712524 #9939] DEBUG -- :   [1m[35m (72.5ms)[0m  CREATE  INDEX  "index_pictures_on_picturable_type_and_picturable_id" ON "pictures" USING btree ("picturable_type", "picturable_id")
+D, [2015-06-28T13:51:54.834557 #9939] DEBUG -- :   [1m[36m (120.1ms)[0m  [1mCREATE TABLE "portfolios" ("id" serial primary key, "title" character varying, "image" character varying, "url" character varying, "tools" character varying, "description" text, "user_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:54.934323 #9939] DEBUG -- :   [1m[35m (98.2ms)[0m  CREATE TABLE "posts" ("id" serial primary key, "title" character varying, "image" character varying, "description" text, "user_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+D, [2015-06-28T13:51:55.000994 #9939] DEBUG -- :   [1m[36m (63.8ms)[0m  [1mCREATE  INDEX  "index_posts_on_user_id" ON "posts" USING btree ("user_id")[0m
+D, [2015-06-28T13:51:55.100652 #9939] DEBUG -- :   [1m[35m (95.9ms)[0m  CREATE TABLE "problems" ("id" serial primary key, "problem" text, "description" character varying, "status" character varying DEFAULT 'ACTIVE', "solution_id" integer, "user_id" integer, "created_at" timestamp, "updated_at" timestamp, "slug" character varying) 
+D, [2015-06-28T13:51:55.178121 #9939] DEBUG -- :   [1m[36m (64.9ms)[0m  [1mCREATE  INDEX  "index_problems_on_solution_id" ON "problems" USING btree ("solution_id")[0m
+D, [2015-06-28T13:51:55.244554 #9939] DEBUG -- :   [1m[35m (64.2ms)[0m  CREATE  INDEX  "index_problems_on_user_id" ON "problems" USING btree ("user_id")
+D, [2015-06-28T13:51:55.344296 #9939] DEBUG -- :   [1m[36m (98.3ms)[0m  [1mCREATE TABLE "roles" ("id" serial primary key, "role" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+D, [2015-06-28T13:51:55.444184 #9939] DEBUG -- :   [1m[35m (98.1ms)[0m  CREATE TABLE "solutions" ("id" serial primary key, "solution" character varying, "description" character varying, "image" character varying, "status" character varying DEFAULT 'ACTIVE', "created_at" timestamp, "updated_at" timestamp, "slug" character varying) 
+D, [2015-06-28T13:51:55.544016 #9939] DEBUG -- :   [1m[36m (98.1ms)[0m  [1mCREATE TABLE "states" ("id" serial primary key, "title" character varying, "capital" character varying, "language" character varying, "sex_ratio" character varying, "litracy" character varying, "population" character varying, "country_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:55.610467 #9939] DEBUG -- :   [1m[35m (63.9ms)[0m  CREATE  INDEX  "index_states_on_country_id" ON "states" USING btree ("country_id")
+D, [2015-06-28T13:51:55.721496 #9939] DEBUG -- :   [1m[36m (109.5ms)[0m  [1mCREATE TABLE "students" ("id" serial primary key, "name" character varying, "contact" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:55.854333 #9939] DEBUG -- :   [1m[35m (130.4ms)[0m  CREATE TABLE "taggings" ("id" serial primary key, "tag_id" integer, "taggable_id" integer, "taggable_type" character varying, "tagger_id" integer, "tagger_type" character varying, "context" character varying(128), "created_at" timestamp) 
+D, [2015-06-28T13:51:55.931890 #9939] DEBUG -- :   [1m[36m (75.6ms)[0m  [1mCREATE UNIQUE INDEX  "taggings_idx" ON "taggings" USING btree ("tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type")[0m
+D, [2015-06-28T13:51:56.009425 #9939] DEBUG -- :   [1m[35m (74.4ms)[0m  CREATE  INDEX  "index_taggings_on_taggable_id_and_taggable_type_and_context" ON "taggings" USING btree ("taggable_id", "taggable_type", "context")
+D, [2015-06-28T13:51:56.131539 #9939] DEBUG -- :   [1m[36m (120.4ms)[0m  [1mCREATE TABLE "tags" ("id" serial primary key, "name" character varying, "taggings_count" integer DEFAULT 0) [0m
+D, [2015-06-28T13:51:56.209183 #9939] DEBUG -- :   [1m[35m (73.5ms)[0m  CREATE UNIQUE INDEX  "index_tags_on_name" ON "tags" USING btree ("name")
+D, [2015-06-28T13:51:56.331124 #9939] DEBUG -- :   [1m[36m (119.2ms)[0m  [1mCREATE TABLE "teachers" ("id" serial primary key, "name" character varying, "contact" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+D, [2015-06-28T13:51:56.441941 #9939] DEBUG -- :   [1m[35m (107.8ms)[0m  CREATE TABLE "technologies" ("id" serial primary key, "title" character varying, "tech_type" character varying DEFAULT 'WEB', "user_id" integer) 
+D, [2015-06-28T13:51:56.563907 #9939] DEBUG -- :   [1m[36m (115.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying, "last_sign_in_ip" character varying, "confirmation_token" character varying, "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "unconfirmed_email" character varying, "failed_attempts" integer DEFAULT 0 NOT NULL, "unlock_token" character varying, "locked_at" timestamp, "created_at" timestamp, "updated_at" timestamp, "username" character varying, "role_id" integer DEFAULT 2, "image" character varying, "provider" character varying, "uid" character varying, "resume_doc" character varying, "resume_pdf" character varying, "slug" character varying, "web_site" character varying DEFAULT 'http://www.snmmaurya.com') [0m
+D, [2015-06-28T13:51:56.641416 #9939] DEBUG -- :   [1m[35m (64.5ms)[0m  CREATE UNIQUE INDEX  "index_users_on_confirmation_token" ON "users" USING btree ("confirmation_token")
+D, [2015-06-28T13:51:56.707895 #9939] DEBUG -- :   [1m[36m (64.2ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")[0m
+D, [2015-06-28T13:51:56.774316 #9939] DEBUG -- :   [1m[35m (63.9ms)[0m  CREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users" USING btree ("reset_password_token")
+D, [2015-06-28T13:51:56.840829 #9939] DEBUG -- :   [1m[36m (63.8ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_unlock_token" ON "users" USING btree ("unlock_token")[0m
+D, [2015-06-28T13:51:56.907134 #9939] DEBUG -- :   [1m[35m (63.8ms)[0m  CREATE UNIQUE INDEX  "index_users_on_username" ON "users" USING btree ("username")
+D, [2015-06-28T13:51:56.918644 #9939] DEBUG -- :   [1m[36m (10.8ms)[0m  [1mALTER TABLE "identities" ADD CONSTRAINT "fk_rails_5373344100"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+D, [2015-06-28T13:51:56.984962 #9939] DEBUG -- :   [1m[35m (58.7ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+D, [2015-06-28T13:51:57.062532 #9939] DEBUG -- :   [1m[36m (72.8ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+D, [2015-06-28T13:51:57.064184 #9939] DEBUG -- :   [1m[35m (1.0ms)[0m  SELECT version FROM "schema_migrations"
+D, [2015-06-28T13:51:57.073622 #9939] DEBUG -- :   [1m[36m (8.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150627130904')[0m
+D, [2015-06-28T13:51:57.084693 #9939] DEBUG -- :   [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150423112849')
+D, [2015-06-28T13:51:57.095590 #9939] DEBUG -- :   [1m[36m (10.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150423113542')[0m
+D, [2015-06-28T13:51:57.106800 #9939] DEBUG -- :   [1m[35m (10.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150612170820')
+D, [2015-06-28T13:51:57.117888 #9939] DEBUG -- :   [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150504121813')[0m
+D, [2015-06-28T13:51:57.128943 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150513095627')
+D, [2015-06-28T13:51:57.140141 #9939] DEBUG -- :   [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150420105308')[0m
+D, [2015-06-28T13:51:57.151139 #9939] DEBUG -- :   [1m[35m (10.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150430121607')
+D, [2015-06-28T13:51:57.162222 #9939] DEBUG -- :   [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150605045745')[0m
+D, [2015-06-28T13:51:57.173162 #9939] DEBUG -- :   [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150612170828')
+D, [2015-06-28T13:51:57.184367 #9939] DEBUG -- :   [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150612170850')[0m
+D, [2015-06-28T13:51:57.206227 #9939] DEBUG -- :   [1m[35m (21.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150430055324')
+D, [2015-06-28T13:51:57.228755 #9939] DEBUG -- :   [1m[36m (22.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150626152344')[0m
+D, [2015-06-28T13:51:57.239709 #9939] DEBUG -- :   [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150426050334')
+D, [2015-06-28T13:51:57.250784 #9939] DEBUG -- :   [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150524164515')[0m
+D, [2015-06-28T13:51:57.261873 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150420105306')
+D, [2015-06-28T13:51:57.272894 #9939] DEBUG -- :   [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150526111116')[0m
+D, [2015-06-28T13:51:57.284008 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150527060939')
+D, [2015-06-28T13:51:57.295085 #9939] DEBUG -- :   [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150504075924')[0m
+D, [2015-06-28T13:51:57.306147 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150614151820')
+D, [2015-06-28T13:51:57.317213 #9939] DEBUG -- :   [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150508151806')[0m
+D, [2015-06-28T13:51:57.328340 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150621090037')
+D, [2015-06-28T13:51:57.339355 #9939] DEBUG -- :   [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150626152350')[0m
+D, [2015-06-28T13:51:57.350431 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150508151723')
+D, [2015-06-28T13:51:57.361502 #9939] DEBUG -- :   [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150508151818')[0m
+D, [2015-06-28T13:51:57.372602 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150616120448')
+D, [2015-06-28T13:51:57.383635 #9939] DEBUG -- :   [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150423113536')[0m
+D, [2015-06-28T13:51:57.394696 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150426023741')
+D, [2015-06-28T13:51:57.405728 #9939] DEBUG -- :   [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150616094652')[0m
+D, [2015-06-28T13:51:57.417031 #9939] DEBUG -- :   [1m[35m (10.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150613044746')
+D, [2015-06-28T13:51:57.427926 #9939] DEBUG -- :   [1m[36m (10.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150502114107')[0m
+D, [2015-06-28T13:51:57.438975 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150522182350')
+D, [2015-06-28T13:51:57.450055 #9939] DEBUG -- :   [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150616120858')[0m
+D, [2015-06-28T13:51:57.461126 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150508151835')
+D, [2015-06-28T13:51:57.472197 #9939] DEBUG -- :   [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150605045736')[0m
+D, [2015-06-28T13:51:57.483186 #9939] DEBUG -- :   [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150508151715')
+D, [2015-06-28T13:51:57.494338 #9939] DEBUG -- :   [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150626152404')[0m
+D, [2015-06-28T13:51:57.505402 #9939] DEBUG -- :   [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150522163321')
+D, [2015-06-28T13:51:57.516563 #9939] DEBUG -- :   [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150527060619')[0m
+D, [2015-06-28T13:51:57.557354 #9939] DEBUG -- :   [1m[35mActiveRecord::SchemaMigration Load (0.5ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+D, [2015-06-28T13:51:57.666869 #9939] DEBUG -- :   [1m[36mRole Load (1.0ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."role" = $1 LIMIT 1[0m  [["role", "administrator"]]
+D, [2015-06-28T13:51:57.692126 #9939] DEBUG -- :   [1m[35m (0.5ms)[0m  BEGIN
+D, [2015-06-28T13:51:57.699046 #9939] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "roles" ("role", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["role", "administrator"], ["created_at", "2015-06-28 08:21:57.697187"], ["updated_at", "2015-06-28 08:21:57.697187"]]
+D, [2015-06-28T13:51:57.704477 #9939] DEBUG -- :   [1m[35m (4.9ms)[0m  COMMIT
+D, [2015-06-28T13:51:57.705555 #9939] DEBUG -- :   [1m[36mRole Load (0.3ms)[0m  [1mSELECT  "roles".* FROM "roles" WHERE "roles"."role" = $1 LIMIT 1[0m  [["role", "user"]]
+D, [2015-06-28T13:51:57.706327 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:51:57.707506 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "roles" ("role", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["role", "user"], ["created_at", "2015-06-28 08:21:57.706558"], ["updated_at", "2015-06-28 08:21:57.706558"]]
+D, [2015-06-28T13:51:57.715635 #9939] DEBUG -- :   [1m[35m (7.7ms)[0m  COMMIT
+D, [2015-06-28T13:51:57.818023 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:51:57.819615 #9939] DEBUG -- :   [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "users"
+D, [2015-06-28T13:51:57.820395 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+D, [2015-06-28T13:51:58.421134 #9939] DEBUG -- :   [1m[35mUser Exists (0.3ms)[0m  SELECT  1 AS one FROM "users" WHERE ("users"."id" IS NOT NULL) AND "users"."slug" = $1 LIMIT 1  [["slug", "administrator"]]
+D, [2015-06-28T13:51:58.422526 #9939] DEBUG -- :   [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'administrator@snmmaurya.com' LIMIT 1[0m
+D, [2015-06-28T13:51:58.617779 #9939] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["confirmation_token", "677ff866008f26464692b0972e1731381143d8b447ed1582572a524085028c42"]]
+D, [2015-06-28T13:51:58.620176 #9939] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "username", "role_id", "slug", "created_at", "updated_at", "confirmation_token", "confirmation_sent_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["email", "administrator@snmmaurya.com"], ["encrypted_password", "$2a$10$qKnGwsk2pmOf7ddlsRrpNuha/6.jG06ep4x20gaRL7SIbwpiDFCOi"], ["username", "administrator"], ["role_id", 1], ["slug", "administrator"], ["created_at", "2015-06-28 08:21:58.423451"], ["updated_at", "2015-06-28 08:21:58.423451"], ["confirmation_token", "677ff866008f26464692b0972e1731381143d8b447ed1582572a524085028c42"], ["confirmation_sent_at", "2015-06-28 08:21:58.618225"]]
+I, [2015-06-28T13:51:58.722290 #9939]  INFO -- :   Rendered /home/sandeep/.rvm/gems/ruby-2.2.0/gems/devise-3.5.1/app/views/devise/mailer/confirmation_instructions.html.erb (1.8ms)
+D, [2015-06-28T13:51:58.931016 #9939] DEBUG -- : 
+Devise::Mailer#confirmation_instructions: processed outbound mail in 245.5ms
+I, [2015-06-28T13:52:34.707307 #9939]  INFO -- : 
+Sent mail to administrator@snmmaurya.com (35776.0ms)
+D, [2015-06-28T13:52:34.707497 #9939] DEBUG -- : Date: Sun, 28 Jun 2015 13:51:58 +0530
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: administrator@snmmaurya.com
+Message-ID: <558faea6e796b_26d37679886237a@sandeep-HP-15-Notebook-PC.mail>
+Subject: Confirmation instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>Welcome administrator@snmmaurya.com!</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><a href="http://localhost:3000/users/confirmation?confirmation_token=j4xMJBD-qL3XhswxtzAv">Confirm my account</a></p>
+
+D, [2015-06-28T13:52:34.756926 #9939] DEBUG -- :   [1m[35m (47.0ms)[0m  COMMIT
+D, [2015-06-28T13:52:34.791907 #9939] DEBUG -- :   [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:34.814101 #9939] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+D, [2015-06-28T13:52:34.817456 #9939] DEBUG -- :   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "infos" ("fname", "lname", "contact", "gender", "martial_status", "about_yourself", "address", "country_id", "state_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["fname", "Snm"], ["lname", "Maurya"], ["contact", "+919910748171"], ["gender", "MALE"], ["martial_status", "UNMARRIED"], ["about_yourself", "Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text"], ["address", "23 Singhpur Hanswar Ambedkar Nagar UP 224143"], ["country_id", 1], ["state_id", 1], ["user_id", 1], ["created_at", "2015-06-28 08:22:34.815641"], ["updated_at", "2015-06-28 08:22:34.815641"]]
+D, [2015-06-28T13:52:34.822833 #9939] DEBUG -- :   [1m[35m (4.7ms)[0m  COMMIT
+D, [2015-06-28T13:52:34.903999 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:34.905809 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "countries" ("title", "code", "currency", "capital", "language", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["title", "India"], ["code", "+91"], ["currency", "Rupee"], ["capital", "New Delhi"], ["language", "Hindi"], ["created_at", "2015-06-28 08:22:34.904281"], ["updated_at", "2015-06-28 08:22:34.904281"]]
+D, [2015-06-28T13:52:34.911365 #9939] DEBUG -- :   [1m[36m (5.0ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:34.928663 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:34.930434 #9939] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Andhra Pradesh"], ["capital", "Amaravati"], ["population", "4,93,78,776"], ["language", "Telugu"], ["litracy", "67.66*"], ["sex_ratio", "992*"], ["created_at", "2015-06-28 08:22:34.928915"], ["updated_at", "2015-06-28 08:22:34.928915"]]
+D, [2015-06-28T13:52:34.944633 #9939] DEBUG -- :   [1m[35m (13.6ms)[0m  COMMIT
+D, [2015-06-28T13:52:34.945449 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:34.946839 #9939] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Arunachal Pradesh"], ["capital", "Itanagar"], ["population", "1,382,611"], ["language", "English"], ["litracy", "66.95"], ["sex_ratio", "920"], ["created_at", "2015-06-28 08:22:34.945660"], ["updated_at", "2015-06-28 08:22:34.945660"]]
+D, [2015-06-28T13:52:34.955704 #9939] DEBUG -- :   [1m[36m (8.3ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:34.956540 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:34.957998 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Assam"], ["capital", "Dispur"], ["population", "31,169,272"], ["language", "Assamese"], ["litracy", "73.18"], ["sex_ratio", "954"], ["created_at", "2015-06-28 08:22:34.956758"], ["updated_at", "2015-06-28 08:22:34.956758"]]
+D, [2015-06-28T13:52:34.966773 #9939] DEBUG -- :   [1m[35m (8.2ms)[0m  COMMIT
+D, [2015-06-28T13:52:34.967636 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:34.969093 #9939] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Bihar"], ["capital", "Patna"], ["population", "103,804,637"], ["language", "Hindi"], ["litracy", "63.82"], ["sex_ratio", "916"], ["created_at", "2015-06-28 08:22:34.967864"], ["updated_at", "2015-06-28 08:22:34.967864"]]
+D, [2015-06-28T13:52:34.977883 #9939] DEBUG -- :   [1m[36m (8.2ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:34.978675 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:34.980118 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Chhattisgarh"], ["capital", "Raipur"], ["population", "25,540,196"], ["language", "Chhattisgarhi"], ["litracy", "71.04"], ["sex_ratio", "991"], ["created_at", "2015-06-28 08:22:34.978891"], ["updated_at", "2015-06-28 08:22:34.978891"]]
+D, [2015-06-28T13:52:35.000124 #9939] DEBUG -- :   [1m[35m (19.4ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.001599 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.004436 #9939] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Goa"], ["capital", "Panaji"], ["population", "1,457,723"], ["language", "Konkani"], ["litracy", "87.4"], ["sex_ratio", "968"], ["created_at", "2015-06-28 08:22:35.001959"], ["updated_at", "2015-06-28 08:22:35.001959"]]
+D, [2015-06-28T13:52:35.022242 #9939] DEBUG -- :   [1m[36m (16.7ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.023026 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.024456 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Gujarat"], ["capital", "Gandhinagar"], ["population", "60,383,628"], ["language", "Gujarati"], ["litracy", "79.31"], ["sex_ratio", "918"], ["created_at", "2015-06-28 08:22:35.023243"], ["updated_at", "2015-06-28 08:22:35.023243"]]
+D, [2015-06-28T13:52:35.044564 #9939] DEBUG -- :   [1m[35m (19.4ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.046327 #9939] DEBUG -- :   [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.049882 #9939] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Haryana"], ["capital", "Chandigarh"], ["population", "25,353,081"], ["language", "Haryanvi"], ["litracy", "76.64"], ["sex_ratio", "877"], ["created_at", "2015-06-28 08:22:35.046814"], ["updated_at", "2015-06-28 08:22:35.046814"]]
+D, [2015-06-28T13:52:35.055375 #9939] DEBUG -- :   [1m[36m (4.0ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.056329 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.058240 #9939] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Himachal Pradesh"], ["capital", "Shimla"], ["population", "6,856,509"], ["language", "Hindi"], ["litracy", "83.78"], ["sex_ratio", "974"], ["created_at", "2015-06-28 08:22:35.056609"], ["updated_at", "2015-06-28 08:22:35.056609"]]
+D, [2015-06-28T13:52:35.066430 #9939] DEBUG -- :   [1m[35m (7.3ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.067332 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.068921 #9939] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Jammu and Kashmir"], ["capital", "Srinagar (summer), Jammu (winter)"], ["population", "12,548,926"], ["language", "Urdu"], ["litracy", "68.74"], ["sex_ratio", "883"], ["created_at", "2015-06-28 08:22:35.067605"], ["updated_at", "2015-06-28 08:22:35.067605"]]
+D, [2015-06-28T13:52:35.088676 #9939] DEBUG -- :   [1m[36m (19.2ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.089727 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.091265 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Jharkhand"], ["capital", "Ranchi"], ["population", "32,966,238"], ["language", "Hindi"], ["litracy", "67.63"], ["sex_ratio", "947"], ["created_at", "2015-06-28 08:22:35.089968"], ["updated_at", "2015-06-28 08:22:35.089968"]]
+D, [2015-06-28T13:52:35.099640 #9939] DEBUG -- :   [1m[35m (7.7ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.100876 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.102526 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Karnataka"], ["capital", "Bengaluru"], ["population", "61,130,704"], ["language", "Kannada"], ["litracy", "75.6"], ["sex_ratio", "968"], ["created_at", "2015-06-28 08:22:35.101134"], ["updated_at", "2015-06-28 08:22:35.101134"]]
+D, [2015-06-28T13:52:35.110746 #9939] DEBUG -- :   [1m[36m (7.4ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.111768 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.113704 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Kerala"], ["capital", "Trivandrum"], ["population", "33,387,677"], ["language", "Malayalam"], ["litracy", "93.91"], ["sex_ratio", "1084"], ["created_at", "2015-06-28 08:22:35.112054"], ["updated_at", "2015-06-28 08:22:35.112054"]]
+D, [2015-06-28T13:52:35.121992 #9939] DEBUG -- :   [1m[35m (7.5ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.123435 #9939] DEBUG -- :   [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.125335 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Madhya Pradesh"], ["capital", "Bhopal"], ["population", "72,597,565"], ["language", "Hindi"], ["litracy", "70.63"], ["sex_ratio", "930"], ["created_at", "2015-06-28 08:22:35.123717"], ["updated_at", "2015-06-28 08:22:35.123717"]]
+D, [2015-06-28T13:52:35.132935 #9939] DEBUG -- :   [1m[36m (7.0ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.133756 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.135175 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Maharashtra"], ["capital", "Mumbai"], ["population", "112,372,972"], ["language", "Marathi"], ["litracy", "82.91"], ["sex_ratio", "946"], ["created_at", "2015-06-28 08:22:35.133993"], ["updated_at", "2015-06-28 08:22:35.133993"]]
+D, [2015-06-28T13:52:35.143980 #9939] DEBUG -- :   [1m[35m (8.3ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.145224 #9939] DEBUG -- :   [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.148177 #9939] DEBUG -- :   [1m[35mSQL (0.6ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Manipur"], ["capital", "Imphal"], ["population", "2,721,756"], ["language", "Meiteilon (Manipuri)"], ["litracy", "79.85"], ["sex_ratio", "987"], ["created_at", "2015-06-28 08:22:35.145647"], ["updated_at", "2015-06-28 08:22:35.145647"]]
+D, [2015-06-28T13:52:35.155069 #9939] DEBUG -- :   [1m[36m (6.2ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.155871 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.157351 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Meghalaya"], ["capital", "Shillong"], ["population", "2,964,007"], ["language", "English"], ["litracy", "75.48"], ["sex_ratio", "986"], ["created_at", "2015-06-28 08:22:35.156082"], ["updated_at", "2015-06-28 08:22:35.156082"]]
+D, [2015-06-28T13:52:35.166135 #9939] DEBUG -- :   [1m[35m (8.2ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.166968 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.168500 #9939] DEBUG -- :   [1m[35mSQL (0.3ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Mizoram"], ["capital", "Aizawl"], ["population", "1,091,014"], ["language", "Mizo"], ["litracy", "91.58"], ["sex_ratio", "975"], ["created_at", "2015-06-28 08:22:35.167177"], ["updated_at", "2015-06-28 08:22:35.167177"]]
+D, [2015-06-28T13:52:35.177324 #9939] DEBUG -- :   [1m[36m (7.7ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.178749 #9939] DEBUG -- :   [1m[35m (0.3ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.181248 #9939] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Nagaland"], ["capital", "Kohima"], ["population", "1,980,602"], ["language", "English"], ["litracy", "80.11"], ["sex_ratio", "931"], ["created_at", "2015-06-28 08:22:35.179147"], ["updated_at", "2015-06-28 08:22:35.179147"]]
+D, [2015-06-28T13:52:35.188453 #9939] DEBUG -- :   [1m[35m (6.4ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.190005 #9939] DEBUG -- :   [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.193009 #9939] DEBUG -- :   [1m[35mSQL (0.6ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Odisha"], ["capital", "Bhubaneswar"], ["population", "41,947,358"], ["language", "Oriya"], ["litracy", "73.45"], ["sex_ratio", "978"], ["created_at", "2015-06-28 08:22:35.190415"], ["updated_at", "2015-06-28 08:22:35.190415"]]
+D, [2015-06-28T13:52:35.199496 #9939] DEBUG -- :   [1m[36m (5.3ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.200835 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.202622 #9939] DEBUG -- :   [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Punjab"], ["capital", "Chandigarh"], ["population", "27,704,236"], ["language", "Punjabi"], ["litracy", "76.68"], ["sex_ratio", "893"], ["created_at", "2015-06-28 08:22:35.201105"], ["updated_at", "2015-06-28 08:22:35.201105"]]
+D, [2015-06-28T13:52:35.210429 #9939] DEBUG -- :   [1m[35m (7.1ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.211516 #9939] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.213834 #9939] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Rajasthan"], ["capital", "Jaipur"], ["population", "68,621,012"], ["language", "Hindi"], ["litracy", "67.06"], ["sex_ratio", "926"], ["created_at", "2015-06-28 08:22:35.211775"], ["updated_at", "2015-06-28 08:22:35.211775"]]
+D, [2015-06-28T13:52:35.221705 #9939] DEBUG -- :   [1m[36m (6.9ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.222970 #9939] DEBUG -- :   [1m[35m (0.3ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.225462 #9939] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Sikkim"], ["capital", "Gangtok"], ["population", "607,688"], ["language", "Nepali"], ["litracy", "82.2"], ["sex_ratio", "889"], ["created_at", "2015-06-28 08:22:35.223335"], ["updated_at", "2015-06-28 08:22:35.223335"]]
+D, [2015-06-28T13:52:35.232524 #9939] DEBUG -- :   [1m[35m (6.1ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.233671 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.236069 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Tamil Nadu"], ["capital", "Chennai"], ["population", "72,138,958"], ["language", "Tamil"], ["litracy", "80.33"], ["sex_ratio", "995"], ["created_at", "2015-06-28 08:22:35.234034"], ["updated_at", "2015-06-28 08:22:35.234034"]]
+D, [2015-06-28T13:52:35.243625 #9939] DEBUG -- :   [1m[36m (6.7ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.244760 #9939] DEBUG -- :   [1m[35m (0.3ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.247362 #9939] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Telangana"], ["capital", "Hyderabad"], ["population", "3,52,86,\n 757"], ["language", "Telugu, Urdu"], ["litracy", "66.46%"], ["sex_ratio", "988"], ["created_at", "2015-06-28 08:22:35.245129"], ["updated_at", "2015-06-28 08:22:35.245129"]]
+D, [2015-06-28T13:52:35.254892 #9939] DEBUG -- :   [1m[35m (6.5ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.256169 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.258169 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Tripura"], ["capital", "Agartala"], ["population", "3,671,032"], ["language", "Bengali and Kokborok"], ["litracy", "87.75"], ["sex_ratio", "961"], ["created_at", "2015-06-28 08:22:35.256523"], ["updated_at", "2015-06-28 08:22:35.256523"]]
+D, [2015-06-28T13:52:35.265826 #9939] DEBUG -- :   [1m[36m (6.8ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.266816 #9939] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.268845 #9939] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Uttar Pradesh"], ["capital", "Lucknow"], ["population", "199,581,477"], ["language", "Hindi"], ["litracy", "69.72"], ["sex_ratio", "908"], ["created_at", "2015-06-28 08:22:35.267115"], ["updated_at", "2015-06-28 08:22:35.267115"]]
+D, [2015-06-28T13:52:35.276972 #9939] DEBUG -- :   [1m[35m (7.2ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.278254 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.280518 #9939] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Uttarakhand"], ["capital", "Dehradun"], ["population", "10,116,752"], ["language", "Hindi"], ["litracy", "79.63"], ["sex_ratio", "963"], ["created_at", "2015-06-28 08:22:35.278567"], ["updated_at", "2015-06-28 08:22:35.278567"]]
+D, [2015-06-28T13:52:35.287905 #9939] DEBUG -- :   [1m[36m (6.5ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.288965 #9939] DEBUG -- :   [1m[35m (0.3ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.291202 #9939] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "West Bengal"], ["capital", "Kolkata"], ["population", "91,347,736"], ["language", "Bengali"], ["litracy", "77.08"], ["sex_ratio", "947"], ["created_at", "2015-06-28 08:22:35.289269"], ["updated_at", "2015-06-28 08:22:35.289269"]]
+D, [2015-06-28T13:52:35.299183 #9939] DEBUG -- :   [1m[35m (7.1ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.300422 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.302683 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Andaman and NicobarIslands"], ["capital", "Port Blair"], ["population", "379,944"], ["language", "English"], ["litracy", "86.27"], ["sex_ratio", "878"], ["created_at", "2015-06-28 08:22:35.300763"], ["updated_at", "2015-06-28 08:22:35.300763"]]
+D, [2015-06-28T13:52:35.310211 #9939] DEBUG -- :   [1m[36m (6.6ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.311388 #9939] DEBUG -- :   [1m[35m (0.3ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.313781 #9939] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Chandigarh"], ["capital", "Chandigarh"], ["population", "1,054,686"], ["language", "Punjabi"], ["litracy", "86.43"], ["sex_ratio", "818"], ["created_at", "2015-06-28 08:22:35.311709"], ["updated_at", "2015-06-28 08:22:35.311709"]]
+D, [2015-06-28T13:52:35.321244 #9939] DEBUG -- :   [1m[35m (6.6ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.322494 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.324745 #9939] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Dadar and Nagar Haveli"], ["capital", "Silvassa"], ["population", "342,853"], ["language", "English"], ["litracy", "77.65"], ["sex_ratio", "775"], ["created_at", "2015-06-28 08:22:35.322808"], ["updated_at", "2015-06-28 08:22:35.322808"]]
+D, [2015-06-28T13:52:35.332392 #9939] DEBUG -- :   [1m[36m (6.6ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.333548 #9939] DEBUG -- :   [1m[35m (0.3ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.335965 #9939] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Daman and Diu"], ["capital", "Daman"], ["population", "242,911"], ["language", "Konkani, Marathi and Gujarati"], ["litracy", "87.07"], ["sex_ratio", "618"], ["created_at", "2015-06-28 08:22:35.333917"], ["updated_at", "2015-06-28 08:22:35.333917"]]
+D, [2015-06-28T13:52:35.343360 #9939] DEBUG -- :   [1m[35m (6.5ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.344536 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.346730 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Delhi"], ["capital", "Delhi"], ["population", "16,753,235"], ["language", "Hindi, Punjabi and Urdu"], ["litracy", "86.34"], ["sex_ratio", "866"], ["created_at", "2015-06-28 08:22:35.344853"], ["updated_at", "2015-06-28 08:22:35.344853"]]
+D, [2015-06-28T13:52:35.354484 #9939] DEBUG -- :   [1m[36m (6.7ms)[0m  [1mCOMMIT[0m
+D, [2015-06-28T13:52:35.355669 #9939] DEBUG -- :   [1m[35m (0.3ms)[0m  BEGIN
+D, [2015-06-28T13:52:35.358038 #9939] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["country_id", 1], ["title", "Lakshadweep"], ["capital", "Kavaratti"], ["population", "64,429"], ["language", "English"], ["litracy", "92.28"], ["sex_ratio", "946"], ["created_at", "2015-06-28 08:22:35.356030"], ["updated_at", "2015-06-28 08:22:35.356030"]]
+D, [2015-06-28T13:52:35.365557 #9939] DEBUG -- :   [1m[35m (6.6ms)[0m  COMMIT
+D, [2015-06-28T13:52:35.366720 #9939] DEBUG -- :   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+D, [2015-06-28T13:52:35.369003 #9939] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  INSERT INTO "states" ("country_id", "title", "capital", "population", "language", "litracy", "sex_ratio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["country_id", 1], ["title", "Pondicherry"], ["capital", "Pondicherry"], ["population", "1,244,464"], ["language", "Tamil, English"], ["litracy", "86.55"], ["sex_ratio", "1038"], ["created_at", "2015-06-28 08:22:35.367055"], ["updated_at", "2015-06-28 08:22:35.367055"]]
+D, [2015-06-28T13:52:35.376642 #9939] DEBUG -- :   [1m[36m (6.8ms)[0m  [1mCOMMIT[0m
+I, [2015-06-28T13:57:02.738968 #10174]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 13:57:02 +0530
+I, [2015-06-28T13:57:02.808342 #10174]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T13:57:02.901718 #10174] DEBUG -- :   [1m[36mSQL (1.1ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T13:57:02.905366 #10174] DEBUG -- :   [1m[35mSQL (0.7ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T13:57:02.967828 #10174] DEBUG -- :   [1m[36mSolution Load (0.7ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T13:57:02.968450 #10174]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (7.3ms)
+D, [2015-06-28T13:57:02.979461 #10174] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+D, [2015-06-28T13:57:02.984833 #10174] DEBUG -- :   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+I, [2015-06-28T13:57:02.986191 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (11.3ms)
+I, [2015-06-28T13:57:02.987579 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T13:57:02.988245 #10174]  INFO -- : Completed 200 OK in 180ms (Views: 34.9ms | ActiveRecord: 10.2ms | Solr: 0.0ms)
+I, [2015-06-28T13:57:03.079277 #10174]  INFO -- : Started GET "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css" for 127.0.0.1 at 2015-06-28 13:57:03 +0530
+F, [2015-06-28T13:57:03.082612 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:03.142116 #10174]  INFO -- : Started GET "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js" for 127.0.0.1 at 2015-06-28 13:57:03 +0530
+F, [2015-06-28T13:57:03.144423 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:10.243237 #10174]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 13:57:10 +0530
+I, [2015-06-28T13:57:10.246793 #10174]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T13:57:10.251624 #10174] DEBUG -- :   [1m[35mSQL (0.6ms)[0m  SELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["role_id", 1]]
+D, [2015-06-28T13:57:10.255815 #10174] DEBUG -- :   [1m[36mSQL (0.7ms)[0m  [1mSELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC[0m  [["role_id", 1]]
+D, [2015-06-28T13:57:10.285481 #10174] DEBUG -- :   [1m[35mSolution Load (0.3ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T13:57:10.285826 #10174]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (25.9ms)
+I, [2015-06-28T13:57:10.293953 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.9ms)
+I, [2015-06-28T13:57:10.295180 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T13:57:10.295545 #10174]  INFO -- : Completed 200 OK in 48ms (Views: 37.5ms | ActiveRecord: 1.6ms | Solr: 0.0ms)
+I, [2015-06-28T13:57:10.313532 #10174]  INFO -- : Started GET "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css" for 127.0.0.1 at 2015-06-28 13:57:10 +0530
+F, [2015-06-28T13:57:10.315362 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:10.316045 #10174]  INFO -- : Started GET "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js" for 127.0.0.1 at 2015-06-28 13:57:10 +0530
+F, [2015-06-28T13:57:10.317600 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:11.581496 #10174]  INFO -- : Started GET "/about" for 127.0.0.1 at 2015-06-28 13:57:11 +0530
+I, [2015-06-28T13:57:11.583681 #10174]  INFO -- : Processing by SnmmauryaController#about as HTML
+D, [2015-06-28T13:57:11.586554 #10174] DEBUG -- :   [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."role_id" = $1 LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T13:57:11.721175 #10174] DEBUG -- :   [1m[35mEmployment Load (0.3ms)[0m  SELECT "employments".* FROM "employments" WHERE "employments"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T13:57:11.722700 #10174] DEBUG -- :   [1m[36mEducation Load (0.3ms)[0m  [1mSELECT "educations".* FROM "educations" WHERE "educations"."user_id" = $1[0m  [["user_id", 1]]
+D, [2015-06-28T13:57:11.724099 #10174] DEBUG -- :   [1m[35mDevelopment Load (0.3ms)[0m  SELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'WEB'  [["user_id", 1]]
+D, [2015-06-28T13:57:11.725509 #10174] DEBUG -- :   [1m[36mDevelopment Load (0.2ms)[0m  [1mSELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'MOBILE'[0m  [["user_id", 1]]
+D, [2015-06-28T13:57:11.726780 #10174] DEBUG -- :   [1m[35mTechnology Load (0.3ms)[0m  SELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'WEB'  [["user_id", 1]]
+D, [2015-06-28T13:57:11.728279 #10174] DEBUG -- :   [1m[36mApi Load (0.3ms)[0m  [1mSELECT "apis".* FROM "apis" WHERE "apis"."user_id" = $1[0m  [["user_id", 1]]
+D, [2015-06-28T13:57:11.729546 #10174] DEBUG -- :   [1m[35mTechnology Load (0.2ms)[0m  SELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'OTHER'  [["user_id", 1]]
+I, [2015-06-28T13:57:11.730314 #10174]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/about.html.erb within layouts/application (12.2ms)
+I, [2015-06-28T13:57:11.738478 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.6ms)
+I, [2015-06-28T13:57:11.739850 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T13:57:11.740274 #10174]  INFO -- : Completed 200 OK in 156ms (Views: 56.4ms | ActiveRecord: 79.9ms | Solr: 0.0ms)
+I, [2015-06-28T13:57:11.765997 #10174]  INFO -- : Started GET "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css" for 127.0.0.1 at 2015-06-28 13:57:11 +0530
+F, [2015-06-28T13:57:11.767940 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:11.768643 #10174]  INFO -- : Started GET "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js" for 127.0.0.1 at 2015-06-28 13:57:11 +0530
+F, [2015-06-28T13:57:11.770221 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:13.067461 #10174]  INFO -- : Started GET "/portfolios" for 127.0.0.1 at 2015-06-28 13:57:13 +0530
+I, [2015-06-28T13:57:13.070437 #10174]  INFO -- : Processing by SnmmauryaController#portfolios as HTML
+D, [2015-06-28T13:57:13.175526 #10174] DEBUG -- :   [1m[36mPortfolio Load (17.5ms)[0m  [1mSELECT "portfolios".* FROM "portfolios"[0m
+I, [2015-06-28T13:57:13.177243 #10174]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/portfolios.html.erb within layouts/application (20.4ms)
+I, [2015-06-28T13:57:13.193150 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (6.3ms)
+I, [2015-06-28T13:57:13.194442 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T13:57:13.194783 #10174]  INFO -- : Completed 200 OK in 124ms (Views: 103.3ms | ActiveRecord: 18.4ms | Solr: 0.0ms)
+I, [2015-06-28T13:57:13.301846 #10174]  INFO -- : Started GET "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css" for 127.0.0.1 at 2015-06-28 13:57:13 +0530
+F, [2015-06-28T13:57:13.303897 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:13.304728 #10174]  INFO -- : Started GET "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js" for 127.0.0.1 at 2015-06-28 13:57:13 +0530
+F, [2015-06-28T13:57:13.306777 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:14.389339 #10174]  INFO -- : Started GET "/contact" for 127.0.0.1 at 2015-06-28 13:57:14 +0530
+I, [2015-06-28T13:57:14.391367 #10174]  INFO -- : Processing by SnmmauryaController#contact as HTML
+I, [2015-06-28T13:57:14.476688 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_error_messages.html.erb (0.5ms)
+I, [2015-06-28T13:57:14.477540 #10174]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/contact.html.erb within layouts/application (3.5ms)
+I, [2015-06-28T13:57:14.484084 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.3ms)
+I, [2015-06-28T13:57:14.485242 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T13:57:14.485641 #10174]  INFO -- : Completed 200 OK in 94ms (Views: 42.1ms | ActiveRecord: 45.7ms | Solr: 0.0ms)
+I, [2015-06-28T13:57:14.501247 #10174]  INFO -- : Started GET "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css" for 127.0.0.1 at 2015-06-28 13:57:14 +0530
+F, [2015-06-28T13:57:14.503495 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:14.504355 #10174]  INFO -- : Started GET "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js" for 127.0.0.1 at 2015-06-28 13:57:14 +0530
+F, [2015-06-28T13:57:14.506843 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:17.680708 #10174]  INFO -- : Started GET "/programmers/solutions" for 127.0.0.1 at 2015-06-28 13:57:17 +0530
+I, [2015-06-28T13:57:17.685459 #10174]  INFO -- : Processing by Programmers::SolutionsController#index as HTML
+D, [2015-06-28T13:57:17.688768 #10174] DEBUG -- :   [1m[35mSolution Load (0.5ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T13:57:17.691957 #10174]  INFO -- :   Rendered app/desktop_plateform/programmers/solutions/index.html.erb within layouts/application (1.0ms)
+I, [2015-06-28T13:57:17.698376 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.1ms)
+I, [2015-06-28T13:57:17.699416 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T13:57:17.699773 #10174]  INFO -- : Completed 200 OK in 14ms (Views: 10.3ms | ActiveRecord: 0.5ms | Solr: 0.0ms)
+I, [2015-06-28T13:57:17.724238 #10174]  INFO -- : Started GET "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css" for 127.0.0.1 at 2015-06-28 13:57:17 +0530
+F, [2015-06-28T13:57:17.726376 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T13:57:17.727546 #10174]  INFO -- : Started GET "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js" for 127.0.0.1 at 2015-06-28 13:57:17 +0530
+F, [2015-06-28T13:57:17.729631 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T14:00:47.602838 #10174]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:00:47 +0530
+I, [2015-06-28T14:00:47.605074 #10174]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:00:47.608888 #10174] DEBUG -- :   [1m[36mSQL (0.7ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:00:47.611470 #10174] DEBUG -- :   [1m[35mSQL (0.6ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:00:47.615968 #10174] DEBUG -- :   [1m[36mSolution Load (0.4ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:00:47.616296 #10174]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (2.8ms)
+I, [2015-06-28T14:00:47.624613 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.3ms)
+I, [2015-06-28T14:00:47.625900 #10174]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:00:47.626256 #10174]  INFO -- : Completed 200 OK in 21ms (Views: 13.2ms | ActiveRecord: 1.6ms | Solr: 0.0ms)
+I, [2015-06-28T14:00:47.642736 #10174]  INFO -- : Started GET "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css" for 127.0.0.1 at 2015-06-28 14:00:47 +0530
+F, [2015-06-28T14:00:47.644606 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3e470c8c6561626bf5b85e32fe58cd3a4e75b10eec9daf4be5cc66f1be5b049c.css"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T14:00:47.645366 #10174]  INFO -- : Started GET "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js" for 127.0.0.1 at 2015-06-28 14:00:47 +0530
+F, [2015-06-28T14:00:47.647158 #10174] FATAL -- : 
+ActionController::RoutingError (No route matches [GET] "/assets/application-3ea1ec1e67d2a849bbdfe2a2b1965f717f39bb77a62a3af564e29b4595de5a35.js"):
+  actionpack (4.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.1) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.1) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.1) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.1) lib/rails/engine.rb:518:in `call'
+  railties (4.2.1) lib/rails/application.rb:164:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:580:in `process_client'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:674:in `worker_loop'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:529:in `spawn_missing_workers'
+  unicorn (4.9.0) lib/unicorn/http_server.rb:140:in `start'
+  unicorn-rails (2.2.0) lib/unicorn_rails.rb:33:in `run'
+  rack (1.6.4) lib/rack/server.rb:286:in `start'
+  railties (4.2.1) lib/rails/commands/server.rb:80:in `start'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:80:in `block in server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `tap'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:75:in `server'
+  railties (4.2.1) lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+  railties (4.2.1) lib/rails/commands.rb:17:in `<top (required)>'
+  bin/rails:8:in `require'
+  bin/rails:8:in `<top (required)>'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `load'
+  spring (1.3.6) lib/spring/client/rails.rb:28:in `call'
+  spring (1.3.6) lib/spring/client/command.rb:7:in `call'
+  spring (1.3.6) lib/spring/client.rb:26:in `run'
+  spring (1.3.6) bin/spring:48:in `<top (required)>'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `load'
+  spring (1.3.6) lib/spring/binstub.rb:11:in `<top (required)>'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  /home/sandeep/.rvm/rubies/ruby-2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+  bin/spring:13:in `<top (required)>'
+  bin/rails:3:in `load'
+  bin/rails:3:in `<main>'
+
+
+I, [2015-06-28T14:03:59.810002 #10328]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:03:59 +0530
+I, [2015-06-28T14:03:59.948123 #10328]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:03:59.984035 #10328] DEBUG -- :   [1m[36mSQL (1.0ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:03:59.987015 #10328] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:04:00.040741 #10328] DEBUG -- :   [1m[36mSolution Load (0.6ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:04:00.041361 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (7.2ms)
+I, [2015-06-28T14:04:00.055946 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (7.6ms)
+I, [2015-06-28T14:04:00.057503 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.8ms)
+I, [2015-06-28T14:04:00.058247 #10328]  INFO -- : Completed 200 OK in 110ms (Views: 24.3ms | ActiveRecord: 9.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:02.698679 #10328]  INFO -- : Started GET "/about" for 127.0.0.1 at 2015-06-28 14:04:02 +0530
+I, [2015-06-28T14:04:02.700760 #10328]  INFO -- : Processing by SnmmauryaController#about as HTML
+D, [2015-06-28T14:04:02.703989 #10328] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."role_id" = $1 LIMIT 1  [["role_id", 1]]
+D, [2015-06-28T14:04:02.753265 #10328] DEBUG -- :   [1m[36mEmployment Load (0.5ms)[0m  [1mSELECT "employments".* FROM "employments" WHERE "employments"."user_id" = $1[0m  [["user_id", 1]]
+D, [2015-06-28T14:04:02.755141 #10328] DEBUG -- :   [1m[35mEducation Load (0.3ms)[0m  SELECT "educations".* FROM "educations" WHERE "educations"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T14:04:02.756638 #10328] DEBUG -- :   [1m[36mDevelopment Load (0.3ms)[0m  [1mSELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'WEB'[0m  [["user_id", 1]]
+D, [2015-06-28T14:04:02.758134 #10328] DEBUG -- :   [1m[35mDevelopment Load (0.2ms)[0m  SELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'MOBILE'  [["user_id", 1]]
+D, [2015-06-28T14:04:02.759634 #10328] DEBUG -- :   [1m[36mTechnology Load (0.3ms)[0m  [1mSELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'WEB'[0m  [["user_id", 1]]
+D, [2015-06-28T14:04:02.761882 #10328] DEBUG -- :   [1m[35mApi Load (0.3ms)[0m  SELECT "apis".* FROM "apis" WHERE "apis"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T14:04:02.763284 #10328] DEBUG -- :   [1m[36mTechnology Load (0.2ms)[0m  [1mSELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'OTHER'[0m  [["user_id", 1]]
+I, [2015-06-28T14:04:02.764460 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/about.html.erb within layouts/application (14.7ms)
+I, [2015-06-28T14:04:02.773802 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.1ms)
+I, [2015-06-28T14:04:02.775178 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:02.775605 #10328]  INFO -- : Completed 200 OK in 75ms (Views: 25.0ms | ActiveRecord: 7.6ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:04.265672 #10328]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:04:04 +0530
+I, [2015-06-28T14:04:04.267323 #10328]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:04:04.269928 #10328] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  SELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["role_id", 1]]
+D, [2015-06-28T14:04:04.271729 #10328] DEBUG -- :   [1m[36mSQL (0.4ms)[0m  [1mSELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC[0m  [["role_id", 1]]
+D, [2015-06-28T14:04:04.277449 #10328] DEBUG -- :   [1m[35mSolution Load (0.5ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T14:04:04.277943 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (4.0ms)
+I, [2015-06-28T14:04:04.288178 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.3ms)
+I, [2015-06-28T14:04:04.289310 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:04.289709 #10328]  INFO -- : Completed 200 OK in 22ms (Views: 16.4ms | ActiveRecord: 1.4ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:05.428719 #10328]  INFO -- : Started GET "/studies/books" for 127.0.0.1 at 2015-06-28 14:04:05 +0530
+I, [2015-06-28T14:04:05.431989 #10328]  INFO -- : Processing by Studies::BooksController#index as HTML
+D, [2015-06-28T14:04:05.482248 #10328] DEBUG -- :   [1m[36mBook Load (0.5ms)[0m  [1mSELECT "books".* FROM "books"[0m
+I, [2015-06-28T14:04:05.488439 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_not_found.html.erb (0.7ms)
+I, [2015-06-28T14:04:05.488584 #10328]  INFO -- :   Rendered app/desktop_plateform/studies/books/index.html.erb within layouts/application (8.7ms)
+I, [2015-06-28T14:04:05.497457 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.7ms)
+I, [2015-06-28T14:04:05.498471 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:04:05.498852 #10328]  INFO -- : Completed 200 OK in 67ms (Views: 64.3ms | ActiveRecord: 1.1ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:06.569115 #10328]  INFO -- : Started GET "/contact" for 127.0.0.1 at 2015-06-28 14:04:06 +0530
+I, [2015-06-28T14:04:06.571072 #10328]  INFO -- : Processing by SnmmauryaController#contact as HTML
+I, [2015-06-28T14:04:06.582077 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_error_messages.html.erb (0.4ms)
+I, [2015-06-28T14:04:06.582973 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/contact.html.erb within layouts/application (3.4ms)
+I, [2015-06-28T14:04:06.590170 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.2ms)
+I, [2015-06-28T14:04:06.591646 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:06.592124 #10328]  INFO -- : Completed 200 OK in 21ms (Views: 13.7ms | ActiveRecord: 1.5ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:13.977993 #10328]  INFO -- : Started GET "/programmers/solutions" for 127.0.0.1 at 2015-06-28 14:04:13 +0530
+I, [2015-06-28T14:04:13.981531 #10328]  INFO -- : Processing by Programmers::SolutionsController#index as HTML
+D, [2015-06-28T14:04:13.983513 #10328] DEBUG -- :   [1m[35mSolution Load (0.4ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T14:04:13.986948 #10328]  INFO -- :   Rendered app/desktop_plateform/programmers/solutions/index.html.erb within layouts/application (1.3ms)
+I, [2015-06-28T14:04:13.996540 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.8ms)
+I, [2015-06-28T14:04:13.997982 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T14:04:13.998489 #10328]  INFO -- : Completed 200 OK in 17ms (Views: 14.2ms | ActiveRecord: 0.4ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:19.837076 #10328]  INFO -- : Started GET "/downloads" for 127.0.0.1 at 2015-06-28 14:04:19 +0530
+I, [2015-06-28T14:04:19.839143 #10328]  INFO -- : Processing by SnmmauryaController#downloads as HTML
+D, [2015-06-28T14:04:19.864388 #10328] DEBUG -- :   [1m[36mDownload Load (23.2ms)[0m  [1mSELECT "downloads".* FROM "downloads"  ORDER BY "downloads"."created_at" DESC[0m
+D, [2015-06-28T14:04:19.894421 #10328] DEBUG -- :   [1m[35m (0.8ms)[0m  SELECT COUNT(*) FROM "downloads"
+I, [2015-06-28T14:04:19.896441 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/downloads.html.erb within layouts/application (6.1ms)
+I, [2015-06-28T14:04:19.903746 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.5ms)
+I, [2015-06-28T14:04:19.904963 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:19.905314 #10328]  INFO -- : Completed 200 OK in 66ms (Views: 37.5ms | ActiveRecord: 25.1ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:28.403260 #10328]  INFO -- : Started GET "/portfolios" for 127.0.0.1 at 2015-06-28 14:04:28 +0530
+I, [2015-06-28T14:04:28.405480 #10328]  INFO -- : Processing by SnmmauryaController#portfolios as HTML
+D, [2015-06-28T14:04:28.409141 #10328] DEBUG -- :   [1m[36mPortfolio Load (0.5ms)[0m  [1mSELECT "portfolios".* FROM "portfolios"[0m
+I, [2015-06-28T14:04:28.410721 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/portfolios.html.erb within layouts/application (3.0ms)
+I, [2015-06-28T14:04:28.419507 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.5ms)
+I, [2015-06-28T14:04:28.421018 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:28.421417 #10328]  INFO -- : Completed 200 OK in 16ms (Views: 13.4ms | ActiveRecord: 1.2ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:31.031099 #10328]  INFO -- : Started GET "/posts" for 127.0.0.1 at 2015-06-28 14:04:31 +0530
+I, [2015-06-28T14:04:31.039076 #10328]  INFO -- : Processing by PostsController#index as HTML
+D, [2015-06-28T14:04:31.063246 #10328] DEBUG -- :   [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "answers"
+D, [2015-06-28T14:04:31.083831 #10328] DEBUG -- :   [1m[36mPost Load (0.7ms)[0m  [1mSELECT "posts".* FROM "posts"[0m
+I, [2015-06-28T14:04:31.088744 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/_post.html.erb (6.9ms)
+I, [2015-06-28T14:04:31.088867 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/index.html.erb within layouts/application (29.5ms)
+I, [2015-06-28T14:04:31.096637 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.4ms)
+I, [2015-06-28T14:04:31.097867 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:31.098254 #10328]  INFO -- : Completed 200 OK in 59ms (Views: 54.0ms | ActiveRecord: 3.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:31.753327 #10328]  INFO -- : Started GET "/users/sign_up" for 127.0.0.1 at 2015-06-28 14:04:31 +0530
+I, [2015-06-28T14:04:31.757867 #10328]  INFO -- : Processing by Users::RegistrationsController#new as HTML
+I, [2015-06-28T14:04:32.446154 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.7ms)
+I, [2015-06-28T14:04:32.446295 #10328]  INFO -- :   Rendered app/desktop_plateform/users/registrations/new.html.erb within layouts/application (625.0ms)
+I, [2015-06-28T14:04:32.452768 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.3ms)
+I, [2015-06-28T14:04:32.453864 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:04:32.454190 #10328]  INFO -- : Completed 200 OK in 696ms (Views: 650.8ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:35.915153 #10328]  INFO -- : Started GET "/users/sign_up" for 127.0.0.1 at 2015-06-28 14:04:35 +0530
+I, [2015-06-28T14:04:35.916666 #10328]  INFO -- : Processing by Users::RegistrationsController#new as HTML
+I, [2015-06-28T14:04:35.927519 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.5ms)
+I, [2015-06-28T14:04:35.927671 #10328]  INFO -- :   Rendered app/desktop_plateform/users/registrations/new.html.erb within layouts/application (8.6ms)
+I, [2015-06-28T14:04:35.934588 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.7ms)
+I, [2015-06-28T14:04:35.935668 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:04:35.936016 #10328]  INFO -- : Completed 200 OK in 19ms (Views: 17.9ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:35.937236 #10328]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:04:35 +0530
+I, [2015-06-28T14:04:35.941415 #10328]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:04:35.953531 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (2.3ms)
+I, [2015-06-28T14:04:35.953871 #10328]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (8.5ms)
+I, [2015-06-28T14:04:35.965960 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.9ms)
+I, [2015-06-28T14:04:35.967717 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.9ms)
+I, [2015-06-28T14:04:35.968173 #10328]  INFO -- : Completed 200 OK in 27ms (Views: 24.4ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:36.373372 #10328]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:04:36 +0530
+I, [2015-06-28T14:04:36.375072 #10328]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:04:36.384611 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.3ms)
+I, [2015-06-28T14:04:36.384729 #10328]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (6.2ms)
+I, [2015-06-28T14:04:36.392033 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.1ms)
+I, [2015-06-28T14:04:36.393374 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:36.393739 #10328]  INFO -- : Completed 200 OK in 19ms (Views: 16.6ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:37.104565 #10328]  INFO -- : Started GET "/posts" for 127.0.0.1 at 2015-06-28 14:04:37 +0530
+I, [2015-06-28T14:04:37.105889 #10328]  INFO -- : Processing by PostsController#index as HTML
+D, [2015-06-28T14:04:37.111165 #10328] DEBUG -- :   [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "answers"
+D, [2015-06-28T14:04:37.114173 #10328] DEBUG -- :   [1m[36mPost Load (0.4ms)[0m  [1mSELECT "posts".* FROM "posts"[0m
+I, [2015-06-28T14:04:37.115010 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/_post.html.erb (2.7ms)
+I, [2015-06-28T14:04:37.115152 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/index.html.erb within layouts/application (6.6ms)
+I, [2015-06-28T14:04:37.122112 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.2ms)
+I, [2015-06-28T14:04:37.123615 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.8ms)
+I, [2015-06-28T14:04:37.124362 #10328]  INFO -- : Completed 200 OK in 18ms (Views: 16.5ms | ActiveRecord: 0.8ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:37.579205 #10328]  INFO -- : Started GET "/users/sign_up" for 127.0.0.1 at 2015-06-28 14:04:37 +0530
+I, [2015-06-28T14:04:37.580537 #10328]  INFO -- : Processing by Users::RegistrationsController#new as HTML
+I, [2015-06-28T14:04:37.591417 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.0ms)
+I, [2015-06-28T14:04:37.591569 #10328]  INFO -- :   Rendered app/desktop_plateform/users/registrations/new.html.erb within layouts/application (8.5ms)
+I, [2015-06-28T14:04:37.598834 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.3ms)
+I, [2015-06-28T14:04:37.600440 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.9ms)
+I, [2015-06-28T14:04:37.601014 #10328]  INFO -- : Completed 200 OK in 20ms (Views: 19.2ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:38.180340 #10328]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:04:38 +0530
+I, [2015-06-28T14:04:38.181735 #10328]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:04:38.190348 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.3ms)
+I, [2015-06-28T14:04:38.190466 #10328]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (5.6ms)
+I, [2015-06-28T14:04:38.198224 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.5ms)
+I, [2015-06-28T14:04:38.200219 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (1.0ms)
+I, [2015-06-28T14:04:38.200658 #10328]  INFO -- : Completed 200 OK in 19ms (Views: 16.9ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:38.671240 #10328]  INFO -- : Started GET "/users/sign_up" for 127.0.0.1 at 2015-06-28 14:04:38 +0530
+I, [2015-06-28T14:04:38.673162 #10328]  INFO -- : Processing by Users::RegistrationsController#new as HTML
+I, [2015-06-28T14:04:38.683893 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.1ms)
+I, [2015-06-28T14:04:38.684021 #10328]  INFO -- :   Rendered app/desktop_plateform/users/registrations/new.html.erb within layouts/application (8.7ms)
+I, [2015-06-28T14:04:38.691743 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.7ms)
+I, [2015-06-28T14:04:38.693054 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T14:04:38.693621 #10328]  INFO -- : Completed 200 OK in 20ms (Views: 19.1ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:39.028485 #10328]  INFO -- : Started GET "/posts" for 127.0.0.1 at 2015-06-28 14:04:39 +0530
+I, [2015-06-28T14:04:39.030312 #10328]  INFO -- : Processing by PostsController#index as HTML
+D, [2015-06-28T14:04:39.034068 #10328] DEBUG -- :   [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "answers"
+D, [2015-06-28T14:04:39.035864 #10328] DEBUG -- :   [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts"[0m
+I, [2015-06-28T14:04:39.036362 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/_post.html.erb (1.6ms)
+I, [2015-06-28T14:04:39.036451 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/index.html.erb within layouts/application (4.2ms)
+I, [2015-06-28T14:04:39.043289 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.5ms)
+I, [2015-06-28T14:04:39.044858 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (1.0ms)
+I, [2015-06-28T14:04:39.045290 #10328]  INFO -- : Completed 200 OK in 15ms (Views: 13.4ms | ActiveRecord: 0.6ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:39.560870 #10328]  INFO -- : Started GET "/portfolios" for 127.0.0.1 at 2015-06-28 14:04:39 +0530
+I, [2015-06-28T14:04:39.562380 #10328]  INFO -- : Processing by SnmmauryaController#portfolios as HTML
+D, [2015-06-28T14:04:39.566227 #10328] DEBUG -- :   [1m[35mPortfolio Load (0.4ms)[0m  SELECT "portfolios".* FROM "portfolios"
+I, [2015-06-28T14:04:39.566639 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/portfolios.html.erb within layouts/application (2.0ms)
+I, [2015-06-28T14:04:39.576995 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (4.3ms)
+I, [2015-06-28T14:04:39.578381 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T14:04:39.578905 #10328]  INFO -- : Completed 200 OK in 16ms (Views: 14.9ms | ActiveRecord: 0.4ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:40.014115 #10328]  INFO -- : Started GET "/contact" for 127.0.0.1 at 2015-06-28 14:04:40 +0530
+I, [2015-06-28T14:04:40.015441 #10328]  INFO -- : Processing by SnmmauryaController#contact as HTML
+I, [2015-06-28T14:04:40.019752 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_error_messages.html.erb (0.4ms)
+I, [2015-06-28T14:04:40.020515 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/contact.html.erb within layouts/application (2.7ms)
+I, [2015-06-28T14:04:40.030898 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (5.3ms)
+I, [2015-06-28T14:04:40.033208 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (1.0ms)
+I, [2015-06-28T14:04:40.033768 #10328]  INFO -- : Completed 200 OK in 18ms (Views: 17.0ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:40.433511 #10328]  INFO -- : Started GET "/studies/books" for 127.0.0.1 at 2015-06-28 14:04:40 +0530
+I, [2015-06-28T14:04:40.434895 #10328]  INFO -- : Processing by Studies::BooksController#index as HTML
+D, [2015-06-28T14:04:40.438179 #10328] DEBUG -- :   [1m[36mBook Load (0.3ms)[0m  [1mSELECT "books".* FROM "books"[0m
+I, [2015-06-28T14:04:40.439410 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_not_found.html.erb (0.5ms)
+I, [2015-06-28T14:04:40.439537 #10328]  INFO -- :   Rendered app/desktop_plateform/studies/books/index.html.erb within layouts/application (2.9ms)
+I, [2015-06-28T14:04:40.447426 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.3ms)
+I, [2015-06-28T14:04:40.448716 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:40.449129 #10328]  INFO -- : Completed 200 OK in 14ms (Views: 13.0ms | ActiveRecord: 0.3ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:40.806294 #10328]  INFO -- : Started GET "/programmers/solutions" for 127.0.0.1 at 2015-06-28 14:04:40 +0530
+I, [2015-06-28T14:04:40.808420 #10328]  INFO -- : Processing by Programmers::SolutionsController#index as HTML
+D, [2015-06-28T14:04:40.810589 #10328] DEBUG -- :   [1m[35mSolution Load (0.4ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T14:04:40.814007 #10328]  INFO -- :   Rendered app/desktop_plateform/programmers/solutions/index.html.erb within layouts/application (1.3ms)
+I, [2015-06-28T14:04:40.821831 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.6ms)
+I, [2015-06-28T14:04:40.823086 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:40.823527 #10328]  INFO -- : Completed 200 OK in 15ms (Views: 12.2ms | ActiveRecord: 0.4ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:41.160967 #10328]  INFO -- : Started GET "/about" for 127.0.0.1 at 2015-06-28 14:04:41 +0530
+I, [2015-06-28T14:04:41.162959 #10328]  INFO -- : Processing by SnmmauryaController#about as HTML
+D, [2015-06-28T14:04:41.164462 #10328] DEBUG -- :   [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."role_id" = $1 LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:04:41.169755 #10328] DEBUG -- :   [1m[35mEmployment Load (0.3ms)[0m  SELECT "employments".* FROM "employments" WHERE "employments"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T14:04:41.170487 #10328] DEBUG -- :   [1m[36mEducation Load (0.2ms)[0m  [1mSELECT "educations".* FROM "educations" WHERE "educations"."user_id" = $1[0m  [["user_id", 1]]
+D, [2015-06-28T14:04:41.171551 #10328] DEBUG -- :   [1m[35mDevelopment Load (0.2ms)[0m  SELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'WEB'  [["user_id", 1]]
+D, [2015-06-28T14:04:41.172413 #10328] DEBUG -- :   [1m[36mDevelopment Load (0.2ms)[0m  [1mSELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'MOBILE'[0m  [["user_id", 1]]
+D, [2015-06-28T14:04:41.173337 #10328] DEBUG -- :   [1m[35mTechnology Load (0.2ms)[0m  SELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'WEB'  [["user_id", 1]]
+D, [2015-06-28T14:04:41.173981 #10328] DEBUG -- :   [1m[36mApi Load (0.2ms)[0m  [1mSELECT "apis".* FROM "apis" WHERE "apis"."user_id" = $1[0m  [["user_id", 1]]
+D, [2015-06-28T14:04:41.174868 #10328] DEBUG -- :   [1m[35mTechnology Load (0.3ms)[0m  SELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'OTHER'  [["user_id", 1]]
+I, [2015-06-28T14:04:41.175655 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/about.html.erb within layouts/application (7.9ms)
+I, [2015-06-28T14:04:41.185775 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.8ms)
+I, [2015-06-28T14:04:41.186913 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:04:41.187327 #10328]  INFO -- : Completed 200 OK in 24ms (Views: 19.0ms | ActiveRecord: 2.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:04:41.531835 #10328]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:04:41 +0530
+I, [2015-06-28T14:04:41.533154 #10328]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:04:41.535651 #10328] DEBUG -- :   [1m[36mSQL (0.6ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:04:41.537662 #10328] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:04:41.543671 #10328] DEBUG -- :   [1m[36mSolution Load (0.6ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:04:41.544165 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (4.3ms)
+I, [2015-06-28T14:04:41.553831 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.9ms)
+I, [2015-06-28T14:04:41.555078 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:04:41.555465 #10328]  INFO -- : Completed 200 OK in 22ms (Views: 16.0ms | ActiveRecord: 1.7ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:00.122759 #10328]  INFO -- : Started GET "/about" for 127.0.0.1 at 2015-06-28 14:07:00 +0530
+I, [2015-06-28T14:07:00.124089 #10328]  INFO -- : Processing by SnmmauryaController#about as HTML
+D, [2015-06-28T14:07:00.125464 #10328] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."role_id" = $1 LIMIT 1  [["role_id", 1]]
+D, [2015-06-28T14:07:00.139291 #10328] DEBUG -- :   [1m[36mEmployment Load (0.4ms)[0m  [1mSELECT "employments".* FROM "employments" WHERE "employments"."user_id" = $1[0m  [["user_id", 1]]
+D, [2015-06-28T14:07:00.140474 #10328] DEBUG -- :   [1m[35mEducation Load (0.5ms)[0m  SELECT "educations".* FROM "educations" WHERE "educations"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T14:07:00.142045 #10328] DEBUG -- :   [1m[36mDevelopment Load (0.4ms)[0m  [1mSELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'WEB'[0m  [["user_id", 1]]
+D, [2015-06-28T14:07:00.143063 #10328] DEBUG -- :   [1m[35mDevelopment Load (0.3ms)[0m  SELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'MOBILE'  [["user_id", 1]]
+D, [2015-06-28T14:07:00.144318 #10328] DEBUG -- :   [1m[36mTechnology Load (0.3ms)[0m  [1mSELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'WEB'[0m  [["user_id", 1]]
+D, [2015-06-28T14:07:00.145072 #10328] DEBUG -- :   [1m[35mApi Load (0.2ms)[0m  SELECT "apis".* FROM "apis" WHERE "apis"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T14:07:00.145914 #10328] DEBUG -- :   [1m[36mTechnology Load (0.2ms)[0m  [1mSELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'OTHER'[0m  [["user_id", 1]]
+I, [2015-06-28T14:07:00.146507 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/about.html.erb within layouts/application (9.4ms)
+I, [2015-06-28T14:07:00.154384 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.8ms)
+I, [2015-06-28T14:07:00.155891 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.8ms)
+I, [2015-06-28T14:07:00.156425 #10328]  INFO -- : Completed 200 OK in 32ms (Views: 26.4ms | ActiveRecord: 2.6ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:02.481534 #10328]  INFO -- : Started GET "/programmers/solutions" for 127.0.0.1 at 2015-06-28 14:07:02 +0530
+I, [2015-06-28T14:07:02.483101 #10328]  INFO -- : Processing by Programmers::SolutionsController#index as HTML
+D, [2015-06-28T14:07:02.484546 #10328] DEBUG -- :   [1m[35mSolution Load (0.3ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T14:07:02.487080 #10328]  INFO -- :   Rendered app/desktop_plateform/programmers/solutions/index.html.erb within layouts/application (1.2ms)
+I, [2015-06-28T14:07:02.495838 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.8ms)
+I, [2015-06-28T14:07:02.497451 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T14:07:02.497765 #10328]  INFO -- : Completed 200 OK in 15ms (Views: 12.7ms | ActiveRecord: 0.3ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:03.285790 #10328]  INFO -- : Started GET "/studies/books" for 127.0.0.1 at 2015-06-28 14:07:03 +0530
+I, [2015-06-28T14:07:03.287676 #10328]  INFO -- : Processing by Studies::BooksController#index as HTML
+D, [2015-06-28T14:07:03.292426 #10328] DEBUG -- :   [1m[36mBook Load (0.4ms)[0m  [1mSELECT "books".* FROM "books"[0m
+I, [2015-06-28T14:07:03.293755 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_not_found.html.erb (0.5ms)
+I, [2015-06-28T14:07:03.293895 #10328]  INFO -- :   Rendered app/desktop_plateform/studies/books/index.html.erb within layouts/application (3.9ms)
+I, [2015-06-28T14:07:03.300720 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.4ms)
+I, [2015-06-28T14:07:03.301747 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:07:03.302123 #10328]  INFO -- : Completed 200 OK in 14ms (Views: 12.7ms | ActiveRecord: 0.4ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:03.869392 #10328]  INFO -- : Started GET "/contact" for 127.0.0.1 at 2015-06-28 14:07:03 +0530
+I, [2015-06-28T14:07:03.871256 #10328]  INFO -- : Processing by SnmmauryaController#contact as HTML
+I, [2015-06-28T14:07:03.875682 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_error_messages.html.erb (0.6ms)
+I, [2015-06-28T14:07:03.876664 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/contact.html.erb within layouts/application (3.2ms)
+I, [2015-06-28T14:07:03.888247 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (4.2ms)
+I, [2015-06-28T14:07:03.889587 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:07:03.890178 #10328]  INFO -- : Completed 200 OK in 19ms (Views: 17.6ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:04.345002 #10328]  INFO -- : Started GET "/portfolios" for 127.0.0.1 at 2015-06-28 14:07:04 +0530
+I, [2015-06-28T14:07:04.346243 #10328]  INFO -- : Processing by SnmmauryaController#portfolios as HTML
+D, [2015-06-28T14:07:04.349007 #10328] DEBUG -- :   [1m[35mPortfolio Load (0.3ms)[0m  SELECT "portfolios".* FROM "portfolios"
+I, [2015-06-28T14:07:04.349255 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/portfolios.html.erb within layouts/application (1.3ms)
+I, [2015-06-28T14:07:04.356855 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.3ms)
+I, [2015-06-28T14:07:04.357794 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.4ms)
+I, [2015-06-28T14:07:04.358132 #10328]  INFO -- : Completed 200 OK in 12ms (Views: 10.7ms | ActiveRecord: 0.3ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:04.785300 #10328]  INFO -- : Started GET "/posts" for 127.0.0.1 at 2015-06-28 14:07:04 +0530
+I, [2015-06-28T14:07:04.787016 #10328]  INFO -- : Processing by PostsController#index as HTML
+D, [2015-06-28T14:07:04.792219 #10328] DEBUG -- :   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "answers"[0m
+D, [2015-06-28T14:07:04.794547 #10328] DEBUG -- :   [1m[35mPost Load (0.3ms)[0m  SELECT "posts".* FROM "posts"
+I, [2015-06-28T14:07:04.795130 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/_post.html.erb (2.0ms)
+I, [2015-06-28T14:07:04.795244 #10328]  INFO -- :   Rendered app/desktop_plateform/posts/index.html.erb within layouts/application (5.6ms)
+I, [2015-06-28T14:07:04.805022 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.5ms)
+I, [2015-06-28T14:07:04.806397 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T14:07:04.806822 #10328]  INFO -- : Completed 200 OK in 20ms (Views: 17.7ms | ActiveRecord: 0.8ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:05.227406 #10328]  INFO -- : Started GET "/users/sign_up" for 127.0.0.1 at 2015-06-28 14:07:05 +0530
+I, [2015-06-28T14:07:05.229155 #10328]  INFO -- : Processing by Users::RegistrationsController#new as HTML
+I, [2015-06-28T14:07:05.239831 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.0ms)
+I, [2015-06-28T14:07:05.239972 #10328]  INFO -- :   Rendered app/desktop_plateform/users/registrations/new.html.erb within layouts/application (8.6ms)
+I, [2015-06-28T14:07:05.249137 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.6ms)
+I, [2015-06-28T14:07:05.250690 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.9ms)
+I, [2015-06-28T14:07:05.251139 #10328]  INFO -- : Completed 200 OK in 22ms (Views: 20.5ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:05.695310 #10328]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:07:05 +0530
+I, [2015-06-28T14:07:05.696866 #10328]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:07:05.704709 #10328]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.1ms)
+I, [2015-06-28T14:07:05.704822 #10328]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (5.6ms)
+I, [2015-06-28T14:07:05.716169 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.7ms)
+I, [2015-06-28T14:07:05.717391 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:07:05.717735 #10328]  INFO -- : Completed 200 OK in 21ms (Views: 19.5ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:07.430645 #10328]  INFO -- : Started GET "/hospitals/patients" for 127.0.0.1 at 2015-06-28 14:07:07 +0530
+I, [2015-06-28T14:07:07.435632 #10328]  INFO -- : Processing by Hospitals::PatientsController#index as HTML
+I, [2015-06-28T14:07:07.442987 #10328]  INFO -- : Redirected to http://localhost:3000/
+I, [2015-06-28T14:07:07.443187 #10328]  INFO -- : Completed 302 Found in 7ms (ActiveRecord: 0.0ms)
+I, [2015-06-28T14:07:07.500601 #10328]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:07:07 +0530
+I, [2015-06-28T14:07:07.502418 #10328]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:07:07.505857 #10328] DEBUG -- :   [1m[36mSQL (0.8ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:07:07.507999 #10328] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:07:07.512508 #10328] DEBUG -- :   [1m[36mSolution Load (0.4ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:07:07.512823 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (2.8ms)
+I, [2015-06-28T14:07:07.520962 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.0ms)
+I, [2015-06-28T14:07:07.522130 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:07:07.522470 #10328]  INFO -- : Completed 200 OK in 20ms (Views: 13.0ms | ActiveRecord: 1.7ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:09.485262 #10328]  INFO -- : Started GET "/hospitals/appointments" for 127.0.0.1 at 2015-06-28 14:07:09 +0530
+I, [2015-06-28T14:07:09.488556 #10328]  INFO -- : Processing by Hospitals::AppointmentsController#index as HTML
+D, [2015-06-28T14:07:09.538079 #10328] DEBUG -- :   [1m[35mAppointment Load (0.7ms)[0m  SELECT "appointments".* FROM "appointments"
+I, [2015-06-28T14:07:09.539398 #10328]  INFO -- :   Rendered app/desktop_plateform/hospitals/appointments/index.html.erb within layouts/application (4.1ms)
+I, [2015-06-28T14:07:09.549057 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.3ms)
+I, [2015-06-28T14:07:09.550575 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.8ms)
+I, [2015-06-28T14:07:09.551148 #10328]  INFO -- : Completed 200 OK in 62ms (Views: 59.8ms | ActiveRecord: 1.3ms | Solr: 0.0ms)
+I, [2015-06-28T14:07:11.403103 #10328]  INFO -- : Started GET "/hospitals/patients" for 127.0.0.1 at 2015-06-28 14:07:11 +0530
+I, [2015-06-28T14:07:11.405321 #10328]  INFO -- : Processing by Hospitals::PatientsController#index as HTML
+I, [2015-06-28T14:07:11.415648 #10328]  INFO -- : Redirected to http://localhost:3000/
+I, [2015-06-28T14:07:11.415863 #10328]  INFO -- : Completed 302 Found in 10ms (ActiveRecord: 0.0ms)
+I, [2015-06-28T14:07:11.421233 #10328]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:07:11 +0530
+I, [2015-06-28T14:07:11.423167 #10328]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:07:11.426778 #10328] DEBUG -- :   [1m[36mSQL (0.7ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:07:11.429388 #10328] DEBUG -- :   [1m[35mSQL (0.6ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:07:11.434618 #10328] DEBUG -- :   [1m[36mSolution Load (0.4ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:07:11.435010 #10328]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (3.1ms)
+I, [2015-06-28T14:07:11.443170 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.2ms)
+I, [2015-06-28T14:07:11.444355 #10328]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:07:11.444672 #10328]  INFO -- : Completed 200 OK in 21ms (Views: 13.6ms | ActiveRecord: 1.7ms | Solr: 0.0ms)
+I, [2015-06-28T14:12:13.529962 #10881]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:12:13 +0530
+I, [2015-06-28T14:12:13.593942 #10881]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:12:13.626231 #10881] DEBUG -- :   [1m[36mSQL (0.9ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:12:13.629197 #10881] DEBUG -- :   [1m[35mSQL (0.6ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:12:13.685261 #10881] DEBUG -- :   [1m[36mSolution Load (0.5ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:12:13.685821 #10881]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (7.2ms)
+D, [2015-06-28T14:12:13.697553 #10881] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+I, [2015-06-28T14:12:13.702586 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (10.0ms)
+I, [2015-06-28T14:12:13.704126 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.8ms)
+I, [2015-06-28T14:12:13.704963 #10881]  INFO -- : Completed 200 OK in 111ms (Views: 26.3ms | ActiveRecord: 8.9ms | Solr: 0.0ms)
+I, [2015-06-28T14:12:15.513674 #10881]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:12:15 +0530
+I, [2015-06-28T14:12:15.518929 #10881]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:12:16.150573 #10881]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.2ms)
+I, [2015-06-28T14:12:16.150720 #10881]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (626.0ms)
+I, [2015-06-28T14:12:16.157720 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.4ms)
+I, [2015-06-28T14:12:16.158883 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:12:16.159281 #10881]  INFO -- : Completed 200 OK in 640ms (Views: 636.3ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:12:19.598773 #10881]  INFO -- : Started POST "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:12:19 +0530
+I, [2015-06-28T14:12:19.601078 #10881]  INFO -- : Processing by Devise::SessionsController#create as HTML
+I, [2015-06-28T14:12:19.601222 #10881]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"I7pZ0t0SQ9Zvy6T77SNYth03vZeH9E6C7ElIU/wIYH7jg36a5e52+JKf0qH865G3LqGErIJ8VM+OA5IpYT4R5Q==", "user"=>{"login"=>"administrator", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Signin"}
+D, [2015-06-28T14:12:19.604982 #10881] DEBUG -- :   [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE (lower(username) = 'administrator' OR lower(email) = 'administrator')  ORDER BY "users"."id" ASC LIMIT 1[0m
+D, [2015-06-28T14:12:19.767073 #10881] DEBUG -- :   [1m[35m (0.2ms)[0m  BEGIN
+D, [2015-06-28T14:12:19.769057 #10881] DEBUG -- :   [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+I, [2015-06-28T14:12:19.769640 #10881]  INFO -- : Completed 401 Unauthorized in 168ms (ActiveRecord: 1.2ms)
+I, [2015-06-28T14:12:19.815880 #10881]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:12:19 +0530
+I, [2015-06-28T14:12:19.817443 #10881]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:12:19.826055 #10881]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.0ms)
+I, [2015-06-28T14:12:19.826209 #10881]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (5.3ms)
+I, [2015-06-28T14:12:19.832612 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.2ms)
+I, [2015-06-28T14:12:19.834029 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.8ms)
+I, [2015-06-28T14:12:19.834449 #10881]  INFO -- : Completed 200 OK in 17ms (Views: 14.6ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:12:27.414188 #10881]  INFO -- : Started GET "/users/confirmation/new" for 127.0.0.1 at 2015-06-28 14:12:27 +0530
+I, [2015-06-28T14:12:27.419007 #10881]  INFO -- : Processing by Devise::ConfirmationsController#new as HTML
+I, [2015-06-28T14:12:27.469779 #10881]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.2ms)
+I, [2015-06-28T14:12:27.469939 #10881]  INFO -- :   Rendered app/desktop_plateform/users/confirmations/new.html.erb within layouts/application (4.9ms)
+I, [2015-06-28T14:12:27.477256 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.4ms)
+I, [2015-06-28T14:12:27.478221 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.4ms)
+I, [2015-06-28T14:12:27.478575 #10881]  INFO -- : Completed 200 OK in 59ms (Views: 58.3ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:24:47.034393 #10881]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:24:47 +0530
+I, [2015-06-28T14:24:47.036475 #10881]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:24:47.046619 #10881]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.2ms)
+I, [2015-06-28T14:24:47.046750 #10881]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (7.2ms)
+I, [2015-06-28T14:24:47.055002 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.2ms)
+I, [2015-06-28T14:24:47.056316 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:24:47.056647 #10881]  INFO -- : Completed 200 OK in 20ms (Views: 18.2ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:27:37.431106 #10881]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:27:37 +0530
+I, [2015-06-28T14:27:37.432442 #10881]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:27:37.434953 #10881] DEBUG -- :   [1m[35mSQL (0.5ms)[0m  SELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["role_id", 1]]
+D, [2015-06-28T14:27:37.446952 #10881] DEBUG -- :   [1m[36mSQL (0.6ms)[0m  [1mSELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC[0m  [["role_id", 1]]
+D, [2015-06-28T14:27:37.452607 #10881] DEBUG -- :   [1m[35mSolution Load (0.5ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T14:27:37.452941 #10881]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (3.0ms)
+I, [2015-06-28T14:27:37.460538 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.5ms)
+I, [2015-06-28T14:27:37.461686 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:27:37.462040 #10881]  INFO -- : Completed 200 OK in 29ms (Views: 12.9ms | ActiveRecord: 1.7ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:29.628031 #10881]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:33:29 +0530
+I, [2015-06-28T14:33:29.629522 #10881]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:33:29.632226 #10881] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:33:29.633924 #10881] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:33:29.637871 #10881] DEBUG -- :   [1m[36mSolution Load (0.3ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:33:29.638114 #10881]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (2.3ms)
+I, [2015-06-28T14:33:29.645314 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.5ms)
+I, [2015-06-28T14:33:29.646888 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.7ms)
+I, [2015-06-28T14:33:29.647363 #10881]  INFO -- : Completed 200 OK in 18ms (Views: 12.1ms | ActiveRecord: 1.3ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:31.693965 #10881]  INFO -- : Started GET "/about" for 127.0.0.1 at 2015-06-28 14:33:31 +0530
+I, [2015-06-28T14:33:31.695884 #10881]  INFO -- : Processing by SnmmauryaController#about as HTML
+D, [2015-06-28T14:33:31.698174 #10881] DEBUG -- :   [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."role_id" = $1 LIMIT 1  [["role_id", 1]]
+D, [2015-06-28T14:33:31.720268 #10881] DEBUG -- :   [1m[36mEmployment Load (0.4ms)[0m  [1mSELECT "employments".* FROM "employments" WHERE "employments"."user_id" = $1[0m  [["user_id", 1]]
+D, [2015-06-28T14:33:31.722200 #10881] DEBUG -- :   [1m[35mEducation Load (0.4ms)[0m  SELECT "educations".* FROM "educations" WHERE "educations"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T14:33:31.724053 #10881] DEBUG -- :   [1m[36mDevelopment Load (0.4ms)[0m  [1mSELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'WEB'[0m  [["user_id", 1]]
+D, [2015-06-28T14:33:31.725565 #10881] DEBUG -- :   [1m[35mDevelopment Load (0.3ms)[0m  SELECT "developments".* FROM "developments" WHERE "developments"."user_id" = $1 AND "developments"."dev_type" = 'MOBILE'  [["user_id", 1]]
+D, [2015-06-28T14:33:31.727019 #10881] DEBUG -- :   [1m[36mTechnology Load (0.3ms)[0m  [1mSELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'WEB'[0m  [["user_id", 1]]
+D, [2015-06-28T14:33:31.728661 #10881] DEBUG -- :   [1m[35mApi Load (0.3ms)[0m  SELECT "apis".* FROM "apis" WHERE "apis"."user_id" = $1  [["user_id", 1]]
+D, [2015-06-28T14:33:31.729941 #10881] DEBUG -- :   [1m[36mTechnology Load (0.3ms)[0m  [1mSELECT "technologies".* FROM "technologies" WHERE "technologies"."user_id" = $1 AND "technologies"."tech_type" = 'OTHER'[0m  [["user_id", 1]]
+I, [2015-06-28T14:33:31.730735 #10881]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/about.html.erb within layouts/application (14.0ms)
+I, [2015-06-28T14:33:31.739419 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.9ms)
+I, [2015-06-28T14:33:31.740907 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:33:31.741350 #10881]  INFO -- : Completed 200 OK in 45ms (Views: 23.9ms | ActiveRecord: 8.2ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:33.165362 #10881]  INFO -- : Started GET "/programmers/solutions" for 127.0.0.1 at 2015-06-28 14:33:33 +0530
+I, [2015-06-28T14:33:33.168540 #10881]  INFO -- : Processing by Programmers::SolutionsController#index as HTML
+D, [2015-06-28T14:33:33.170410 #10881] DEBUG -- :   [1m[35mSolution Load (0.4ms)[0m  SELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'
+I, [2015-06-28T14:33:33.173238 #10881]  INFO -- :   Rendered app/desktop_plateform/programmers/solutions/index.html.erb within layouts/application (1.1ms)
+I, [2015-06-28T14:33:33.182265 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.8ms)
+I, [2015-06-28T14:33:33.183486 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:33:33.183853 #10881]  INFO -- : Completed 200 OK in 15ms (Views: 12.9ms | ActiveRecord: 0.4ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:35.511842 #10881]  INFO -- : Started GET "/studies/books" for 127.0.0.1 at 2015-06-28 14:33:35 +0530
+I, [2015-06-28T14:33:35.515550 #10881]  INFO -- : Processing by Studies::BooksController#index as HTML
+D, [2015-06-28T14:33:35.520200 #10881] DEBUG -- :   [1m[36mBook Load (0.6ms)[0m  [1mSELECT "books".* FROM "books"[0m
+I, [2015-06-28T14:33:35.522849 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_not_found.html.erb (0.5ms)
+I, [2015-06-28T14:33:35.522971 #10881]  INFO -- :   Rendered app/desktop_plateform/studies/books/index.html.erb within layouts/application (4.9ms)
+I, [2015-06-28T14:33:35.530574 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.5ms)
+I, [2015-06-28T14:33:35.532179 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.8ms)
+I, [2015-06-28T14:33:35.532911 #10881]  INFO -- : Completed 200 OK in 17ms (Views: 14.4ms | ActiveRecord: 1.4ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:37.495373 #10881]  INFO -- : Started GET "/contact" for 127.0.0.1 at 2015-06-28 14:33:37 +0530
+I, [2015-06-28T14:33:37.497113 #10881]  INFO -- : Processing by SnmmauryaController#contact as HTML
+I, [2015-06-28T14:33:37.546051 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_error_messages.html.erb (0.4ms)
+I, [2015-06-28T14:33:37.546838 #10881]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/contact.html.erb within layouts/application (3.2ms)
+I, [2015-06-28T14:33:37.553215 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.4ms)
+I, [2015-06-28T14:33:37.554261 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:33:37.554601 #10881]  INFO -- : Completed 200 OK in 57ms (Views: 50.9ms | ActiveRecord: 1.3ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:39.701641 #10881]  INFO -- : Started GET "/portfolios" for 127.0.0.1 at 2015-06-28 14:33:39 +0530
+I, [2015-06-28T14:33:39.703850 #10881]  INFO -- : Processing by SnmmauryaController#portfolios as HTML
+D, [2015-06-28T14:33:39.709042 #10881] DEBUG -- :   [1m[35mPortfolio Load (0.6ms)[0m  SELECT "portfolios".* FROM "portfolios"
+I, [2015-06-28T14:33:39.710721 #10881]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/portfolios.html.erb within layouts/application (3.7ms)
+I, [2015-06-28T14:33:39.719724 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.0ms)
+I, [2015-06-28T14:33:39.720992 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:33:39.721346 #10881]  INFO -- : Completed 200 OK in 17ms (Views: 14.4ms | ActiveRecord: 1.3ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:43.103782 #10881]  INFO -- : Started GET "/posts" for 127.0.0.1 at 2015-06-28 14:33:43 +0530
+I, [2015-06-28T14:33:43.107970 #10881]  INFO -- : Processing by PostsController#index as HTML
+D, [2015-06-28T14:33:43.116613 #10881] DEBUG -- :   [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM "answers"[0m
+D, [2015-06-28T14:33:43.147184 #10881] DEBUG -- :   [1m[35mPost Load (28.3ms)[0m  SELECT "posts".* FROM "posts"
+I, [2015-06-28T14:33:43.151319 #10881]  INFO -- :   Rendered app/desktop_plateform/posts/_post.html.erb (33.4ms)
+I, [2015-06-28T14:33:43.151467 #10881]  INFO -- :   Rendered app/desktop_plateform/posts/index.html.erb within layouts/application (40.1ms)
+I, [2015-06-28T14:33:43.159742 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.6ms)
+I, [2015-06-28T14:33:43.161834 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (1.2ms)
+I, [2015-06-28T14:33:43.162748 #10881]  INFO -- : Completed 200 OK in 55ms (Views: 22.0ms | ActiveRecord: 30.8ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:46.460354 #10881]  INFO -- : Started GET "/users/sign_up" for 127.0.0.1 at 2015-06-28 14:33:46 +0530
+I, [2015-06-28T14:33:46.463540 #10881]  INFO -- : Processing by Users::RegistrationsController#new as HTML
+I, [2015-06-28T14:33:46.478810 #10881]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.8ms)
+I, [2015-06-28T14:33:46.479014 #10881]  INFO -- :   Rendered app/desktop_plateform/users/registrations/new.html.erb within layouts/application (12.9ms)
+I, [2015-06-28T14:33:46.487542 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.6ms)
+I, [2015-06-28T14:33:46.488682 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.6ms)
+I, [2015-06-28T14:33:46.489057 #10881]  INFO -- : Completed 200 OK in 25ms (Views: 24.0ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:48.789927 #10881]  INFO -- : Started GET "/users/sign_in" for 127.0.0.1 at 2015-06-28 14:33:48 +0530
+I, [2015-06-28T14:33:48.791503 #10881]  INFO -- : Processing by Devise::SessionsController#new as HTML
+I, [2015-06-28T14:33:48.800419 #10881]  INFO -- :   Rendered app/desktop_plateform/users/shared/_links.html.erb (1.3ms)
+I, [2015-06-28T14:33:48.800537 #10881]  INFO -- :   Rendered app/desktop_plateform/users/sessions/new.html.erb within layouts/application (6.6ms)
+I, [2015-06-28T14:33:48.807242 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (2.2ms)
+I, [2015-06-28T14:33:48.808238 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:33:48.808577 #10881]  INFO -- : Completed 200 OK in 17ms (Views: 15.5ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+I, [2015-06-28T14:33:53.598053 #10881]  INFO -- : Started GET "/" for 127.0.0.1 at 2015-06-28 14:33:53 +0530
+I, [2015-06-28T14:33:53.599609 #10881]  INFO -- : Processing by SnmmauryaController#index as HTML
+D, [2015-06-28T14:33:53.603052 #10881] DEBUG -- :   [1m[36mSQL (0.5ms)[0m  [1mSELECT  DISTINCT "users"."id", "users"."id" AS alias_0 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["role_id", 1]]
+D, [2015-06-28T14:33:53.604734 #10881] DEBUG -- :   [1m[35mSQL (0.4ms)[0m  SELECT "users"."id" AS t0_r0, "users"."email" AS t0_r1, "users"."encrypted_password" AS t0_r2, "users"."reset_password_token" AS t0_r3, "users"."reset_password_sent_at" AS t0_r4, "users"."remember_created_at" AS t0_r5, "users"."sign_in_count" AS t0_r6, "users"."current_sign_in_at" AS t0_r7, "users"."last_sign_in_at" AS t0_r8, "users"."current_sign_in_ip" AS t0_r9, "users"."last_sign_in_ip" AS t0_r10, "users"."confirmation_token" AS t0_r11, "users"."confirmed_at" AS t0_r12, "users"."confirmation_sent_at" AS t0_r13, "users"."unconfirmed_email" AS t0_r14, "users"."failed_attempts" AS t0_r15, "users"."unlock_token" AS t0_r16, "users"."locked_at" AS t0_r17, "users"."created_at" AS t0_r18, "users"."updated_at" AS t0_r19, "users"."username" AS t0_r20, "users"."role_id" AS t0_r21, "users"."image" AS t0_r22, "users"."provider" AS t0_r23, "users"."uid" AS t0_r24, "users"."resume_doc" AS t0_r25, "users"."resume_pdf" AS t0_r26, "users"."slug" AS t0_r27, "users"."web_site" AS t0_r28, "infos"."id" AS t1_r0, "infos"."fname" AS t1_r1, "infos"."lname" AS t1_r2, "infos"."date_of_birth" AS t1_r3, "infos"."contact" AS t1_r4, "infos"."gender" AS t1_r5, "infos"."address" AS t1_r6, "infos"."about_yourself" AS t1_r7, "infos"."martial_status" AS t1_r8, "infos"."user_id" AS t1_r9, "infos"."created_at" AS t1_r10, "infos"."updated_at" AS t1_r11, "infos"."state_id" AS t1_r12, "infos"."country_id" AS t1_r13, "infos"."city" AS t1_r14 FROM "users" INNER JOIN "infos" ON "infos"."user_id" = "users"."id" WHERE "users"."role_id" = $1 AND "users"."id" IN (1)  ORDER BY "users"."id" ASC  [["role_id", 1]]
+D, [2015-06-28T14:33:53.609303 #10881] DEBUG -- :   [1m[36mSolution Load (0.4ms)[0m  [1mSELECT "solutions".* FROM "solutions" WHERE "solutions"."status" = 'ACTIVE'[0m
+I, [2015-06-28T14:33:53.609588 #10881]  INFO -- :   Rendered app/desktop_plateform/snmmaurya/index.html.erb within layouts/application (2.9ms)
+I, [2015-06-28T14:33:53.618473 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_menu.html.erb (3.4ms)
+I, [2015-06-28T14:33:53.619606 #10881]  INFO -- :   Rendered app/desktop_plateform/shared/_flash_messages.html.erb (0.5ms)
+I, [2015-06-28T14:33:53.619948 #10881]  INFO -- : Completed 200 OK in 20ms (Views: 13.9ms | ActiveRecord: 1.3ms | Solr: 0.0ms)
