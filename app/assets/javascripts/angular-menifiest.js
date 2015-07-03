@@ -32,7 +32,7 @@ Controllers related JS
 //= require controllers/snmmaurya_controller.js
 //= require controllers/programmers/solutions_controller.js
 //= require controllers/router_controller.js
-//= require controllers/lives/customer_controller.js
+// require controllers/lives/customer_controller.js
 //= require controllers/programmers/problems_controller.js
 //= require controllers/programmers/answers_controller.js
 //= require controllers/lives/movies_controller.js
@@ -45,7 +45,7 @@ END Controllers related JS
 Custom Library Related JS
 -----------------------------------------------------------------------------*/
 //= require factories/factories.js
-// require angular/services/services.js
+//= require filters/filters.js
 /*----------------------------------------------------------------------------
 END Custom Library Related JS
 -----------------------------------------------------------------------------*/

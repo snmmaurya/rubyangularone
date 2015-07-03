@@ -2,9 +2,12 @@
 Start Services
 -----------------------------------------------------------------------------------------*/
 snmmaurya.service("mineService", function(){
-  this.getMine = function(){
-    
-  }
+
+  this.data = {};
+
+  this.getData = function(){
+    return data;
+  };
 });
 
 /*----------------------------------------------------------------------------------------
