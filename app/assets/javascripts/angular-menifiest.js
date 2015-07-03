@@ -35,6 +35,7 @@ Controllers related JS
 //= require controllers/lives/customer_controller.js
 //= require controllers/programmers/problems_controller.js
 //= require controllers/programmers/answers_controller.js
+//= require controllers/lives/movies_controller.js
 /*----------------------------------------------------------------------------
 END Controllers related JS
 -----------------------------------------------------------------------------*/

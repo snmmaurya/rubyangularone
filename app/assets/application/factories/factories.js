@@ -48,6 +48,43 @@ snmmaurya.factory("customerFactory", function($resource){
   }
   return factory;
 });
+
+
+
+/*----------------------------------------------------------------------------------------
+START Movie Factory
+-----------------------------------------------------------------------------------------*/
+snmmaurya.factory('MovieFactory', function($resource, $http) {
+ var movieFactoryBaseUrl = "/api/v1/movies/";
+ var factory = {};
+
+ factory.getMovies = function(){
+  return $http.get(movieFactoryBaseUrl, {format: 'json'});
+ }
+
+ factory.getMovie = function(id){
+  return $http.get(movieFactoryBaseUrl+""+id+"/edit", {format: 'json'});
+ }
+
+ factory.createMovie = function (movie) {
+   return $http.post(movieFactoryBaseUrl, movie);
+ }
+
+ factory.updateMovie = function (movie) {
+   return $http.put(movieFactoryBaseUrl+""+movie.id, movie);
+ }
+
+factory.deleteMovie = function (movie) {
+  return $http.delete(movieFactoryBaseUrl+""+movie.id).then(function (status) {
+    return status.data;
+  });
+}
+ return factory;
+});
+/*----------------------------------------------------------------------------------------
+END Movie Factory
+-----------------------------------------------------------------------------------------*/
+
 /*----------------------------------------------------------------------------------------
 End Factory
 -----------------------------------------------------------------------------------------*/

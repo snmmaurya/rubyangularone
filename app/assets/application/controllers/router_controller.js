@@ -40,8 +40,24 @@ function($routeProvider) {
       templateUrl: 'partials/phone-detail.html',
       controller: 'PhoneDetailCtrl'
     }).
-    when('/live', {
-      templateUrl: 'customers',
+    when('/movies', {
+      templateUrl: 'movies',
+      controller: 'moviesController'
+    }).
+    when('/movies/:id/show', {
+      templateUrl: 'movies-show',
+      controller: 'moviesController'
+    }).
+    when('/movies/:id/edit', {
+      templateUrl: 'movies-edit',
+      controller: 'moviesController'
+    }).
+    when('/movies/new', {
+      templateUrl: 'movies-new',
+      controller: 'moviesController'
+    }).
+    when('/lives', {
+      templateUrl: 'customer',
       controller: 'customerController'
     }).
     otherwise({

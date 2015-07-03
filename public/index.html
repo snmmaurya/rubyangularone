@@ -19,9 +19,7 @@
   </div>
   <div class="container">
     <div ng-view></div>
-
     <div class="row" ng-include="'/assets/templates/shared/solutions.html'" ng-controller="footerSolutions"></div>
-    
     <hr>
     <!-- Footer -->
     <footer>
@@ -35,6 +33,8 @@
   <!-- /.container -->
 </body>
 </html>
+
+<!-- Snmmaurya ==================================================================== -->
 <script type="text/ng-template" id="home">
   <div ng-include="'/assets/templates/home.html'"></div>
 </script>
@@ -42,7 +42,6 @@
 <script type="text/ng-template" id="about">
   <div ng-include="'/assets/templates/about.html'"></div>
 </script>
-
 
 <script type="text/ng-template" id="contact">
   <div ng-include="'/assets/templates/contact.html'"></div>
@@ -55,7 +54,10 @@
 <script type="text/ng-template" id="portfolio">
   <div ng-include="'/assets/templates/portfolio.html'"
 </script>
+<!-- END ========================================================================= -->
 
+
+<!-- Solutions ==================================================================== -->
 <script type="text/ng-template" id="solutions">
   <div ng-include="'/assets/templates/programmers/solutions/index.html'"></div>
 </script>
@@ -67,7 +69,21 @@
 <script type="text/ng-template" id="answers">
   <div ng-include="'/assets/templates/programmers/answers/index.html'"></div>
 </script>
+<!-- END ========================================================================= -->
 
-<script type="text/ng-template" id="customers">
-  <div ng-include="'assets/templates/lives/customers/index.html'"></div>
+
+
+<!-- Movies ==================================================================== -->
+<script type="text/ng-template" id="movies">
+  <div ng-include="'assets/templates/lives/movies/index.html'"></div>
 </script>
+<script type="text/ng-template" id="movies-show">
+  <div ng-include="'assets/templates/lives/movies/show.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-edit">
+  <div ng-include="'assets/templates/lives/movies/edit.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-new">
+  <div ng-include="'assets/templates/lives/movies/new.html'"></div>
+</script>
+<!-- END ========================================================================= -->
