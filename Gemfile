@@ -102,3 +102,9 @@ gem "app_config"
 # rails server unicorn  #to run the application under unicorn server
 
 gem 'acts-as-taggable-on'
+
+# AngularJS based gems
+
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end

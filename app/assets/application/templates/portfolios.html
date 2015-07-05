@@ -1,7 +1,7 @@
 <!-- Page Heading/Breadcrumbs -->
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Portfolio
+        <h1 class="page-header">Portfolios
            <small>My Portfolio</small>
         </h1>
     </div>
@@ -10,13 +10,37 @@
 
 <!-- Projects Row -->
 <div class="row">
-  <div class="col-md-6 img-portfolio" data-ng-repeat="portfolio in portfolios">
-      <a ng-href="#/portfolios/{{portfolio.id}}">
-        <img src="{{portfolio.image}}" alt="{{portfolio.title}}" class="portfolo-img-size border-gray">
+  <div class="col-md-6 img-portfolio text-center" data-ng-repeat="portfolio in portfolios">
+      <a href="javascript: void(0);" ng-click="open({size: '', templateUrl: 'portfolioModel', data: portfolio})">
+        <img src="{{portfolio.image.url}}" alt="{{portfolio.title}}" class="portfolo-img-size border-gray">
       </a>
-       <a ng-href="{{portfolio.title}}">{{portfolio.title}}</a>
+       <a ng-href="#/portfolios/{{portfolio.id}}">{{portfolio.title}}</a>
       </h3>
-      <p>{{portfolio.description}}</p>
+      <p>{{portfolio.description}}
+          <!-- <button class="btn btn-default" ng-click="open('portfolioModel')">Open me!</button> -->
+      </p>
   </div>
 </div>
-<!-- /.row -->	
+<!-- /.row -->
+
+
+<script type="text/ng-template" id="portfolioModel">
+  <div class="modal-header">
+      <h3 class="modal-title">{{modalContents.title}}</h3>
+  </div>
+  <div class="modal-body">
+      <img src="{{modalContents.image.url}}" alt="{{modalContents.title}}" class="portfolo-img-size border-gray">
+      <h4>URL:</h4>
+      <a href="{{modalContents.url}}" target="_blnk">{{modalContents.url}}</a>
+      <h4>Tools:</h4>
+      <ul ng-init="tools = modalContents.tools.split(';')">
+        <li data-ng-repeat="tool in tools">{{tool}}</li>
+      </ul>
+      <h4>Description:</h4>
+      <div>{{modalContents.description}}</div>      
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>

@@ -21,9 +21,11 @@ Library Related JS
 //= require bootstrap/bootstrap.js
 //= require angular/angular-route.js
 //= require angular/angular-resource.js
+//= require bootstrap/pagination/ui-bootstrap-tpls-0.13.0.js
 /*----------------------------------------------------------------------------
 END Library Related JS
 -----------------------------------------------------------------------------*/
+
 
 /*----------------------------------------------------------------------------
 Controllers related JS
@@ -36,6 +38,9 @@ Controllers related JS
 //= require controllers/programmers/problems_controller.js
 //= require controllers/programmers/answers_controller.js
 //= require controllers/lives/movies_controller.js
+//= require controllers/lives/lives_controller.js
+//= require controllers/pagination_controller.js
+//= require controllers/configuration_controller.js
 /*----------------------------------------------------------------------------
 END Controllers related JS
 -----------------------------------------------------------------------------*/
@@ -46,8 +51,17 @@ Custom Library Related JS
 -----------------------------------------------------------------------------*/
 //= require factories/factories.js
 //= require filters/filters.js
+//= require directives/directives.js
 /*----------------------------------------------------------------------------
 END Custom Library Related JS
+-----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------
+Bootstrap Related JS
+-----------------------------------------------------------------------------*/
+//= require controllers/bootstraps/model_controller.js
+/*----------------------------------------------------------------------------
+END Bootstrap Related JS
 -----------------------------------------------------------------------------*/
 
 

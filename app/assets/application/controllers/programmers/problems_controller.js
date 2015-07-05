@@ -1,14 +1,13 @@
 /*----------------------------------------------------------------------------------------
 START Problem controller
 -----------------------------------------------------------------------------------------*/
-snmmaurya.controller("programmersSolutionsProblemsController", function($scope, $http, $routeParams){
-  snmmaurya.console("Getting Solutions");
-  url = "/api/v1/programmers/solution/"+$routeParams.solution_id+"/problems";
-  $http.get(url, {format: 'json'}).success( function(response) {
-    $scope.problems = response;
+snmmaurya.controller("programmersSolutionsProblemsController", function(friendsFactory, $scope, $log, $http, $controller, $location, $rootScope){
+  //$controller('solutionsProblemsPaginationController', {$scope: $scope});
+  $scope.url = "/api/v1"+$location.path();
+  $http.get($scope.url, {format: 'json'}).success( function(response) {
+    $scope.paginationContents = response;
+    snmmaurya.console($scope.problems);
   });
-  snmmaurya.console($scope.problems);
-  snmmaurya.console("end");
 });
 /*----------------------------------------------------------------------------------------
 END Problem controller

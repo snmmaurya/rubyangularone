@@ -29,13 +29,13 @@
           <li ng-class="{'active':selectedMenu === 'movies'}" ng-click="selectedMenu = 'movies'">
             <a ng-href="#/movies">Movies</a>
           </li>
-          <li>
+          <li ng-class="{'active':selectedMenu === 'portfolios'}" ng-click="selectedMenu = 'portfolios'">
             <a ng-href="#/portfolios">Portfolio</a>
           </li>                
-            <li ng-if="current_user==undefined">
+            <li ng-class="{'active':selectedMenu === 'sign_up'}" ng-click="selectedMenu = 'sign_up'" ng-if="current_user==undefined">
               <a ng-href="#/users/sign_up">Signup</a>
             </li>
-            <li ng-if="current_user==undefined">
+            <li ng-class="{'active':selectedMenu === 'sign_in'}" ng-click="selectedMenu = 'sign_in'" ng-if="current_user==undefined">
               <a ng-href="#/users/sign_in">Signin</a>
             </li>                   
             <li class="dropdown" ng-if="current_user.id">

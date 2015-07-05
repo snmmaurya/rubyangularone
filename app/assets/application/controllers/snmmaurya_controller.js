@@ -6,9 +6,8 @@ snmmaurya.controller("homeController", function($scope, $http){
   url = "/api/v1/home";
   $http.get(url, {format: 'json'}).success( function(response) {
     $scope.snmmaurya = response;
-  });
-  snmmaurya.console($scope.snmmaurya);
-  snmmaurya.console("end");
+    snmmaurya.console($scope.snmmaurya);
+  });  
 });
 
 /*----------------------------------------------------------------------------------------
@@ -24,9 +23,8 @@ snmmaurya.controller("aboutController", function($scope, $http){
   url = "/api/v1/about";
   $http.get(url, {format: 'json'}).success( function(response) {
     $scope.response = response;
+    snmmaurya.console($scope.response);
   });
-  snmmaurya.console($scope.response);
-  snmmaurya.console("end");
 });
 
 /*----------------------------------------------------------------------------------------
@@ -54,7 +52,7 @@ snmmaurya.controller("contactController", function($scope, $http){
         $scope.contactMessageStatus = {message: "Error, Please try later", class: "notice alert alert-danger"};
       } 
     });
-    snmmaurya.console("end");
+    
   }
   $scope.clearForm = function(){
     $scope.contactForm.$setPristine();
@@ -68,14 +66,14 @@ END contact controller
 /*----------------------------------------------------------------------------------------
 START portfolios controller
 -----------------------------------------------------------------------------------------*/
-snmmaurya.controller("portfoliosController", function($scope, $http, $routeParams){
-  snmmaurya.console("Getting Portfolio");
+snmmaurya.controller("portfoliosController", function($scope, $http, $routeParams, $modal, $log, $controller){
+  $controller('ModelController', {$scope: $scope});
+  snmmaurya.console("Getting Portfolios");
   url = "/api/v1/portfolios";
   $http.get(url, {format: 'json'}).success( function(response) {
     $scope.portfolios = response;
+    snmmaurya.console($scope.portfolios);
   });
-  snmmaurya.console($scope.response);
-  snmmaurya.console("end");
 });
 
 /*----------------------------------------------------------------------------------------
@@ -89,12 +87,11 @@ START portfolios controller
 -----------------------------------------------------------------------------------------*/
 snmmaurya.controller("portfolioController", function($scope, $http, $routeParams){
   snmmaurya.console("Getting Portfolio");
-  url = "/api/v1/portfolio/"+$routeParams.portfolio_id;
+  url = "/api/v1/portfolios/"+$routeParams.id;
   $http.get(url, {format: 'json'}).success( function(response) {
-    $scope.portfoio = response;
+    $scope.portfolio = response;
+    snmmaurya.console($scope.portfolio);
   });
-  snmmaurya.console($scope.response);
-  snmmaurya.console("end");
 });
 
 /*----------------------------------------------------------------------------------------

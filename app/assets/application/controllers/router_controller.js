@@ -1,8 +1,7 @@
 /*----------------------------------------------------------------------------------------
 START Router controller
 -----------------------------------------------------------------------------------------*/
-snmmaurya.config(['$routeProvider',
-function($routeProvider) {
+snmmaurya.config(['$routeProvider',function($routeProvider) {
   $routeProvider.
     when('/', {
       templateUrl: 'home',
@@ -16,7 +15,7 @@ function($routeProvider) {
       templateUrl: 'solutions',
       controller: 'programmersSolutionsController'
     }).
-    when('/programmers/solutions/:solution_id/problems', {
+    when('/programmers/solution/:solution_id/problems', {
       templateUrl: 'problems',
       controller: 'programmersSolutionsProblemsController'
     }).
@@ -28,7 +27,7 @@ function($routeProvider) {
       templateUrl: 'portfolios',
       controller: 'portfoliosController'
     }).
-    when('/portfolios/:portfolio_id', {
+    when('/portfolios/:id', {
       templateUrl: 'portfolio',
       controller: 'portfolioController'
     }).
@@ -39,7 +38,7 @@ function($routeProvider) {
     when('/phones/:phoneId', {
       templateUrl: 'partials/phone-detail.html',
       controller: 'PhoneDetailCtrl'
-    }).
+    }).//Start Movies Routers
     when('/movies', {
       templateUrl: 'movies',
       controller: 'moviesController'
@@ -55,10 +54,10 @@ function($routeProvider) {
     when('/movies/new', {
       templateUrl: 'movies-new',
       controller: 'moviesController'
-    }).
-    when('/lives', {
-      templateUrl: 'customer',
-      controller: 'customerController'
+    }).//END Movies Routers
+    when('/directives', {
+      templateUrl: 'directives',
+      controller: 'livesController'
     }).
     otherwise({
       redirectTo: '/'

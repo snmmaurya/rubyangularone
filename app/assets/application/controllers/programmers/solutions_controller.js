@@ -6,11 +6,9 @@ snmmaurya.controller("programmersSolutionsController", function($scope, $http){
   url = "/api/v1/programmers/solutions";
   $http.get(url, {format: 'json'}).success( function(response) {
     $scope.response = response;
+    snmmaurya.console($scope.response);
   });
-  snmmaurya.console($scope.response);
-  snmmaurya.console("end");
 });
-
 /*----------------------------------------------------------------------------------------
 END Solutions controller
 -----------------------------------------------------------------------------------------*/

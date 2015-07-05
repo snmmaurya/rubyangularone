@@ -2,8 +2,8 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Portfolio
-           <small><%= @portfolio.title %></small>
-        </h1>                
+           <small>My Portfolio</small>
+        </h1>
     </div>
 </div>
 <!-- /.row -->
@@ -11,24 +11,21 @@
 <!-- Portfolio Item Row -->
 <div class="row">
   <div class="col-md-8">
-      <%= image_tag(@portfolio.image, size: "700x400", alt: @portfolio.title, class: "img-responsive") %>
+    <img src="{{portfolio.image.url}}" alt="{{portfolio.title}}" height="700" width="400" class="img-responsive">
   </div>
 
   <div class="col-md-4">
       <h3>Project Description</h3>
-      <p><%= @portfolio.description %></p>
+      <p>{{portfolio.description}}</p>
       <h3>Project Tools</h3>
-      <ul>
-          <% tools = @portfolio.try(:tools).split(";") %>
-          <% tools.each do |tool| %>
-            <li><%= tool %></li>
-          <% end %>
+      <ul ng-init="tools = portfolio.tools.split(';');">
+        <li ng-repeat="tool in tools">{{tool}}</li>
       </ul>
       <h3>Project url</h3>
       <ul>
-        <li><%= link_to @portfolio.url, @portfolio.url, target: "_blnk" %></li>
+        <li><a href="{{portfolio.url}}" target="_blnk">{{portfolio.url}}</a></li>
       </ul>
   </div>
-<%= link_to "Go Back", portfolios_path, class: "btn btn-default pull-right" %>
+  <a ng-href="#/portfolios" class="btn btn-default pull-right">Go Back</a>
 </div>
 <!-- /.row -->

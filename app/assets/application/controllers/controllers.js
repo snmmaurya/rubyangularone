@@ -1,5 +1,5 @@
 // var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ui.bootstrap", "ngResource"]);
-var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource"]);
+var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap"]);
 
 
 /*----------------------------------------------------------------------------------------
@@ -21,9 +21,8 @@ snmmaurya.controller("menuController", function($scope, $http){
   url = "/api/v1/get_current_user";
   $http.get(url, {format: 'json'}).success( function(response) {
     $scope.current_user = response;
+    snmmaurya.console($scope.current_user);
   });
-  snmmaurya.console($scope.current_user);
-  snmmaurya.console("end");
 });
 /*----------------------------------------------------------------------------------------
 END Menu controller
@@ -38,9 +37,8 @@ snmmaurya.controller("footerSolutions", function($scope, $http){
   url = "/api/v1/footer_solutions";
   $http.get(url, {format: 'json'}).success( function(response) {
     $scope.response = response;
+    snmmaurya.console($scope.response);
   });
-  snmmaurya.console($scope.response);
-  snmmaurya.console("end");
 });
 
 /*----------------------------------------------------------------------------------------
@@ -53,10 +51,10 @@ Start Custom Methods
 -----------------------------------------------------------------------------------------*/
 snmmaurya.console = function(information){
   if(Object.prototype.toString.call(information) === '[object String]'){
-   console.log("################# "+ information+ " #################");
+   console.log("------------------------ "+ information + " ------------------------");
   }
   else{
-    console.log(information); 
+    console.log(information==undefined ? "Requested Data Not Found" : information); 
   }
 }
 /*----------------------------------------------------------------------------------------
