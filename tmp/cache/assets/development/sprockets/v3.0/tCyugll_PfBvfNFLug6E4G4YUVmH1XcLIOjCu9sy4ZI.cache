@@ -1,70 +1,0 @@
-{:uriI"file:///var/www/snmmaurya/app/assets/application/templates/shared/menu.html?type=text/html&id=d2fbd34a5ddc377c8564c6043042e837609f53ef4ac314329f0beba8631f3227:ET:load_pathI"./var/www/snmmaurya/app/assets/application;F:filenameI"I/var/www/snmmaurya/app/assets/application/templates/shared/menu.html;T:	nameI"templates/shared/menu;T:logical_pathI"templates/shared/menu.html;T:content_typeI"text/html;T:sourceI"<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#/">Snm Maurya</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right" ng-init="selectedMenu = 'home'">
-          <li ng-class="{'active':selectedMenu === 'home'}" ng-click="selectedMenu = 'home'">
-            <a ng-href="#/">Home</a>
-          </li>
-          <li ng-class="{'active':selectedMenu === 'about'}" ng-click="selectedMenu = 'about'">
-            <a ng-href="#/about" ng-click="">About</a>
-          </li>
-          <li ng-class="{'active':selectedMenu === 'solutions'}" ng-click="selectedMenu = 'solutions'">
-            <a ng-href="#/programmers/solutions">Solutions</a>
-          </li>
-          <li ng-class="{'active':selectedMenu === 'contact'}" ng-click="selectedMenu = 'contact'">
-            <a ng-href="#/contact">Contact</a>
-          </li>
-          <li ng-class="{'active':selectedMenu === 'live'}" ng-click="selectedMenu = 'live'">
-            <a ng-href="#/live">Live</a>
-          </li>
-          <li>
-            <a ng-href="#/portfolios">Portfolio</a>
-          </li>                
-            <li ng-if="current_user==undefined">
-              <a ng-href="#/users/sign_up">Signup</a>
-            </li>
-            <li ng-if="current_user==undefined">
-              <a ng-href="#/users/sign_in">Signin</a>
-            </li>                   
-            <li class="dropdown" ng-if="current_user.id">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                {{current_user.username}} <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                       <a href="">Settings</a>
-                    </li>
-                    <li>
-                      <a href="">Settings</a>
-                    </li>
-                    <li>
-                      <a href="">Settings</a>                             
-                    </li>
-                    
-                      <li ng-if="current_user.role_id==1">
-                        <a href="">Settings</a>
-                    </li>                   
-                </ul>
-            </li>
-      </ul>
-    </div>
-      <!-- /.navbar-collapse -->
-  </div>
-  <!-- /.container -->
-</nav>;T:metadata{	:dependencieso:Set:
-@hash{	I"environment-version;TTI"environment-paths;TTI"2processors:type=text/html&file_type=text/html;TTI"Wfile-digest:///var/www/snmmaurya/app/assets/application/templates/shared/menu.html;TT:charsetI"
-utf-8;F:digest"%°ébÍwèÂq-+ˆIëX«)öòİ’®“ xıwôœ:lengthi:dependencies_digest"%t$
-´ë$S5œF¬zBÔ	iæ)€¿I",*:idI"Ed2fbd34a5ddc377c8564c6043042e837609f53ef4ac314329f0beba8631f3227;F:
-mtimel+~õU

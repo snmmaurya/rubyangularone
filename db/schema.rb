@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623091844) do
+ActiveRecord::Schema.define(version: 20150701102227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20150623091844) do
   create_table "apis", force: :cascade do |t|
     t.string  "title"
     t.integer "user_id"
+  end
+
+  create_table "appointments", force: :cascade do |t|
+    t.integer  "doctor_id"
+    t.integer  "patient_id"
+    t.datetime "appointment_created_at"
+    t.datetime "appointment_at"
   end
 
   create_table "books", force: :cascade do |t|
@@ -100,6 +107,16 @@ ActiveRecord::Schema.define(version: 20150623091844) do
     t.string  "title"
     t.string  "dev_type", default: "WEB"
     t.integer "user_id"
+  end
+
+  create_table "doctors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.text     "address"
+    t.string   "practice"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "downloads", force: :cascade do |t|
@@ -192,6 +209,32 @@ ActiveRecord::Schema.define(version: 20150623091844) do
     t.datetime "updated_at"
     t.string   "slug"
   end
+
+  create_table "movies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "contact"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.text     "address"
+    t.string   "problem"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.string  "image"
+    t.integer "picturable_id"
+    t.string  "picturable_type"
+  end
+
+  add_index "pictures", ["picturable_type", "picturable_id"], name: "index_pictures_on_picturable_type_and_picturable_id", using: :btree
 
   create_table "portfolios", force: :cascade do |t|
     t.string   "title"

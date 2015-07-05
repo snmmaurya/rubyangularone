@@ -1,48 +1,0 @@
-{:uriI"¨file:///var/www/snmmaurya/app/assets/application/templates/lives/customers/index.html?type=text/html&id=a6bb5a991519aeccd580313da74ed1fb572ba012769fe96fe48dab4d7eed4155:ET:load_pathI"./var/www/snmmaurya/app/assets/application;F:filenameI"S/var/www/snmmaurya/app/assets/application/templates/lives/customers/index.html;T:	nameI"$templates/lives/customers/index;T:logical_pathI")templates/lives/customers/index.html;T:content_typeI"text/html;T:sourceI"<!-- Page Heading/Breadcrumbs -->
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">
-           Customers Management System<br>
-           <!-- <form name="customerForm" novalidate> -->
-            Name<input type="text" data-ng-model="customerData.name"><br>
-            Emai<input type="text" data-ng-model="customerData.email"><br>
-            Contact<input type="text" data-ng-model="customerData.contact"><br>
-            <button type="button" class="btn btn-primary" ng-click="addCustomer(customerData)" >Add Customer</button>            
-           <!-- </form> -->
-           <br>Search Filter By Name:
-           <input type="text" ng-model="serachFilter">
-        </h1>                
-    </div>
-</div>
-<!-- /.row -->
-
-<!-- Content -->
-<div class="row">
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover table-striped">
-        <thead>
-            <tr>
-              <th>Sr</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Contact</th>
-              <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="customer in customers">
-            <td>SR</td>
-            <td>{{customer.name}}</td>
-            <td>{{customer.email}}</td>
-            <td>{{customer.contact}}</td>
-            <td>Actions</td>
-          </tr>
-        </tbody>
-    </table>
-  </div>
-</div>
-<!-- /.row -->;T:metadata{	:dependencieso:Set:
-@hash{	I"environment-version;TTI"environment-paths;TTI"2processors:type=text/html&file_type=text/html;TTI"afile-digest:///var/www/snmmaurya/app/assets/application/templates/lives/customers/index.html;TT:charsetI"
-utf-8;F:digest"%upßá!İ®FwĞÄ8hşpp‰”åz‡¿~
-ÔHF:lengthi:dependencies_digest"%2¶÷5Ú¯83ÿîC©)m„W?áhÏf¾£ÍVlkp¨:idI"Ea6bb5a991519aeccd580313da74ed1fb572ba012769fe96fe48dab4d7eed4155;F:
-mtimel+)‘U

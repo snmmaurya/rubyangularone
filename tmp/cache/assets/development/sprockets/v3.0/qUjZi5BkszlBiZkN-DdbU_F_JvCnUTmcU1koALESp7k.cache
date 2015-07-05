@@ -1,22 +1,0 @@
-{:uriI"≠file:///var/www/snmmaurya/app/assets/application/templates/programmers/problems/index.html?type=text/html&id=9eb434f18b62f929085593141a81d001628570f6a29d62b24a868840a76a8ea2:ET:load_pathI"./var/www/snmmaurya/app/assets/application;F:filenameI"X/var/www/snmmaurya/app/assets/application/templates/programmers/problems/index.html;T:	nameI")templates/programmers/problems/index;T:logical_pathI".templates/programmers/problems/index.html;T:content_typeI"text/html;T:sourceI"x<!-- Page Heading/Breadcrumbs -->
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">Problems
-            <small>All Problems</small>
-        </h1>                
-    </div>
-</div>
-<!-- /.row -->
-
-<!-- Team Members -->
-<div class="row" data-ng-controller="programmersSolutionsProblemsController">
-  <div ng-include="'_menu.html'"></div>
-</div>
-
-
-
-
-;T:metadata{	:dependencieso:Set:
-@hash{	I"environment-version;TTI"environment-paths;TTI"2processors:type=text/html&file_type=text/html;TTI"ffile-digest:///var/www/snmmaurya/app/assets/application/templates/programmers/problems/index.html;TT:charsetI"
-utf-8;F:digest"%ç´…v®éŸ©ù±qfør´p	A1Îäíàñ"∑_¥:lengthix:dependencies_digest"%óµ+D£Â’N∂¨H	Ÿ”fT¥÷e⁄ê∆H47:idI"E9eb434f18b62f929085593141a81d001628570f6a29d62b24a868840a76a8ea2;F:
-mtimel+t<ëU
