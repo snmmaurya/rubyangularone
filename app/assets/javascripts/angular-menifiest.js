@@ -22,6 +22,8 @@ Library Related JS
 //= require angular/angular-route.js
 //= require angular/angular-resource.js
 //= require bootstrap/pagination/ui-bootstrap-tpls-0.13.0.js
+
+//= require angular-devise
 /*----------------------------------------------------------------------------
 END Library Related JS
 -----------------------------------------------------------------------------*/
@@ -31,6 +33,7 @@ END Library Related JS
 Controllers related JS
 -----------------------------------------------------------------------------*/
 //= require controllers/controllers.js
+//= require controllers/devise/devise_controller.js
 //= require controllers/snmmaurya_controller.js
 //= require controllers/programmers/solutions_controller.js
 //= require controllers/router_controller.js

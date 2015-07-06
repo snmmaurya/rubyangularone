@@ -63,6 +63,19 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
       redirectTo: '/'
     });
 }]);
+
+
+
+snmmaurya.config(['$routeProvider',function($routeProvider) {
+  $routeProvider.
+    when('/sign_in', {
+      templateUrl: '/assets/templates/devise/sessions/new.html',
+      controller: 'homeController'
+    }).
+    otherwise({
+      redirectTo: '/'
+    });
+}]);
 /*----------------------------------------------------------------------------------------
 End Router controller
 -----------------------------------------------------------------------------------------*/
