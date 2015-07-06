@@ -27,43 +27,43 @@ snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
 });
 
 
-snmmaurya.controller('deviseController', function(Auth, $scope, $location) {
-  this.credentials = {
-    email: '',
-    password: ''  };
+// snmmaurya.controller('deviseController', function(Auth, $scope, $location) {
+//   this.credentials = {
+//     email: '',
+//     password: ''  };
 
-  // this.config = {
-  //   headers: {
-  //       'X-HTTP-Method-Override': 'POST',
-  //       'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
-  //   }
-  // };
+//   // this.config = {
+//   //   headers: {
+//   //       'X-HTTP-Method-Override': 'POST',
+//   //       'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')
+//   //   }
+//   // };
 
 
-  this.signIn = function() {
-    // Code to use 'angular-devise' component
-    //alert(this.credentials.email);
-    Auth.login(this.credentials).then(function(user) {
-      $location.path("/");
-      alert('Successfully signed in user!')
-    }, function(error) {
-      console.info('Error in authenticating user!');
-      alert('Error in signing in user!');
-    });
-  };
+//   this.signIn = function() {
+//     // Code to use 'angular-devise' component
+//     //alert(this.credentials.email);
+//     Auth.login(this.credentials).then(function(user) {
+//       $location.path("/");
+//       alert('Successfully signed in user!')
+//     }, function(error) {
+//       console.info('Error in authenticating user!');
+//       alert('Error in signing in user!');
+//     });
+//   };
 
-  $scope.$on('devise:login', function(event, currentUser) {
-    // after a login, a hard refresh, a new tab
-  });
+//   $scope.$on('devise:login', function(event, currentUser) {
+//     // after a login, a hard refresh, a new tab
+//   });
 
-  $scope.$on('devise:new-session', function(event, currentUser) {
-    // user logged in by Auth.login({...})
-  });
+//   $scope.$on('devise:new-session', function(event, currentUser) {
+//     // user logged in by Auth.login({...})
+//   });
 
-  $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
+//   $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
     
-   }); 
-});
+//    }); 
+// });
 
 
 // snmmaurya.controller('deviseController', ['Auth', '$scope', '$location', function(Auth, $scope, $location) {

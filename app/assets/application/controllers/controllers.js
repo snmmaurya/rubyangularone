@@ -1,4 +1,3 @@
-// var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ui.bootstrap", "ngResource"]);
 var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise"]);
 
 

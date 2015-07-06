@@ -1,27 +1,27 @@
 ######################## Localhost #######################
-# development:
-#   adapter: postgresql
-#   encoding: unicode
-#   host: localhost
-#   database: snm_development
-#   username: snmmaurya
-#   password: snmmaurya
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: snm_development
+  username: snmmaurya
+  password: snmmaurya
 
-# test:
-#   adapter: postgresql
-#   encoding: unicode
-#   database: snm_test
-#   host: localhost
-#   username: snmmaurya
-#   password: snmmaurya
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: snm_test
+  host: localhost
+  username: snmmaurya
+  password: snmmaurya
 
-# production:
-#   adapter: postgresql
-#   encoding: unicode
-#   database: snm
-#   host: localhost
-#   username: snmmaurya
-#   password: snmmaurya
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: snm
+  host: localhost
+  username: snmmaurya
+  password: snmmaurya
 
 
 
@@ -51,35 +51,35 @@
 
 
 
-development:
-  adapter:  postgresql
-  host:     localhost
-  encoding: utf8
-  database: snmmaurya
-  pool:     5
-  username: <%= ENV['PG_USERNAME'] %>
-  password: <%= ENV['PG_PASSWORD'] %>
-  template: template0
-  # others options
+# development:
+#   adapter:  postgresql
+#   host:     localhost
+#   encoding: utf8
+#   database: snmmaurya
+#   pool:     5
+#   username: <%= ENV['PG_USERNAME'] %>
+#   password: <%= ENV['PG_PASSWORD'] %>
+#   template: template0
+#   # others options
 
-test:
-   adapter:  postgresql
-   host:     127.0.0.1
-   encoding: utf8
-   database: snmmaurya
-   pool:     5
-   username: <%= ENV['PG_USERNAME'] %>
-   password: <%= ENV['PG_PASSWORD'] %>
-   template: template0
-   # others options
+# test:
+#    adapter:  postgresql
+#    host:     127.0.0.1
+#    encoding: utf8
+#    database: snmmaurya
+#    pool:     5
+#    username: <%= ENV['PG_USERNAME'] %>
+#    password: <%= ENV['PG_PASSWORD'] %>
+#    template: template0
+#    # others options
 
-production:
-  adapter:  postgresql
-  host:     127.0.0.1
-  encoding: utf8
-  database: snmmaurya
-  pool:     5
-  username: <%= ENV['PG_USERNAME'] %>
-  password: <%= ENV['PG_PASSWORD'] %>
-  template: template0
-  # others options
+# production:
+#   adapter:  postgresql
+#   host:     127.0.0.1
+#   encoding: utf8
+#   database: snmmaurya
+#   pool:     5
+#   username: <%= ENV['PG_USERNAME'] %>
+#   password: <%= ENV['PG_PASSWORD'] %>
+#   template: template0
+#   # others options
