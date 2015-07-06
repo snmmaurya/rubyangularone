@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use SCSS for stylesheets
@@ -80,6 +81,9 @@ gem "delayed_job_active_record"
 gem "sidekiq"
 gem "sidekiq-client-cli"
 gem 'daemons'
+gem 'slim'
+gem 'sinatra'
+
 
 #------ Excel Creator / Pdf generator
 gem 'spreadsheet'
