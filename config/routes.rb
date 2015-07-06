@@ -60,13 +60,13 @@ Rails.application.routes.draw do
 
   resources :lives
   resources :posts
-
   
   namespace :hospitals do
     resources :doctors
     resources :patients
     resources :appointments
   end  
+
 
 #------------------------------ API with AngularJS --------------------------------------#
   namespace :api do
@@ -75,8 +75,19 @@ Rails.application.routes.draw do
       match "/get_current_user", to: "snmmaurya#get_current_user", via: :get
       match "/home", to: "snmmaurya#home", via: :get
       match "/about", to: "snmmaurya#about", via: :get
+      match "/portfolios", to: "snmmaurya#portfolios", via: :get
+      match "/portfolios/:id", to: "snmmaurya#portfolio", via: :get
       match "/footer_solutions", to: "snmmaurya#footer_solutions", via: :get
-      match "/programmers/solutions/:solution_id/problems", to: "programmers/solutions#problems", via: :get
+      match "/programmers/solutions", to: "programmers/solutions#index", via: :get
+      match "/contact", to: "snmmaurya#contact", via: :post
+      match "/lives/directives", to: "lives#directives", via: :get
+      match "/programmers/solution/:solution_id/problems", to: "programmers/problems#index", via: :get
+      match "/programmers/solution/:solution_id/problem/:problem_id/answers", to: "programmers/answers#index", via: :get
+      # match "/programmers/solutions", to: "programmers/solutions#index", via: :get
+
+
+
+      resources :movies
      end 
   end
 

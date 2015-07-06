@@ -1,0 +1,32 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">            
+            <ng-welcome></ng-welcome>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Intro Content -->
+<div class="row">
+    <div class="col-md-12">
+      <h3>Color based custom directive example snmColor model:</h3>
+      <input type="text" ng-model="color" placeholder="Color Name"> 
+      <div style="height:200px;width:300px;" snm-color></div>
+    </div>
+
+    <div class="col-md-12">
+      <h3>Color based custom directive example snmOneColor model:</h3>
+      <input type="text" ng-model="textColor" placeholder="Color Code without # precending"> 
+      <div style="color: #{{textColor}}"> Hello I am here!</div>
+    </div>
+
+
+
+</div>
+
+
+
+
+<!-- https://www.youtube.com/watch?v=vMjR8Op23K4 -->

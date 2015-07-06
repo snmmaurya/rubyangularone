@@ -21,14 +21,29 @@ Library Related JS
 //= require bootstrap/bootstrap.js
 //= require angular/angular-route.js
 //= require angular/angular-resource.js
+//= require bootstrap/pagination/ui-bootstrap-tpls-0.13.0.js
+
+//= require angular-devise
 /*----------------------------------------------------------------------------
 END Library Related JS
 -----------------------------------------------------------------------------*/
 
+
 /*----------------------------------------------------------------------------
 Controllers related JS
 -----------------------------------------------------------------------------*/
-// require angular/controllers/controllers.js
+//= require controllers/controllers.js
+//= require controllers/devise/devise_controller.js
+//= require controllers/snmmaurya_controller.js
+//= require controllers/programmers/solutions_controller.js
+//= require controllers/router_controller.js
+// require controllers/lives/customer_controller.js
+//= require controllers/programmers/problems_controller.js
+//= require controllers/programmers/answers_controller.js
+//= require controllers/lives/movies_controller.js
+//= require controllers/lives/lives_controller.js
+//= require controllers/pagination_controller.js
+//= require controllers/configuration_controller.js
 /*----------------------------------------------------------------------------
 END Controllers related JS
 -----------------------------------------------------------------------------*/
@@ -37,10 +52,19 @@ END Controllers related JS
 /*----------------------------------------------------------------------------
 Custom Library Related JS
 -----------------------------------------------------------------------------*/
-// require angular/factories/factories.js
-// require angular/services/services.js
+//= require factories/factories.js
+//= require filters/filters.js
+//= require directives/directives.js
 /*----------------------------------------------------------------------------
 END Custom Library Related JS
+-----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------
+Bootstrap Related JS
+-----------------------------------------------------------------------------*/
+//= require controllers/bootstraps/model_controller.js
+/*----------------------------------------------------------------------------
+END Bootstrap Related JS
 -----------------------------------------------------------------------------*/
 
 

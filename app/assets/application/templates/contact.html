@@ -1,0 +1,106 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Contact
+             <small>Contact to Me</small> 
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Content Row -->
+<div class="row">
+<!-- Mmenuap Column -->
+<div class="col-md-12">
+    <!-- Embedded Google Map -->
+    <!-- <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe> -->
+</div>
+</div>
+<!-- /.row -->
+
+<!-- Contact Form -->
+<!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+<div class="row">
+<div class="col-md-8">
+    <h3>Send us a Message</h3>
+    <form ng-controller="contactController" name="contactForm" novalidate>
+        <div class="control-group form-group">
+            <div class="controls">
+                <label>Full Name:</label>
+                <input type="text" name="name" ng-model="contactData.name" maxlength="250" class="form-control" required>
+                <span style="color:red" ng-show="contactForm.name.$dirty && contactForm.name.$invalid">
+                  <span ng-show="contactForm.name.$error.required">Name is required.</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="control-group form-group">
+            <div class="controls">
+                <label>Phone Number:</label>
+                <input type="text" name="contact" ng-model="contactData.contact" ng-minlength="10" ng-maxlength="13" maxlength="250" class="form-control" required>
+                <span style="color:red" ng-show="contactForm.contact.$dirty && contactForm.contact.$invalid">
+                  <span ng-show="contactForm.contact.$error.required">contact is required.</span>
+                  <span ng-show="contactForm.contact.$error.maxlength">Maximum should be 13 digit.</span>
+                  <span ng-show="contactForm.contact.$error.minlength">Minimum should be 10 digit.</span>
+                </span>
+            </div>
+        </div>
+        <div class="control-group form-group">
+            <div class="controls">
+                <label>Email Address:</label>
+                <input type="email" name="email" ng-model="contactData.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" maxlength="250" class="form-control" required>
+                <span style="color:red" ng-show="contactForm.email.$dirty && contactForm.email.$invalid">
+                  <span ng-show="contactForm.email.$error.required">email is required.</span>
+                  <span ng-show="contactForm.email.$error.email"> invalid email.</span>
+                </span>
+            </div>
+        </div>
+        <div class="control-group form-group">
+            <div class="controls">
+                <label>Message:</label>
+                <textarea rows="10" name="message" ng-model="contactData.message" maxlength="1000" ng-minlength="10" class="form-control" required></textarea>
+                <span style="color:red" ng-show="contactForm.message.$dirty && contactForm.message.$invalid">
+                  <span ng-show="contactForm.message.$error.required">message is required.</span>
+                </span>
+            </div>
+        </div>
+        <div id="success" class="{{contactMessageStatus.class}}" ng-model="contactMessageStatus">{{contactMessageStatus.message}}</div>
+        <button type="submit" class="btn btn-primary" ng-click="createContact(contactData)" ng-disabled="contactForm.$invalid">Send Message</button> 
+        <!-- <button type="submit" class="btn btn-primary" ng-click="createContact(contactData)" >Send Message</button> -->
+        <button type="reset" class="btn btn-primary" >Reset Message</button>        
+</div>
+
+<!-- Contact Details Column -->
+<div class="col-md-4">
+    <h3>Contact Details</h3>
+    <p>
+        HN 23 Singhpur<br>Hanswar Tanda, UP 224143<br>
+    </p>
+    <p><i class="fa fa-phone"></i> 
+        <abbr title="Phone">P</abbr>: (+91) 9910748171</p>
+    <p><i class="fa fa-envelope-o"></i> 
+        <abbr title="Email">E</abbr>: <a href="mailto:snmmaurya@gmail.com">snmmaurya@gmail.com</a>
+    </p>
+    <!-- <p><i class="fa fa-clock-o"></i> 
+        <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM</p> -->
+    <ul class="list-unstyled list-inline list-social-icons">
+        <li>
+            <a href="http://www.github.com/snmmaurya"><i class="fa fa-github-square fa-2x"></i></a>
+        </li>
+        <li>
+            <a href="http://www.facebook.com/snmplanet"><i class="fa fa-facebook-square fa-2x"></i></a>
+        </li>        
+        <li>
+            <a href="http://www.twitter.com/snmmaurya"><i class="fa fa-twitter-square fa-2x"></i></a>
+        </li>
+        <li>
+            <a href="http://www.linkedin.com/snmmaurya"><i class="fa fa-linkedin-square fa-2x"></i></a>
+        </li>
+        <li>
+            <a href="http://www.google.com/?search=snmmaurya"><i class="fa fa-google-plus-square fa-2x"></i></a>
+        </li>        
+    </ul>
+</div>
+
+</div>
+<!-- /.row -->

@@ -1,0 +1,23 @@
+<form role="form" name="movieForm" class="form-horizontal">
+  <div class="controls">
+    <labe> Name </label>
+    <input name="name" data-ng-model="movie.name" type= "text" class= "form-control" placeholder="Your name" required/>
+    <span ng-show="movieForm.name.$dirty && movieForm.name.$invalid" class="help-inline">Name Required</span>
+  </div>
+  <div class="controls">
+    <label> Email </label>
+    <input name="email" data-ng-model="movie.email" type= "email" class= "form-control" placeholder="Enter email" required/>
+    <span ng-show="movieForm.email.$dirty && movieForm.email.$invalid && !movieForm.email.$error.email" class="help-inline">Email Required</span>
+    <span ng-show="movieForm.email.$error.email" class="help-inline">Email is not valid</span>
+  </div>
+  <div class="controls">
+    <label> Contact </label>
+    <input data-ng-model="movie.contact" type= "text" class= "form-control" placeholder= "Contact Number"/>
+  </div>
+  <div class="controls">
+    <br>
+    <a ng-href="#/movies" class="btn btn-default">Back</a>
+    <button data-ng-show="!movie.id" data-ng-click="createMovie(movie);" ng-disabled="movieForm.$invalid" class="btn btn-primary">Submit</button>
+    <button data-ng-show="movie.id" data-ng-click="updateMovie(movie);" ng-disabled="movieForm.$invalid" class="btn btn-primary">Submit</button>
+  </div>
+</form>

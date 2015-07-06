@@ -1,0 +1,53 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           About Me
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Intro Content -->
+<div class="row">
+	<div class="col-sm-7">
+		<h3>Employment</h3>
+		<h5 ng-repeat-start="employment in response.employments">{{employment.role}} - {{employment.company}}({{ employment.joined_at | date: "MMM yyyy"}} - {{employment.leaved_at | date: "MMM yyyy"}})</h5>
+		{{employment.description}}
+		<hr ng-repeat-end>
+
+	<h3>Education</h3>
+	<h5 ng-repeat-start="education in response.educations">{{education.title}} - {{education.school}}({{ education.started_at | date: "MMM yyyy"}} - {{education.completed_at | date: "MMM yyyy"}})</h5>
+		{{education.description}}
+		<hr ng-repeat-end>
+	</div>
+
+
+	<div class="col-sm-5">
+		<h3>Web Development</h3>       
+		<div ng-repeat="development in response.developments | filter:dev_type='WEB'">
+		{{development.title}}
+		</div>
+
+
+		<h3>Mobile Development</h3>   
+		<div ng-repeat="development in response.developments | filter:dev_type='MOBILE'">
+		{{development.title}}
+		</div>
+
+		<h3>Web Technologies</h3>   
+		<div ng-repeat="technology in response.technologies | filter:dev_type='WEB'">
+		{{technology.title}}
+		</div>    
+
+		<h3>APIS</h3> 
+		<div ng-repeat="api in response.apis | orderBy:created_at">
+		{{api.title}}
+		</div>
+
+		<h3>Other Technologies</h3> 
+		<div ng-repeat="technology in response.technologies | filter:dev_type='OTHER'">
+		{{technology.title}}
+		</div>
+	</div>
+</div>

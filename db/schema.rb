@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150627130904) do
+=======
+ActiveRecord::Schema.define(version: 20150701102227) do
+>>>>>>> 9bd7ceff4a343c40ea2feef4100ed5d60fc19e90
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +214,17 @@ ActiveRecord::Schema.define(version: 20150627130904) do
     t.string   "slug"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "movies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "contact"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+>>>>>>> 9bd7ceff4a343c40ea2feef4100ed5d60fc19e90
   create_table "patients", force: :cascade do |t|
     t.string   "name"
     t.string   "email"

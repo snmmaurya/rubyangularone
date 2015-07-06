@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html ng-app="snmmaurya">
+<head ng-controller="headerController">
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="/assets/angular-menifiest.css">
+  <script type="text/javascript" src="/assets/angular-menifiest.js"></script>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div ng-controller="menuController">
+    <div ng-include="'/assets/templates/shared/menu.html'"></div>
+  </div>
+  <div id="flash-messages-container" class="text-center">    
+  </div>
+  <div class="container">
+    <div ng-view></div>
+    <div class="row" ng-include="'/assets/templates/shared/solutions.html'" ng-controller="footerSolutions"></div>
+    <hr>
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright &copy; SnmMaurya.com 2015-2020</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- /.container -->
+</body>
+</html>
+
+<!-- Snmmaurya ==================================================================== -->
+<script type="text/ng-template" id="home">
+  <div ng-include="'/assets/templates/home.html'"></div>
+</script>
+
+<script type="text/ng-template" id="about">
+  <div ng-include="'/assets/templates/about.html'"></div>
+</script>
+
+<script type="text/ng-template" id="contact">
+  <div ng-include="'/assets/templates/contact.html'"></div>
+</script>
+
+<script type="text/ng-template" id="portfolios">
+  <div ng-include="'/assets/templates/portfolios.html'"></div>
+</script>
+
+<script type="text/ng-template" id="portfolio">
+  <div ng-include="'/assets/templates/portfolio.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+
+<!-- Solutions ==================================================================== -->
+<script type="text/ng-template" id="solutions">
+  <div ng-include="'/assets/templates/programmers/solutions/index.html'"></div>
+</script>
+
+<script type="text/ng-template" id="problems">
+  <div ng-include="'/assets/templates/programmers/problems/index.html'"></div>
+</script>
+
+<script type="text/ng-template" id="answers">
+  <div ng-include="'/assets/templates/programmers/answers/index.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+
+
+<!-- Movies ==================================================================== -->
+<script type="text/ng-template" id="movies">
+  <div ng-include="'assets/templates/lives/movies/index.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-show">
+  <div ng-include="'assets/templates/lives/movies/show.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-edit">
+  <div ng-include="'assets/templates/lives/movies/edit.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-new">
+  <div ng-include="'assets/templates/lives/movies/new.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+<script type="text/ng-template" id="directives">
+  <div ng-include="'assets/templates/lives/directives/index.html'"></div>
+</script>

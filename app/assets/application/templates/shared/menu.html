@@ -1,0 +1,66 @@
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#/">Snm Maurya</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" ng-init="selectedMenu = 'home'">
+          <li ng-class="{'active':selectedMenu === 'home'}" ng-click="selectedMenu = 'home'">
+            <a ng-href="#/">Home</a>
+          </li>
+          <li ng-class="{'active':selectedMenu === 'about'}" ng-click="selectedMenu = 'about'">
+            <a ng-href="#/about" ng-click="">About</a>
+          </li>
+          <li ng-class="{'active':selectedMenu === 'solutions'}" ng-click="selectedMenu = 'solutions'">
+            <a ng-href="#/programmers/solutions">Solutions</a>
+          </li>
+          <li ng-class="{'active':selectedMenu === 'contact'}" ng-click="selectedMenu = 'contact'">
+            <a ng-href="#/contact">Contact</a>
+          </li>
+          <li ng-class="{'active':selectedMenu === 'movies'}" ng-click="selectedMenu = 'movies'">
+            <a ng-href="#/movies">Movies</a>
+          </li>
+          <li ng-class="{'active':selectedMenu === 'portfolios'}" ng-click="selectedMenu = 'portfolios'">
+            <a ng-href="#/portfolios">Portfolio</a>
+          </li>                
+            <li ng-class="{'active':selectedMenu === 'sign_up'}" ng-click="selectedMenu = 'sign_up'" ng-if="current_user==undefined">
+              <a ng-href="#/users/sign_up">Signup</a>
+            </li>
+            <li ng-class="{'active':selectedMenu === 'sign_in'}" ng-click="selectedMenu = 'sign_in'" ng-if="current_user==undefined">
+              <a ng-href="#/sign_in">Signin</a>
+            </li>                   
+            <li class="dropdown" ng-if="current_user.id">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                {{current_user.username}} <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                       <a href="">Settings</a>
+                    </li>
+                    <li>
+                      <a href="">Settings</a>
+                    </li>
+                    <li>
+                      <a href="">Settings</a>                             
+                    </li>
+                    
+                      <li ng-if="current_user.role_id==1">
+                        <a href="">Settings</a>
+                    </li>                   
+                </ul>
+            </li>
+      </ul>
+    </div>
+      <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>

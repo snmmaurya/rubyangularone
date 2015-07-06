@@ -13,6 +13,16 @@ class Api::V1::SnmmauryaController < Api::V1::BaseApiController
 
   def snmmaurya
     @snmmaurya = User.includes(:infos).joins(:infos).where(role_id: 1).first
+  end
+
+  def contact
+    @contact = Contact.new(contact_params)
+    if @contact.save
+      status = "OK"
+    else
+      status = "ERROR"
+    end
+    render json: {status: status}
   end 
 
   def download_resume
@@ -39,4 +49,17 @@ class Api::V1::SnmmauryaController < Api::V1::BaseApiController
     @response = {user: @user, employments: @employments, educations: @educations, developments: @developments, technologies: @technologies, apis: @apis, profile: @profile}
     render json: @response
   end
+
+  def portfolios
+    render json: Portfolio.all
+  end
+
+  def portfolio
+    render json: (Portfolio.find params[:id])
+  end
+
+private
+  def contact_params
+    params.permit(:message, :name, :email, :contact)
+  end  
 end
