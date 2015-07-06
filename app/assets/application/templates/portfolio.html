@@ -1,0 +1,31 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Portfolio
+           <small>My Portfolio</small>
+        </h1>
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Portfolio Item Row -->
+<div class="row">
+  <div class="col-md-8">
+    <img src="{{portfolio.image.url}}" alt="{{portfolio.title}}" height="700" width="400" class="img-responsive">
+  </div>
+
+  <div class="col-md-4">
+      <h3>Project Description</h3>
+      <p>{{portfolio.description}}</p>
+      <h3>Project Tools</h3>
+      <ul ng-init="tools = portfolio.tools.split(';');">
+        <li ng-repeat="tool in tools">{{tool}}</li>
+      </ul>
+      <h3>Project url</h3>
+      <ul>
+        <li><a href="{{portfolio.url}}" target="_blnk">{{portfolio.url}}</a></li>
+      </ul>
+  </div>
+  <a ng-href="#/portfolios" class="btn btn-default pull-right">Go Back</a>
+</div>
+<!-- /.row -->

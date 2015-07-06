@@ -38,7 +38,6 @@ end
 group :test do
   gem 'web-console', '~> 2.0'
   gem 'pry'
-  gem "sqlite3"
 end
 
 gem 'redis'
@@ -55,7 +54,7 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'gupshup'
 gem 'kaminari'
-gem 'mailcatcher'
+# gem 'mailcatcher'
 gem "friendly_id"
 gem "meta-tags"
 
@@ -102,3 +101,11 @@ gem "app_config"
 # rails server unicorn  #to run the application under unicorn server
 
 gem 'acts-as-taggable-on'
+
+# AngularJS based gems
+
+gem 'angular_rails_csrf'
+
+source "https://rails-assets.org" do
+  gem "rails-assets-angular-devise"
+end

@@ -1,0 +1,1 @@
+snmmaurya.controller("livesController", function($scope, $http, $location, $routeParams){ });
