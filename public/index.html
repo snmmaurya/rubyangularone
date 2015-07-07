@@ -9,7 +9,7 @@
   <div ng-controller="menuController">
     <div ng-include="'/assets/templates/shared/menu.html'"></div>
   </div>
-  <div id="flash-messages-container" class="text-center">    
+  <div id="flash-messages-container" class="text-center">
   </div>
   <div class="container">
     <div ng-view></div>
@@ -84,4 +84,9 @@
 
 <script type="text/ng-template" id="directives">
   <div ng-include="'assets/templates/lives/directives/index.html'"></div>
+</script>
+
+
+<script type="text/ng-template" id="lives">
+  <div ng-include="'assets/templates/lives/lives/index.html'"></div>
 </script>

@@ -31,7 +31,7 @@
             <td>{{movie.email}}</td>
             <td>{{movie.created_at}}</td>
             <td>
-              <a ng-href="#/movies/{{movie.id}}/show" class="btn btn-xs btn-default">View</a>
+              <a href="javascript: void(0);" ng-click="open({size: '', templateUrl: 'movieShowModel', data: movie})" class="btn btn-xs btn-default">View</a>
               <a ng-href="#/movies/{{movie.id}}/edit" class="btn btn-xs btn-info">Edit</a>
               <a href="javascript: void(0)" ng-click="deleteMovie(movie)" class="btn btn-xs btn-danger">Delete</a>
             </td>                           
@@ -44,3 +44,24 @@
   </div>
 </div>
 <!-- /.row -->
+
+
+<script type="text/ng-template" id="movieShowModel">
+  <div class="modal-header">
+      <h3 class="modal-title">Movies Show</h3>
+  </div>
+  <div class="modal-body">
+      <h4>Name:</h4>
+      <div>{{modalContents.name}}</div>
+      <h4>Email:</h4>
+      <div>{{modalContents.email}}</div> 
+      <h4>Contact:</h4>
+      <div>{{modalContents.contact}}</div> 
+      <h4>Created At:</h4>
+      <div>{{modalContents.created_at}}</div>       
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</script>

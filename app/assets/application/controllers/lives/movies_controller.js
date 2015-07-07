@@ -1,5 +1,5 @@
-snmmaurya.controller("moviesController", function($scope, $http, $location, $routeParams, MovieFactory){
-
+snmmaurya.controller("moviesController", function($controller, $scope, $http, $location, $routeParams, MovieFactory){
+  $controller('ModelController', {$scope: $scope});
   $scope.getMovies = function(){
     MovieFactory.getMovies().then(function(response){
       $scope.movies = response.data;

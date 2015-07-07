@@ -7,7 +7,7 @@ TEMPLATE-URL: Your angular-js template id
 snmmaurya.controller('ModelController', function ($scope, $modal, $log) {
   $scope.modalContents = {};
   $scope.animationsEnabled = true;
-  $scope.open = function (configuration={}) {
+  $scope.open = function (configuration) {
     $scope.modalContents = configuration.data;
     var modalInstance = $modal.open({
       animation: $scope.animationsEnabled,

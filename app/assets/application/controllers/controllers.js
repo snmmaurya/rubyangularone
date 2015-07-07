@@ -1,3 +1,6 @@
+'use strict';
+
+
 var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise"]);
 
 
@@ -55,7 +58,7 @@ snmmaurya.console = function(information){
   else{
     console.log(information==undefined ? "Requested Data Not Found" : information); 
   }
-}
+};
 /*----------------------------------------------------------------------------------------
 END Custom Methods
 -----------------------------------------------------------------------------------------*/

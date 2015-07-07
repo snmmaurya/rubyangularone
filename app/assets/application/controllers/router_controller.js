@@ -59,6 +59,10 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
       templateUrl: 'directives',
       controller: 'livesController'
     }).
+    when('/lives', {
+      templateUrl: 'lives',
+      controller: 'livesController'
+    }).
     otherwise({
       redirectTo: '/'
     });
