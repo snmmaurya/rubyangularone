@@ -1,8 +1,6 @@
 'use strict';
 
-
-var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise"]);
-
+var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise", "globalModule"]);
 
 /*----------------------------------------------------------------------------------------
 START Header controller
@@ -18,12 +16,16 @@ ENE Header controller
 /*----------------------------------------------------------------------------------------
 START Menu controller
 -----------------------------------------------------------------------------------------*/
-snmmaurya.controller("menuController", function($scope, $http){
+snmmaurya.controller("menuController", function($scope, $http, flashMessage){
   snmmaurya.console("Getting Current User");
   url = "/api/v1/get_current_user";
   $http.get(url, {format: 'json'}).success( function(response) {
     $scope.current_user = response;
     snmmaurya.console($scope.current_user);
+  });
+
+  $scope.$on('$routeChangeStart', function(next, current) { 
+    $scope.flashMessage = flashMessage.getFlashMessage();
   });
 });
 /*----------------------------------------------------------------------------------------

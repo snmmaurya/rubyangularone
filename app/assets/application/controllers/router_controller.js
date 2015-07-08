@@ -74,7 +74,7 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
   $routeProvider.
     when('/sign_in', {
       templateUrl: '/assets/templates/devise/sessions/new.html',
-      controller: 'homeController'
+      controller: 'deviseController'
     }).
     otherwise({
       redirectTo: '/'

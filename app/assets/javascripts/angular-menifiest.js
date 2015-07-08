@@ -22,6 +22,7 @@ Library Related JS
 //= require angular/angular-route.js
 //= require angular/angular-resource.js
 //= require bootstrap/pagination/ui-bootstrap-tpls-0.13.0.js
+//= require modules/modules.js
 
 //= require angular-devise
 /*----------------------------------------------------------------------------

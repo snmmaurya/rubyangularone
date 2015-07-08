@@ -24,6 +24,20 @@ app.factory('Scopes', function ($rootScope) {
     };
 });
 
+
+
+// snmmaurya.service("flashMessage", function(){
+
+//   this.message = "";
+
+//   this.getFlashMessage = function(){
+//     return message;
+//   };
+//   this.setFlashMessage = function(){
+//     message;
+//   };
+// });
+
 /*----------------------------------------------------------------------------------------
 End Services
 -----------------------------------------------------------------------------------------*/
