@@ -64,4 +64,8 @@ snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
         $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
           deferred.reject(xhr);
         });
+
+        this.currentUser = function(){
+            console.log(Auth._currentUser);
+        }
     });

@@ -1,7 +1,11 @@
 'use strict';
 
-var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise", "globalModule"]);
+var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise", "globalModule", "xeditable"]);
 
+
+snmmaurya.run(function(editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+});
 /*----------------------------------------------------------------------------------------
 START Header controller
 -----------------------------------------------------------------------------------------*/

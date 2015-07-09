@@ -11,7 +11,7 @@ globalModule.service("flashMessage", function(){
   this.getFlashMessage = function(){
     return this.message;
   };
-  this.setFlashMessage = function(message, type='success'){
+  this.setFlashMessage = function(message, type){
     this.message = {message: message,  type: type}
   };
 });

@@ -14,15 +14,15 @@
   <div class="control-group form-group">
     <div class="controls">
       <label>Name</label>
-      <a href="#" editable-text="movie.name" onbeforesave="updateMovie({name: $data, id: movie.id})">{{ movie.name || 'empty' }}</a>
+      <a href="#" editable-name="movie.name">{{ movie.name || 'empty' }}</a>
     </div>
     <div class="controls">
       <label>Email</label>
-      <a href="#" editable-email="movie.email" onbeforesave="updateMovie({email: $data, id: movie.id})">{{ movie.email || 'empty' }}</a>
+      <a href="#" editable-email="movie.email">{{ movie.email || 'empty' }}</a>
     </div>
     <div class="controls">
       <label>Contact</label>
-      <a href="#" editable-tel="movie.contact" onbeforesave="updateMovie({contact: $data, id: movie.id})">{{ movie.contact || 'empty' }}</a>
+      <a href="#" editable-contact="movie.contact">{{ movie.contact || 'empty' }}</a>
     </div>
     <div class="controls">
       <label>Create AT</label>

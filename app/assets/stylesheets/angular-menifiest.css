@@ -16,7 +16,9 @@
  *= require snm
  *= require font-awesome
  *= require bootstrap-wysihtml5
-  *= require carousel
+ *= require carousel
+ *= require angular/angular-xeditable-0.1.8/xeditable.css
+
 
  *= require jquery-ui/all.css
 
