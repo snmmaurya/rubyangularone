@@ -1,6 +1,4 @@
-Polymorphic Association
-has_many :through
-has_and_belongs_to_many
+animation + angular
 
 
-https://www.youtube.com/watch?v=PCzPws4zdzI
+edit and add on same line angular.
