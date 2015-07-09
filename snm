@@ -1,0 +1,2675 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: answers; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE answers (
+    id integer NOT NULL,
+    answer text,
+    description character varying,
+    status character varying DEFAULT 'ACTIVE'::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    problem_id integer,
+    user_id integer,
+    slug character varying
+);
+
+
+ALTER TABLE answers OWNER TO snmmaurya;
+
+--
+-- Name: answers_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE answers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE answers_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE answers_id_seq OWNED BY answers.id;
+
+
+--
+-- Name: apis; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE apis (
+    id integer NOT NULL,
+    title character varying,
+    user_id integer
+);
+
+
+ALTER TABLE apis OWNER TO snmmaurya;
+
+--
+-- Name: apis_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE apis_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE apis_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: apis_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE apis_id_seq OWNED BY apis.id;
+
+
+--
+-- Name: appointments; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE appointments (
+    id integer NOT NULL,
+    doctor_id integer,
+    patient_id integer,
+    appointment_created_at timestamp without time zone,
+    appointment_at timestamp without time zone
+);
+
+
+ALTER TABLE appointments OWNER TO snmmaurya;
+
+--
+-- Name: appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE appointments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE appointments_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE appointments_id_seq OWNED BY appointments.id;
+
+
+--
+-- Name: books; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE books (
+    id integer NOT NULL,
+    title character varying,
+    description text,
+    image character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    slug character varying
+);
+
+
+ALTER TABLE books OWNER TO snmmaurya;
+
+--
+-- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE books_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE books_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE books_id_seq OWNED BY books.id;
+
+
+--
+-- Name: comments; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE comments (
+    id integer NOT NULL,
+    comment character varying,
+    status character varying DEFAULT 'ACTIVE'::character varying,
+    comment_id integer,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE comments OWNER TO snmmaurya;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE comments_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
+
+
+--
+-- Name: contacts; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE contacts (
+    id integer NOT NULL,
+    name character varying,
+    email character varying,
+    contact character varying,
+    message text,
+    status character varying DEFAULT 'ACTIVE'::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE contacts OWNER TO snmmaurya;
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE contacts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE contacts_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE contacts_id_seq OWNED BY contacts.id;
+
+
+--
+-- Name: countries; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE countries (
+    id integer NOT NULL,
+    title character varying,
+    iso character varying,
+    code character varying,
+    currency character varying,
+    capital character varying,
+    language character varying,
+    sex_ratio character varying,
+    litracy character varying,
+    population character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE countries OWNER TO snmmaurya;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE countries_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE countries_id_seq OWNED BY countries.id;
+
+
+--
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE delayed_jobs (
+    id integer NOT NULL,
+    priority integer DEFAULT 0 NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    handler text NOT NULL,
+    last_error text,
+    run_at timestamp without time zone,
+    locked_at timestamp without time zone,
+    failed_at timestamp without time zone,
+    locked_by character varying,
+    queue character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE delayed_jobs OWNER TO snmmaurya;
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE delayed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE delayed_jobs_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
+
+
+--
+-- Name: developments; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE developments (
+    id integer NOT NULL,
+    title character varying,
+    dev_type character varying DEFAULT 'WEB'::character varying,
+    user_id integer
+);
+
+
+ALTER TABLE developments OWNER TO snmmaurya;
+
+--
+-- Name: developments_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE developments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE developments_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: developments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE developments_id_seq OWNED BY developments.id;
+
+
+--
+-- Name: doctors; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE doctors (
+    id integer NOT NULL,
+    name character varying,
+    email character varying,
+    address text,
+    practice character varying,
+    description text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE doctors OWNER TO snmmaurya;
+
+--
+-- Name: doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE doctors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE doctors_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE doctors_id_seq OWNED BY doctors.id;
+
+
+--
+-- Name: downloads; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE downloads (
+    id integer NOT NULL,
+    download character varying,
+    filename character varying,
+    extension character varying,
+    ready_to_download boolean DEFAULT false,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE downloads OWNER TO snmmaurya;
+
+--
+-- Name: downloads_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE downloads_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE downloads_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: downloads_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE downloads_id_seq OWNED BY downloads.id;
+
+
+--
+-- Name: educations; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE educations (
+    id integer NOT NULL,
+    title character varying,
+    school character varying,
+    description text,
+    status character varying DEFAULT 'COMPLETED'::character varying,
+    started_at timestamp without time zone,
+    completed_at timestamp without time zone,
+    user_id integer
+);
+
+
+ALTER TABLE educations OWNER TO snmmaurya;
+
+--
+-- Name: educations_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE educations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE educations_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: educations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE educations_id_seq OWNED BY educations.id;
+
+
+--
+-- Name: employments; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE employments (
+    id integer NOT NULL,
+    role character varying,
+    company character varying,
+    description text,
+    status character varying DEFAULT 'PREVIOUS'::character varying,
+    joined_at timestamp without time zone,
+    leaved_at timestamp without time zone,
+    user_id integer
+);
+
+
+ALTER TABLE employments OWNER TO snmmaurya;
+
+--
+-- Name: employments_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE employments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE employments_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: employments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE employments_id_seq OWNED BY employments.id;
+
+
+--
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE friendly_id_slugs (
+    id integer NOT NULL,
+    slug character varying NOT NULL,
+    sluggable_id integer NOT NULL,
+    sluggable_type character varying(50),
+    scope character varying,
+    created_at timestamp without time zone
+);
+
+
+ALTER TABLE friendly_id_slugs OWNER TO snmmaurya;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE friendly_id_slugs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE friendly_id_slugs_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE friendly_id_slugs_id_seq OWNED BY friendly_id_slugs.id;
+
+
+--
+-- Name: identities; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE identities (
+    id integer NOT NULL,
+    user_id integer,
+    provider character varying,
+    uid character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE identities OWNER TO snmmaurya;
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE identities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE identities_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE identities_id_seq OWNED BY identities.id;
+
+
+--
+-- Name: images; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE images (
+    id integer NOT NULL,
+    image character varying,
+    imageable_id integer,
+    imageable_type character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE images OWNER TO snmmaurya;
+
+--
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE images_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE images_id_seq OWNED BY images.id;
+
+
+--
+-- Name: infos; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE infos (
+    id integer NOT NULL,
+    fname character varying,
+    lname character varying,
+    date_of_birth character varying,
+    contact character varying,
+    gender character varying,
+    address text,
+    about_yourself text,
+    martial_status character varying,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    state_id integer,
+    country_id integer,
+    city character varying
+);
+
+
+ALTER TABLE infos OWNER TO snmmaurya;
+
+--
+-- Name: infos_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE infos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE infos_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: infos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE infos_id_seq OWNED BY infos.id;
+
+
+--
+-- Name: lessions; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE lessions (
+    id integer NOT NULL,
+    title character varying,
+    description text,
+    book_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    slug character varying
+);
+
+
+ALTER TABLE lessions OWNER TO snmmaurya;
+
+--
+-- Name: lessions_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE lessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE lessions_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: lessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE lessions_id_seq OWNED BY lessions.id;
+
+
+--
+-- Name: movies; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE movies (
+    id integer NOT NULL,
+    name character varying,
+    email character varying,
+    contact character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE movies OWNER TO snmmaurya;
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE movies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE movies_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE movies_id_seq OWNED BY movies.id;
+
+
+--
+-- Name: patients; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE patients (
+    id integer NOT NULL,
+    name character varying,
+    email character varying,
+    address text,
+    problem character varying,
+    description text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE patients OWNER TO snmmaurya;
+
+--
+-- Name: patients_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE patients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE patients_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: patients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
+
+
+--
+-- Name: pictures; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE pictures (
+    id integer NOT NULL,
+    image character varying,
+    picturable_id integer,
+    picturable_type character varying
+);
+
+
+ALTER TABLE pictures OWNER TO snmmaurya;
+
+--
+-- Name: pictures_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE pictures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pictures_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: pictures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE pictures_id_seq OWNED BY pictures.id;
+
+
+--
+-- Name: portfolios; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE portfolios (
+    id integer NOT NULL,
+    title character varying,
+    image character varying,
+    url character varying,
+    tools character varying,
+    description text,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE portfolios OWNER TO snmmaurya;
+
+--
+-- Name: portfolios_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE portfolios_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE portfolios_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: portfolios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE portfolios_id_seq OWNED BY portfolios.id;
+
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE posts (
+    id integer NOT NULL,
+    title character varying,
+    image character varying,
+    description text,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE posts OWNER TO snmmaurya;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE posts_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+
+
+--
+-- Name: problems; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE problems (
+    id integer NOT NULL,
+    problem text,
+    description character varying,
+    status character varying DEFAULT 'ACTIVE'::character varying,
+    solution_id integer,
+    user_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    slug character varying
+);
+
+
+ALTER TABLE problems OWNER TO snmmaurya;
+
+--
+-- Name: problems_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE problems_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE problems_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: problems_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE problems_id_seq OWNED BY problems.id;
+
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE roles (
+    id integer NOT NULL,
+    role character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE roles OWNER TO snmmaurya;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE roles_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE schema_migrations OWNER TO snmmaurya;
+
+--
+-- Name: solutions; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE solutions (
+    id integer NOT NULL,
+    solution character varying,
+    description character varying,
+    image character varying,
+    status character varying DEFAULT 'ACTIVE'::character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    slug character varying
+);
+
+
+ALTER TABLE solutions OWNER TO snmmaurya;
+
+--
+-- Name: solutions_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE solutions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE solutions_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: solutions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE solutions_id_seq OWNED BY solutions.id;
+
+
+--
+-- Name: states; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE states (
+    id integer NOT NULL,
+    title character varying,
+    capital character varying,
+    language character varying,
+    sex_ratio character varying,
+    litracy character varying,
+    population character varying,
+    country_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE states OWNER TO snmmaurya;
+
+--
+-- Name: states_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE states_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE states_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE states_id_seq OWNED BY states.id;
+
+
+--
+-- Name: students; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE students (
+    id integer NOT NULL,
+    name character varying,
+    contact character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE students OWNER TO snmmaurya;
+
+--
+-- Name: students_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE students_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE students_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE students_id_seq OWNED BY students.id;
+
+
+--
+-- Name: taggings; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE taggings (
+    id integer NOT NULL,
+    tag_id integer,
+    taggable_id integer,
+    taggable_type character varying,
+    tagger_id integer,
+    tagger_type character varying,
+    context character varying(128),
+    created_at timestamp without time zone
+);
+
+
+ALTER TABLE taggings OWNER TO snmmaurya;
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE taggings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE taggings_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE taggings_id_seq OWNED BY taggings.id;
+
+
+--
+-- Name: tags; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE tags (
+    id integer NOT NULL,
+    name character varying,
+    taggings_count integer DEFAULT 0
+);
+
+
+ALTER TABLE tags OWNER TO snmmaurya;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tags_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
+
+
+--
+-- Name: teachers; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE teachers (
+    id integer NOT NULL,
+    name character varying,
+    contact character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE teachers OWNER TO snmmaurya;
+
+--
+-- Name: teachers_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE teachers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE teachers_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: teachers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE teachers_id_seq OWNED BY teachers.id;
+
+
+--
+-- Name: technologies; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE technologies (
+    id integer NOT NULL,
+    title character varying,
+    tech_type character varying DEFAULT 'WEB'::character varying,
+    user_id integer
+);
+
+
+ALTER TABLE technologies OWNER TO snmmaurya;
+
+--
+-- Name: technologies_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE technologies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE technologies_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: technologies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE technologies_id_seq OWNED BY technologies.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying,
+    last_sign_in_ip character varying,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    username character varying,
+    role_id integer DEFAULT 2,
+    image character varying,
+    provider character varying,
+    uid character varying,
+    resume_doc character varying,
+    resume_pdf character varying,
+    slug character varying,
+    web_site character varying DEFAULT 'http://www.snmmaurya.com'::character varying
+);
+
+
+ALTER TABLE users OWNER TO snmmaurya;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: snmmaurya
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO snmmaurya;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: snmmaurya
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY answers ALTER COLUMN id SET DEFAULT nextval('answers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY apis ALTER COLUMN id SET DEFAULT nextval('apis_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY appointments ALTER COLUMN id SET DEFAULT nextval('appointments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY books ALTER COLUMN id SET DEFAULT nextval('books_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY contacts ALTER COLUMN id SET DEFAULT nextval('contacts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY countries ALTER COLUMN id SET DEFAULT nextval('countries_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY developments ALTER COLUMN id SET DEFAULT nextval('developments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY doctors ALTER COLUMN id SET DEFAULT nextval('doctors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY downloads ALTER COLUMN id SET DEFAULT nextval('downloads_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY educations ALTER COLUMN id SET DEFAULT nextval('educations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY employments ALTER COLUMN id SET DEFAULT nextval('employments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly_id_slugs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY identities ALTER COLUMN id SET DEFAULT nextval('identities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY infos ALTER COLUMN id SET DEFAULT nextval('infos_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY lessions ALTER COLUMN id SET DEFAULT nextval('lessions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY movies ALTER COLUMN id SET DEFAULT nextval('movies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY pictures ALTER COLUMN id SET DEFAULT nextval('pictures_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY portfolios ALTER COLUMN id SET DEFAULT nextval('portfolios_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY problems ALTER COLUMN id SET DEFAULT nextval('problems_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY solutions ALTER COLUMN id SET DEFAULT nextval('solutions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY states ALTER COLUMN id SET DEFAULT nextval('states_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY students ALTER COLUMN id SET DEFAULT nextval('students_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY taggings ALTER COLUMN id SET DEFAULT nextval('taggings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY teachers ALTER COLUMN id SET DEFAULT nextval('teachers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY technologies ALTER COLUMN id SET DEFAULT nextval('technologies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: answers; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY answers (id, answer, description, status, created_at, updated_at, problem_id, user_id, slug) FROM stdin;
+5	1. Uncomment<br>/config/environment.rb<br># ENV['RAILS_ENV'] ||= 'production'<br><br>2. Set the logging level to minimum so that your log files do not blow up.<br><br>UnComment this and change :debug to :info<br># config.log_level = :debug<br><br><br>default production uses :info, the others :debug)<br>But if you want to trouble shoot while in production put the log level to :debug<br><br>3. To run the application in production mode in your local server(command prompt),<br>remember to do<br>script/server -e production<br><br>4. To debug use the command<br>script/server -e production -u<br><br>5. #Rails by default doesn't serve assets under public<br>config.serve_static_files = false<br>to<br>config.serve_static_files = true<br><br>6)And for the fonts change font location under css like <br>src: url('/assets/fontawesome-webfont.eot?v=4.2.0');<br><br>since you cannot stop and restart the application<br>rake db:setup RAILS_ENV=production<br><br>rails s -p mode<br>	\N	ACTIVE	2015-06-28 07:29:52.184968	2015-06-28 08:39:31.938819	6	1	1-uncomment-br-config-environment-rb-br-env-rails_env-production-br-br-2-set-the-logging-level-to-minimum-so-that-your-log-files-do-not-blow-up-br-br-uncomment-this-and-change-debug-to-info-br-config-log_level-debug-br-br-br-default-production-uses-info-the-others-debug-br-but-if-you-want-to-trouble-shoot-while-in-production-put-the-log-level-to-debug-br-br-3-to-run-the-application-in-production-mode-in-your-local-server-command-prompt-br-remember-to-do-br-script-server-e-production-br-br-4-to-debug-use-the-command-br-script-server-e-production-u-br-br-5-rails-by-default-doesn-t-serve-assets-under-public-br-config-serve_static_files-false-br-to-br-config-serve_static_files-true-br-br-6-and-for-the-fonts-change-font-location-under-css-like-br-src-url-assets-fontawesome-webfont-eot-v-4-2-0-br-br-since-you-cannot-stop-and-restart-the-application-br-rake-db-setup-rails_env-production-br-br-rails-s-p-mode-br
+2	before_save call back works on almost all transaction like save/update. while before_create only works on new record creation. both call just before of actions like save and create.<br>	\N	ACTIVE	2015-06-16 12:59:25.217608	2015-06-16 12:59:25.217608	3	1	before_save-call-back-works-on-almost-all-transaction-like-save-update-while-before_create-only-works-on-new-record-creation-both-call-just-before-of-actions-like-save-and-create-br
+3	The difference between using double quotes versus single quotes is that double quotes interpret escaped characters and single quotes preserve them.<br><br><i>'snm \\n maurya \\t welcome' &nbsp;&nbsp;&nbsp;  <small>#"snm \\\\n maurya \\\\t welcome"</small></i><br><i>"snm \\n maurya \\t welcome" &nbsp;&nbsp; <small>#"snm \\n maurya \\t welcome'"</small></i><br><br>You can not perform interpolation using single quote string, while using double quote string is possible.<br><br><i>str = "Snm"</i><br><i>'Hi #{str}'  <small>#"Hi #{str}"</small></i><br><i>"Hi #{str}"&nbsp;&nbsp;  <small>#"Hi Snm"</small></i><br><br>Single quote string is faster than double quote string.<br>	\N	ACTIVE	2015-06-16 15:23:08.75017	2015-06-16 15:24:25.8245	4	1	the-difference-between-using-double-quotes-versus-single-quotes-is-that-double-quotes-interpret-escaped-characters-and-single-quotes-preserve-them-br-br-i-snm-n-maurya-t-welcome-nbsp-nbsp-nbsp-small-snm-n-maurya-t-welcome-small-i-br-i-snm-n-maurya-t-welcome-nbsp-nbsp-small-snm-n-maurya-t-welcome-small-i-br-br-you-can-not-perform-interpolation-using-single-quote-string-while-using-double-quote-string-is-possible-br-br-i-str-snm-i-br-i-hi-str-small-hi-str-small-i-br-i-hi-str-nbsp-nbsp-small-hi-snm-small-i-br-br-br-br-br-br-br-br-br
+4	bundle exec sidekiq -q high,5 default,1<br><br>	\N	ACTIVE	2015-06-28 07:29:52.184968	2015-06-28 07:29:52.184968	5	1	bundle-exec-sidekiq-q-high-5-default-1-br-br
+\.
+
+
+--
+-- Name: answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('answers_id_seq', 4, true);
+
+
+--
+-- Data for Name: apis; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY apis (id, title, user_id) FROM stdin;
+1	GitHub	1
+2	Twitter	1
+\.
+
+
+--
+-- Name: apis_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('apis_id_seq', 2, true);
+
+
+--
+-- Data for Name: appointments; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY appointments (id, doctor_id, patient_id, appointment_created_at, appointment_at) FROM stdin;
+1	6	1	\N	\N
+2	6	2	2015-06-28 05:04:34.421018	2015-10-12 00:00:00
+\.
+
+
+--
+-- Name: appointments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('appointments_id_seq', 2, true);
+
+
+--
+-- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY books (id, title, description, image, created_at, updated_at, slug) FROM stdin;
+1	Ruby	Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. Ruby is a pure oops programming language. 	ruby_transparent.png	2015-06-16 12:37:35.848858	2015-06-16 13:00:58.715892	zs
+2	Angular Js	Angular js provides a good SPA framework for building client side application.<br><br>\r\n<strong>Key Features:</strong> <br>\r\n\r\n1) Directive and filters.<br>\r\n2) Two Way Data binding.<br>\r\n3) Views, Controllers, Scopes.<br>\r\n4) Modules and Routes.<br>\r\n5) Factories and Services.<br>	ruby.jpg	2015-06-29 04:34:38.927996	2015-06-29 07:30:56.287422	angular-js
+\.
+
+
+--
+-- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('books_id_seq', 2, true);
+
+
+--
+-- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY comments (id, comment, status, comment_id, user_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('comments_id_seq', 1, false);
+
+
+--
+-- Data for Name: contacts; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY contacts (id, name, email, contact, message, status, created_at, updated_at) FROM stdin;
+1	Snm	snmplanet@gmail.com	9910748171	welcomewelcomewelcome	ACTIVE	2015-06-19 17:16:11.193162	2015-06-19 17:16:11.193162
+2	snm	snmmaurya@gmail.com	978979879798	xxxxxxxxxxxxxxxxxxxxxxxxxxxx	ACTIVE	2015-06-28 14:51:12.436934	2015-06-28 14:51:12.436934
+\.
+
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('contacts_id_seq', 2, true);
+
+
+--
+-- Data for Name: countries; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY countries (id, title, iso, code, currency, capital, language, sex_ratio, litracy, population, created_at, updated_at) FROM stdin;
+1	India	\N	+91	Rupee	New Delhi	Hindi	\N	\N	\N	2015-06-16 12:25:04.854002	2015-06-16 12:25:04.854002
+\.
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('countries_id_seq', 1, true);
+
+
+--
+-- Data for Name: delayed_jobs; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY delayed_jobs (id, priority, attempts, handler, last_error, run_at, locked_at, failed_at, locked_by, queue, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('delayed_jobs_id_seq', 1, false);
+
+
+--
+-- Data for Name: developments; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY developments (id, title, dev_type, user_id) FROM stdin;
+1	Ruby[Ruby On Rails]	WEB	1
+2	PHP[Wordpress, CI]	WEB	1
+3	Jython	MOBILE	1
+4	Android	MOBILE	1
+5	Database[MySQL, PG, SQLite]	WEB	1
+\.
+
+
+--
+-- Name: developments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('developments_id_seq', 5, true);
+
+
+--
+-- Data for Name: doctors; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY doctors (id, name, email, address, practice, description, created_at, updated_at) FROM stdin;
+6	Snm	administrator@snmmaurya.com	23 Singhpur Hanswar Ambedkar Nagar UP 224143	none	Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text	2015-06-27 08:16:57.591156	2015-06-27 08:16:57.591156
+7	Snm	administrator@snmmaurya.com	23 Singhpur Hanswar Ambedkar Nagar UP 224143		Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text	2015-06-29 04:40:39.066526	2015-06-29 04:40:39.066526
+\.
+
+
+--
+-- Name: doctors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('doctors_id_seq', 7, true);
+
+
+--
+-- Data for Name: downloads; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY downloads (id, download, filename, extension, ready_to_download, user_id, created_at, updated_at) FROM stdin;
+2	\N	Portfolio-06182015150525	xls	f	1	2015-06-18 09:35:25.238074	2015-06-18 09:35:25.238074
+3	Portfolio-06182015151910.xls	Portfolio-06182015151910	xls	t	1	2015-06-18 09:49:10.302129	2015-06-18 09:52:21.816219
+4	\N	Portfolio-06252015115217	xls	f	1	2015-06-25 06:22:17.872664	2015-06-25 06:22:17.872664
+5	Portfolio-06282015122732.xls	Portfolio-06282015122732	xls	t	1	2015-06-28 06:57:32.593123	2015-06-28 07:00:21.716287
+\.
+
+
+--
+-- Name: downloads_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('downloads_id_seq', 5, true);
+
+
+--
+-- Data for Name: educations; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY educations (id, title, school, description, status, started_at, completed_at, user_id) FROM stdin;
+1	Highschool	S RRIC Hanswar Ambedkar Nagar	None	COMPLETED	2005-10-10 00:00:00	2006-10-20 00:00:00	1
+\.
+
+
+--
+-- Name: educations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('educations_id_seq', 1, true);
+
+
+--
+-- Data for Name: employments; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY employments (id, role, company, description, status, joined_at, leaved_at, user_id) FROM stdin;
+2	Software Engineer	Infocular E Technologies Pvt Ltd	None	PREVIOUS	2012-08-01 00:00:00	2013-08-02 00:00:00	1
+3	Software Engineer	Arxmind consulting pvt ltd	none	PREVIOUS	2013-09-01 00:00:00	2014-08-01 00:00:00	1
+\.
+
+
+--
+-- Name: employments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('employments_id_seq', 3, true);
+
+
+--
+-- Data for Name: friendly_id_slugs; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY friendly_id_slugs (id, slug, sluggable_id, sluggable_type, scope, created_at) FROM stdin;
+\.
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('friendly_id_slugs_id_seq', 1, false);
+
+
+--
+-- Data for Name: identities; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY identities (id, user_id, provider, uid, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('identities_id_seq', 1, false);
+
+
+--
+-- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY images (id, image, imageable_id, imageable_type, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('images_id_seq', 1, false);
+
+
+--
+-- Data for Name: infos; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY infos (id, fname, lname, date_of_birth, contact, gender, address, about_yourself, martial_status, user_id, created_at, updated_at, state_id, country_id, city) FROM stdin;
+1	Snm	Maurya	\N	+919910748171	MALE	23 Singhpur Hanswar Ambedkar Nagar UP 224143	Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text	UNMARRIED	1	2015-06-16 12:25:04.83441	2015-06-16 12:25:04.83441	1	1	\N
+\.
+
+
+--
+-- Name: infos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('infos_id_seq', 1, true);
+
+
+--
+-- Data for Name: lessions; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY lessions (id, title, description, book_id, created_at, updated_at, slug) FROM stdin;
+1	Ruby OOps Concept	As you all know, ruby is a pure object oriented programming language. In everything is an object even a number. like<i> 5.times {|c| c}</i> and so on.<br><br>	1	2015-06-16 12:37:55.088485	2015-06-28 05:14:09.62996	d
+2	Ruby Data Types	Ruby works on poor data types. The object/variable type is defined at run time.<br><br>a = 1 <i><small>   &nbsp;&nbsp;&nbsp; #Integer</small></i><br>b= 1.5  <i>&nbsp;&nbsp;&nbsp;&nbsp; <small>#Float</small></i><br>c = 'a'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i><small>#Character</small></i><br>d = 'string'&nbsp; <i><small>#String</small></i><br>e = true&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i><small>#Booolean</small></i><br><br><br><br><br><br><br><br><br><br><br><br>	1	2015-06-28 05:19:29.906195	2015-06-28 05:19:29.906195	ruby-data-types
+3	Single Page Application (SPA)	First off, a Single Page Application is one in which we have a shell page and we can load multiple<br>views into that.<br>In a SPA we can load the initial content upfront and then the different views or the little kind of mini-<br>web pages can be loaded on the fly and embedded into the shell.<br>AngularJS, as we’re going to see, is a very good SPA framework, but it’s not just for that. You don’t<br>have to load these dynamic views with it. In fact if you wanted you could just use it for some of the<br>cool separation of code that I’ll show you and data binding, but I will focus on SPAs here.<br><img alt=""><br><br>As mentioned it [Angular] is really a full-featured SPA framework.<br>It does all kinds of good stuff.<br>We have two-way data binding. We have the Model-View-Controller concept. Routing of the Views I<br>mentioned into the shell pages is done through built-in routing support and I’ll show how to do that<br>in this video.<br>Testing was designed right from the beginning so you can build very robust tests if you’d like, which<br>is obviously recommended.<br>For DOM manipulation jQLite is built-in which is kind of like the Mini-Me of jQuery. If you want to<br>use more advanced stuff you can even use jQuery and they play really nice together: Angular and<br>jQuery.<br>When it comes to data binding we have full support for templates. History’s built in. We can share<br>code through factories and services and other things.<br>Then there’s even more. We have the concept of data-binding with View Models. Directives I’m<br>going to be talking about in the next section, which is a way to teach HTML new tricks. Validation.<br>Dynamically injecting different features at run time through dependency injection and much much<br>more.<br><br>	2	2015-06-29 04:38:42.980526	2015-06-29 04:43:34.747319	single-page-application-spa
+4	Directives, Filters and Data Binding	Once you’ve added the AngularJS script into a page now you’re ready to start using it and the first<br>thing we’re going to talk about is something called Directives.<br>They’re very, very critical and a kind of core concept in the AngularJS framework.<br>From there we’re going to talk about filtering data and we’ll talk about data binding, so a lot of cool<br>stuff in this particular section.<br>	2	2015-06-29 04:44:57.010848	2015-06-29 04:44:57.010848	directives-filters-and-data-binding
+5	What are Directives?	A directive is really a way to teach HTML new tricks.<br>Angular takes it up a whole notch and allows us to extend HTML very easily by simply adding<br>attributes, elements or comments.<br><br>Using Directives and Data Binding Syntax<br>&lt;html ng-app='application'&gt;<br> &lt;body&gt;<br>  &lt;div ng-model='data'&gt;&lt;/div&gt; {{ data }}<br> &lt;/body&gt;<br>&lt;/html&gt;<br><br>ng-app and ng-model both are directive.<br><br>{{data}} Data binding expression.<br><br>What ng-model does is behind the scenes it’s going to add a property up in the memory called<br>“name” into what’s called “the scope”.<br><br>	2	2015-06-29 04:48:16.138273	2015-06-29 04:49:33.168172	what-are-directives
+6	Data-Binding Example using AngularJS Directives	The first thing I need to do is come in and add the ng-app directive.<br><br>&lt;html ng-app='application'&gt;<br> &lt;body&gt;<br>  &lt;input type='text' ng-model='data'&gt; {{data}}<br> &lt;/body&gt;<br>&lt;/html&gt;<br><br><br><b>controllers.js</b><br>angular.module("application");<br><br><br>Output Image: <br><br><ul><li>Include the ng-app</li><li>Include the ng-model</li><li>Bind to that model.</li></ul><br>	2	2015-06-29 04:54:36.151187	2015-06-29 04:54:36.151187	data-binding-example-using-angularjs-directives
+7	Iterating with the ng-repeat Directive	&lt;div ng-init="names=['snm', 'snmm', 'snmmaurya']"&gt;<br> &lt;ul&gt;<br>  &lt;li ng-repeat="name in names"&gt;{{name}}&lt;/li&gt;<br> &lt;/ul&gt;<br>&lt;/div&gt;<br><br>Output as ul li<br>snm<br>snmm<br>snmmaurya<br><br>Here:&nbsp; ng-init and ng-repeat both are new directives. ng-init is used to initialize data. and ng-repeat is just used as looping statement.<br>	2	2015-06-29 05:01:05.27704	2015-06-29 05:01:05.27704	iterating-with-the-ng-repeat-directive
+8	Using Filters	Filters are used with pipe symbols. There are many more filters in angular js like orderBy, filter, uppercase, downcase, currency, date. json, limitTo, number etc.<br><br>&lt;input type="text" ng-model="searchName"&gt;<br><br>&lt;ul ng-init="names = ['sandeep', 'maurya', 'deepak', 'sandhya', 'manisha', 'mandeep']"&gt;<br> &lt;li ng-repeat="name in names | filter:searchName | orderBy:name"&gt;{{name}}&lt;/li&gt;<br>&lt;/ul&gt;<br><br>Here filter perform matching if saechName matched then it will continue and orderBy simply order with name.<br>	2	2015-06-29 05:07:24.038168	2015-06-29 05:09:51.588453	using-filters
+9	Views, Controllers and Scope	View -----------------------$scope-------------------------Controller<br><br>$scope is glue (ViewModel) between views and controllers.<br><br>Instead we’re going to have a special little JavaScript object – a container - called a Controller. The<br>Controller will drive things. It’s going to control ultimately what data gets bound into the View. If the<br>View passes up data to the controller it will handle passing off maybe to a service which then<br>updates a back-end data store.<br>The glue between the View and the Controller is something called the Scope, and in Angular you’re<br>going to see a lot of objects or variables that start with $. $scope represents the scope object.<br><br><small>The view doesn’t have to know about the controller, and the controller definitely doesn’t want</small><br><small>to know about the view.</small><br><br>A ViewModel literally is the model – the data – for the view. Well that’s really all the scope is. The<br>scope is our ViewModel and it’s the glue between the view and the controller.<br><br><b>Creating a View and Controller</b><br><br>Controllers are just like function of javascript.<br><br>Controller:<br>function mine($scope){<br>  //now data will available into view under mine controller. <br> $scope.data = [<br>  {name: "apple"},<br>  {name: "cherry"}<br> ];<br>}<br><br>VIEW:<br>&lt;ul ng-controller="mine"&gt;<br> &lt;li ng-repeat="datum in data"&gt;{{datum.name}}&lt;/li&gt;<br>&lt;/ul&gt;<br>	2	2015-06-29 05:13:21.070036	2015-06-29 05:36:02.29746	views-controllers-and-scope
+11	Factories and Services or Provider 	Another feature of AngularJS is the ability to encapsulate data functionality into factory, services, provider or little value providers.<br><br>The difference between the three is just the way in which they create the object that goes and gets<br>the data.<br><ul><li>With the factory you actually create an object inside of the factory and return it.</li></ul><ul><li>With the service you just have a standard function that uses the this keyword to define function.<br></li></ul><ul><li>With the provider there’s a $get you define and it can be used to get the object that returns the data.<br></li></ul><br><b>The roles of factories</b><br>Suppose you are going to use some data in many controllers, this is not good programing practice to repeat yourself, for this reason you can use factories that is sharable everywhere in your controller.<br><br><i><small>Note: A factory must return have return statement.</small></i><br><br><i>application = angular.module("application");</i><br><br><i>application.factory("commonDataFactory", function(){</i><br><i>&nbsp; var factory = {};</i><br><i>&nbsp; var data = [</i><br><i>&nbsp; {title: "snmmaurya", description: "Portfolio of me"},</i><br><i>&nbsp; {title: "SnmMaurya", description: "Portfolio of SnmMaurya"}</i><br><i>&nbsp; ];</i><br><br><i>&nbsp; factory.getData = function(){</i><br><i>&nbsp; &nbsp; return data;</i><br><i>&nbsp; }</i><br><i>&nbsp; return factory;</i><br><i>});</i><br><br><br><i>application.controller("headerController", function($scope, commonDataFactory){</i><br><i>&nbsp; $scope.data = commonDataFactory.getData();</i><br><i>});</i><br><br><b>The roles of services</b><br><br>The only different between factory and service is -<br>Service works on 'this'<br>Service does not require to return a value.<br><br><br><i>snmmaurya.service("mineService", function(){</i><br><br><i>&nbsp; this.data = {};</i><br><br><i>&nbsp; this.getData = function(){</i><br><i>&nbsp; &nbsp; return data;</i><br><i>&nbsp; };</i><br><i>});</i><br>	2	2015-06-29 06:44:13.529987	2015-07-03 04:32:33.125864	factories-and-services-or-provider
+10	Modules, Routes and Factories	Now that you’ve seen data binding, directives, filters and controllers, and you’ve seen how the scope actually can integrate between a view and a controller it’s now time to really move it up a notch and talk about modularity and some more SPA-oriented concepts like routes. In this section we’re going to talk about how to create modules, and how modules can actually be used to create other things like controllers, routes, factories and services, and how all this fits<br>together.<blockquote><blockquote><blockquote>   Module<br>    |<br>   Config<br>    |<br>   Routes<br>    |<br>View ---$scope ---Controller<br> |         |<br>Directive     Factory<br><br></blockquote></blockquote></blockquote>So a module can have something off of it called a config function, and it can be defined to use different routes. Now routes again are really important in the SPA world because if you have different views and those views need to be loaded into the shell page then we need a way to be able to track what route we’re on and what view that’s associated with and then what controller goes with that view and how we do all of that marrying together of these different pieces.<br><br><br><b>Modules are Containers</b><br>   &lt;html ng-app="moduleName"&gt;<br>------------------------------------Module---------------------------------------<br> |     &nbsp; | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; |<br>Config   Filter   Directive    Factory    Controller<br> |                  Service<br>Routes                Provider<br>                    Value<br><br><br>Module is used for name space for example we used many views like mobile, web and ipad etc. So if we write our code in different namesapces it will good programming practice.<br>Creating a module - syntax:<br>&nbsp;<br><i>angular.module("moduleName", ["module", "</i><i><i>module</i>",....])</i><br><br>Here <i>["module", "</i><i><i>module</i>",....]</i> are the (moduleName) module depends on. <br><br><br><b>Creating a controller in module :</b><br><br>application = angular.module("application", []);<br><br>application.controller("menuController", function($scope){<br>&nbsp; $scope.data = [<br>&nbsp; &nbsp; {name: "snm"},<br>&nbsp; &nbsp; {name: "maurya"}<br>&nbsp; ];<br>});<br><br><br>&lt;html ng-app="application"&gt;<br>&nbsp; &lt;body&gt;<br>&nbsp; &nbsp; &lt;ul ng-controller="menuController"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;li ng-repeat="datum in data"&gt;{{datum.name}}&lt;/li&gt;<br>&nbsp; &nbsp; &lt;/ul&gt;<br>&nbsp; &lt;/body&gt;<br>&lt;/html&gt;<br><br><br>In module creation case [] showing there is no dependency. menuController is name of controller that is a function with parameter $scope.<br><br><br><b>The role of routes:</b><br><br>Now once you’ve defined a module and a controller, at some point if you’re building a single page application you’re going to need routes because we need to load different views into our shell page.<br><br>There’s two kind of ways you can load it. First off, the view could be embedded as a script template in the actual shell page and then we could just tell Angular “Heh! The template id to load... it’s kinda like saying ‘The view id is x’”. The second way is back up on the server you might actually have all these Views and I like to call them “partials” because they’re part of a page. You can tell Angular “the template URL for what I want to load” and then you give it the URL to the server, and I’m going to show that coming up here.<br><br><br>application = angular.module("application", ["ngRoute"]);<br><br>application.controller("menuController", function($scope){<br>});<br><br>application.controller("homeController", function($scope){<br>});<br><br>application.controller("aboutController", function($scope){<br>});<br><br><br>//Routers <br>application.config(function($routeProvider){<br>&nbsp; $routeProvider<br>&nbsp; .when("/",<br>&nbsp; {<br>&nbsp; &nbsp; controller: "homeController",<br>&nbsp; &nbsp; templateUrl: "/assets/templates/home.html"<br>&nbsp; })<br>&nbsp; .when("/about",<br>&nbsp; {<br>&nbsp; &nbsp; controller: "aboutController",<br>&nbsp; &nbsp; templateUrl: "about"<br>&nbsp; })<br>&nbsp; .otherWise({ redirectTo "/" });<br>});<br>//End<br><br><br><br><br>&lt;html ng-app="application"&gt;<br>&nbsp; &lt;body&gt;<br>&nbsp; &nbsp; &lt;div ng-controller="menuController"&gt;<br>&nbsp; &nbsp; &nbsp; &lt;table&gt;<br>&nbsp; &nbsp; &nbsp; &lt;tr&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&lt;a ng-href="#/"&gt;Home&lt;/a&gt;&lt;/td&gt;<br>&nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&lt;a ng-href="#/about"&gt;About&lt;/a&gt;&lt;/td&gt;<br>&nbsp; &nbsp; &nbsp; &lt;/tr&gt;<br>&nbsp; &nbsp; &nbsp; &lt;/table<br>&nbsp; &nbsp; &lt;/div&gt;<br>&nbsp; &nbsp; &lt;hr&gt;<br>&nbsp; &nbsp; &lt;div ng-view&gt;&lt;/div&gt;<br>&nbsp; &lt;/body&gt;<br><br>&nbsp; &lt;script type="text/ng-template" id="about"&gt;<br>&nbsp; &nbsp; &lt;div ng-include="'/assets/templates/about.html'"&gt;&lt;/div&gt;<br>&nbsp; &lt;/script&gt;<br>&lt;/html&gt;<br><br><br><br>about.html<br>&lt;div ng-controller="aboutController"&gt;<br>&nbsp; this is about page<br>&lt;/div&gt;<br><br><br>home.html<br>&lt;div ng-controller="homeController"&gt;<br>&nbsp; this is home page<br>&lt;/div&gt;<br><br><br><br>	2	2015-06-29 05:37:35.800076	2015-06-29 06:41:09.496193	modules-routes-and-factories
+12	CRUD Operation using Angular JS	Well, now I am starting a CRUD application "movies" using angular JS.<br>	2	2015-07-03 04:33:04.141282	2015-07-03 04:45:20.491674	crud-operation-using-angular-js
+13	Creating Custom Directive	Angular comes with a set of these directives built-in, like ngBind, ngModel, and ngClass. Much like you create controllers and services, you can create your own directives for Angular to use.<br><br>&lt;input ng-model="foo"&gt;<br><br><i>Here ng-model </i>(directive) matched with directive <i>ngModel</i>.<br><br>Creating own directive: <br><br><i>app.directive('ngWelcome', function() {</i><br><i>&nbsp; return {</i><br><i>&nbsp; &nbsp; restrict: 'A',</i><br><i>&nbsp; &nbsp; template: '&lt;div class="welcome"&gt;&lt;/div&gt;'</i><br><i>&nbsp; }</i><br><i>});</i><br><br><br><b>You can use created directive as given below: </b><br><i>&lt;div ng-sparkline&gt;&lt;/div&gt;</i><br><br>In our example’s description object, we’re setting two config components. First, we’re setting the restrict config option. The restrict option is used to specify how a directive can be invoked on the page.<br><br>As we saw before, there are four different ways to invoke a directive, so there are four valid options for restrict:<br><br>'A' - &lt;span ng-welcome&gt;&lt;/span&gt;<br>'E' - &lt;ng-welcome&gt;&lt;/ng-welcome&gt;<br>'C' - &lt;span class="ng-welcome"&gt;&lt;/span&gt;<br>'M' - &lt;!-- directive: ng-welcome --&gt;<br><br><br>Secondly, in our example we’re also setting a "template". This template is an inline template where we are specifying the html that will be appended.<br><br><br><br><b>To do that, we’ll have to bind a controller input on the directive</b>. Basically, we’ll want the directive to be driven by the input of another directive. In most cases, we’ll want to bind our directive to the ng-model directive’s controller.<br><br>Require option<br><br><br>app.directive('ngWelcome', function() {<br>&nbsp; return {<br>&nbsp; &nbsp; restrict: 'A',<br>&nbsp; &nbsp; require: '^ngModel',<br>&nbsp; &nbsp; template: '&lt;div class="sparkline"&gt;&lt;h4&gt;Welcome for {{ngModel}}&lt;/h4&gt;&lt;/div&gt;'<br>&nbsp; }<br>});<br><br><br>Now, if we invoke the directive on the page without the ng-model directive, our browser will complain and throw an error. To invoke our directive now, we simply have to add the ng-model directive.<br><br><br><br><br><br>	2	2015-07-03 09:35:13.322602	2015-07-03 09:48:45.040597	creating-custom-directive
+\.
+
+
+--
+-- Name: lessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('lessions_id_seq', 13, true);
+
+
+--
+-- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY movies (id, name, email, contact, created_at, updated_at) FROM stdin;
+3	Blossom	blossom@test.com	858574104054656	2015-07-01 10:27:23.390521	2015-07-02 17:38:04.649203
+1	Snm Maurya	snmm@test.co	9910748171	2015-07-01 10:26:47.596791	2015-07-02 17:57:36.412273
+18	;lk;	snmmaurya@gmail.com	65465464565454	2015-07-02 18:05:13.10267	2015-07-02 18:05:13.10267
+6	sandeep	maurya@gmao.com	asdfasdf89879879978	2015-07-02 16:38:19.455053	2015-07-03 03:52:40.136752
+26	sdfklj	sfdklja@sdlkfjal.com	53654654654	2015-07-03 04:48:09.830335	2015-07-03 04:48:09.830335
+\.
+
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('movies_id_seq', 26, true);
+
+
+--
+-- Data for Name: patients; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY patients (id, name, email, address, problem, description, created_at, updated_at) FROM stdin;
+1	Snm	administrator@snmmaurya.com	23 Singhpur Hanswar Ambedkar Nagar UP 224143	Problems is problems	Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text	2015-06-27 12:56:47.356567	2015-06-27 12:57:35.244832
+2	Anamika	administrator@snmmaurya.com	23 Singhpur Hanswar Ambedkar Nagar UP 224143	nonw	Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text Dummy text	2015-06-28 05:03:08.136522	2015-06-28 05:03:08.136522
+\.
+
+
+--
+-- Name: patients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('patients_id_seq', 2, true);
+
+
+--
+-- Data for Name: pictures; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY pictures (id, image, picturable_id, picturable_type) FROM stdin;
+3	linkis.jpeg	6	Doctor
+6	spa.jpeg	7	Doctor
+4	ruby_transparent.png	1	Patient
+5	\N	2	Patient
+\.
+
+
+--
+-- Name: pictures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('pictures_id_seq', 6, true);
+
+
+--
+-- Data for Name: portfolios; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY portfolios (id, title, image, url, tools, description, user_id, created_at, updated_at) FROM stdin;
+1	Ruby	2.jpg	http://www.google.com	ruby;rails	saldkfjasldfkjaslfaksljdf	\N	2015-06-29 14:16:31.746213	2015-06-29 14:16:31.746213
+\.
+
+
+--
+-- Name: portfolios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('portfolios_id_seq', 1, true);
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY posts (id, title, image, description, user_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('posts_id_seq', 1, false);
+
+
+--
+-- Data for Name: problems; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY problems (id, problem, description, status, solution_id, user_id, created_at, updated_at, slug) FROM stdin;
+3	Difference Between before_save and before_create ?<br>	\N	ACTIVE	2	1	2015-06-16 12:57:45.286156	2015-06-16 12:57:45.286156	difference-between-before_save-and-before_create-br
+4	Difference between single quote and double quote ?<br>	\N	ACTIVE	1	1	2015-06-16 15:19:16.428573	2015-06-16 15:19:16.428573	difference-between-single-quote-and-double-quote-br
+5	How to start sidekiq server ?<br>	\N	ACTIVE	2	1	2015-06-28 07:29:31.699803	2015-06-28 07:29:31.699803	how-to-start-sidekiq-server-br
+6	Setup rails in production mode ?<br>	\N	ACTIVE	2	1	2015-06-28 08:13:22.726074	2015-06-28 08:13:22.726074	setup-rails-in-production-mode-br
+\.
+
+
+--
+-- Name: problems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('problems_id_seq', 6, true);
+
+
+--
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY roles (id, role, created_at, updated_at) FROM stdin;
+1	administrator	2015-06-16 12:24:18.388495	2015-06-16 12:24:18.388495
+2	user	2015-06-16 12:24:18.402233	2015-06-16 12:24:18.402233
+\.
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 2, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY schema_migrations (version) FROM stdin;
+20150420105306
+20150420105308
+20150423112849
+20150423113536
+20150423113542
+20150426023741
+20150426050334
+20150430055324
+20150430121607
+20150502114107
+20150504075924
+20150504121813
+20150508151715
+20150508151723
+20150508151806
+20150508151818
+20150508151835
+20150513095627
+20150522163321
+20150522182350
+20150524164515
+20150526111116
+20150527060619
+20150527060939
+20150605045736
+20150605045745
+20150612170820
+20150612170828
+20150612170850
+20150613044746
+20150614151820
+20150616094652
+20150616120858
+20150616120448
+20150621090037
+20150623091840
+20150623091841
+20150623091842
+20150623091843
+20150623091844
+20150626152344
+20150626152350
+20150626152404
+20150627130904
+20150701102227
+\.
+
+
+--
+-- Data for Name: solutions; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY solutions (id, solution, description, image, status, created_at, updated_at, slug) FROM stdin;
+1	Ruby	This is ruby programming language. This is ruby programming language. This is ruby programming language. This is ruby programming language. This is ruby programming language. 	ruby_transparent.png	ACTIVE	2015-06-16 12:26:14.600552	2015-06-16 12:26:14.600552	ruby
+2	Ruby On Rails	Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails Ruby on rails 	ruby_transparent.png	ACTIVE	2015-06-16 12:57:12.234609	2015-06-16 12:57:12.234609	ruby-on-rails
+\.
+
+
+--
+-- Name: solutions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('solutions_id_seq', 2, true);
+
+
+--
+-- Data for Name: states; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY states (id, title, capital, language, sex_ratio, litracy, population, country_id, created_at, updated_at) FROM stdin;
+1	Andhra Pradesh	Amaravati	Telugu	992*	67.66*	4,93,78,776	1	2015-06-16 12:25:04.876891	2015-06-16 12:25:04.876891
+2	Arunachal Pradesh	Itanagar	English	920	66.95	1,382,611	1	2015-06-16 12:25:04.887483	2015-06-16 12:25:04.887483
+3	Assam	Dispur	Assamese	954	73.18	31,169,272	1	2015-06-16 12:25:04.898688	2015-06-16 12:25:04.898688
+4	Bihar	Patna	Hindi	916	63.82	103,804,637	1	2015-06-16 12:25:04.90997	2015-06-16 12:25:04.90997
+5	Chhattisgarh	Raipur	Chhattisgarhi	991	71.04	25,540,196	1	2015-06-16 12:25:04.920656	2015-06-16 12:25:04.920656
+6	Goa	Panaji	Konkani	968	87.4	1,457,723	1	2015-06-16 12:25:04.931573	2015-06-16 12:25:04.931573
+7	Gujarat	Gandhinagar	Gujarati	918	79.31	60,383,628	1	2015-06-16 12:25:04.942641	2015-06-16 12:25:04.942641
+8	Haryana	Chandigarh	Haryanvi	877	76.64	25,353,081	1	2015-06-16 12:25:04.955005	2015-06-16 12:25:04.955005
+9	Himachal Pradesh	Shimla	Hindi	974	83.78	6,856,509	1	2015-06-16 12:25:04.965859	2015-06-16 12:25:04.965859
+10	Jammu and Kashmir	Srinagar (summer), Jammu (winter)	Urdu	883	68.74	12,548,926	1	2015-06-16 12:25:04.976372	2015-06-16 12:25:04.976372
+11	Jharkhand	Ranchi	Hindi	947	67.63	32,966,238	1	2015-06-16 12:25:04.986819	2015-06-16 12:25:04.986819
+12	Karnataka	Bengaluru	Kannada	968	75.6	61,130,704	1	2015-06-16 12:25:04.998063	2015-06-16 12:25:04.998063
+13	Kerala	Trivandrum	Malayalam	1084	93.91	33,387,677	1	2015-06-16 12:25:05.009713	2015-06-16 12:25:05.009713
+14	Madhya Pradesh	Bhopal	Hindi	930	70.63	72,597,565	1	2015-06-16 12:25:05.021905	2015-06-16 12:25:05.021905
+15	Maharashtra	Mumbai	Marathi	946	82.91	112,372,972	1	2015-06-16 12:25:05.031211	2015-06-16 12:25:05.031211
+16	Manipur	Imphal	Meiteilon (Manipuri)	987	79.85	2,721,756	1	2015-06-16 12:25:05.042294	2015-06-16 12:25:05.042294
+17	Meghalaya	Shillong	English	986	75.48	2,964,007	1	2015-06-16 12:25:05.053443	2015-06-16 12:25:05.053443
+18	Mizoram	Aizawl	Mizo	975	91.58	1,091,014	1	2015-06-16 12:25:05.064574	2015-06-16 12:25:05.064574
+19	Nagaland	Kohima	English	931	80.11	1,980,602	1	2015-06-16 12:25:05.075558	2015-06-16 12:25:05.075558
+20	Odisha	Bhubaneswar	Oriya	978	73.45	41,947,358	1	2015-06-16 12:25:05.087805	2015-06-16 12:25:05.087805
+21	Punjab	Chandigarh	Punjabi	893	76.68	27,704,236	1	2015-06-16 12:25:05.098881	2015-06-16 12:25:05.098881
+22	Rajasthan	Jaipur	Hindi	926	67.06	68,621,012	1	2015-06-16 12:25:05.109228	2015-06-16 12:25:05.109228
+23	Sikkim	Gangtok	Nepali	889	82.2	607,688	1	2015-06-16 12:25:05.120303	2015-06-16 12:25:05.120303
+24	Tamil Nadu	Chennai	Tamil	995	80.33	72,138,958	1	2015-06-16 12:25:05.13159	2015-06-16 12:25:05.13159
+25	Telangana	Hyderabad	Telugu, Urdu	988	66.46%	3,52,86,\n 757	1	2015-06-16 12:25:05.142396	2015-06-16 12:25:05.142396
+26	Tripura	Agartala	Bengali and Kokborok	961	87.75	3,671,032	1	2015-06-16 12:25:05.153598	2015-06-16 12:25:05.153598
+27	Uttar Pradesh	Lucknow	Hindi	908	69.72	199,581,477	1	2015-06-16 12:25:05.164653	2015-06-16 12:25:05.164653
+28	Uttarakhand	Dehradun	Hindi	963	79.63	10,116,752	1	2015-06-16 12:25:05.176328	2015-06-16 12:25:05.176328
+29	West Bengal	Kolkata	Bengali	947	77.08	91,347,736	1	2015-06-16 12:25:05.186317	2015-06-16 12:25:05.186317
+30	Andaman and NicobarIslands	Port Blair	English	878	86.27	379,944	1	2015-06-16 12:25:05.19746	2015-06-16 12:25:05.19746
+31	Chandigarh	Chandigarh	Punjabi	818	86.43	1,054,686	1	2015-06-16 12:25:05.209079	2015-06-16 12:25:05.209079
+32	Dadar and Nagar Haveli	Silvassa	English	775	77.65	342,853	1	2015-06-16 12:25:05.219896	2015-06-16 12:25:05.219896
+33	Daman and Diu	Daman	Konkani, Marathi and Gujarati	618	87.07	242,911	1	2015-06-16 12:25:05.230897	2015-06-16 12:25:05.230897
+34	Delhi	Delhi	Hindi, Punjabi and Urdu	866	86.34	16,753,235	1	2015-06-16 12:25:05.242218	2015-06-16 12:25:05.242218
+35	Lakshadweep	Kavaratti	English	946	92.28	64,429	1	2015-06-16 12:25:05.253372	2015-06-16 12:25:05.253372
+36	Pondicherry	Pondicherry	Tamil, English	1038	86.55	1,244,464	1	2015-06-16 12:25:05.264431	2015-06-16 12:25:05.264431
+\.
+
+
+--
+-- Name: states_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('states_id_seq', 36, true);
+
+
+--
+-- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY students (id, name, contact, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: students_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('students_id_seq', 1, false);
+
+
+--
+-- Data for Name: taggings; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY taggings (id, tag_id, taggable_id, taggable_type, tagger_id, tagger_type, context, created_at) FROM stdin;
+\.
+
+
+--
+-- Name: taggings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('taggings_id_seq', 1, false);
+
+
+--
+-- Data for Name: tags; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY tags (id, name, taggings_count) FROM stdin;
+\.
+
+
+--
+-- Name: tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('tags_id_seq', 1, false);
+
+
+--
+-- Data for Name: teachers; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY teachers (id, name, contact, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: teachers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('teachers_id_seq', 1, false);
+
+
+--
+-- Data for Name: technologies; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY technologies (id, title, tech_type, user_id) FROM stdin;
+1	HTML5	WEB	1
+2	CSS3	WEB	1
+3	Jquery	WEB	1
+4	Angular JS	WEB	1
+5	Jstorage	WEB	1
+6	Sublime text 3	OTHER	1
+7	Dreamweaver	OTHER	1
+\.
+
+
+--
+-- Name: technologies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('technologies_id_seq', 7, true);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: snmmaurya
+--
+
+COPY users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, confirmation_token, confirmed_at, confirmation_sent_at, unconfirmed_email, failed_attempts, unlock_token, locked_at, created_at, updated_at, username, role_id, image, provider, uid, resume_doc, resume_pdf, slug, web_site) FROM stdin;
+1	administrator@snmmaurya.com	$2a$10$.IyNoSP7c0M9jA61MZbteuC02Rxq/aG4iCMwbhXwRaejXtyBDA946	\N	\N	2015-06-26 15:06:53.295662	19	2015-07-03 09:16:37.394343	2015-07-03 09:13:55.1689	127.0.0.1	127.0.0.1	2f6685968e6c27aa4241592be2b50e51b0077024b010e036778bca41bc85db9c	2015-06-16 12:25:27.05203	2015-06-16 12:24:19.372982	\N	0	\N	\N	2015-06-16 12:24:19.173456	2015-07-03 09:16:37.395576	administrator	1	ruby_transparent.png	\N	\N	\N	\N	administrator	http://www.snmmaurya.com
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: snmmaurya
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- Name: answers_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY answers
+    ADD CONSTRAINT answers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: apis_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY apis
+    ADD CONSTRAINT apis_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY appointments
+    ADD CONSTRAINT appointments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: books_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY books
+    ADD CONSTRAINT books_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY contacts
+    ADD CONSTRAINT contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: countries_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY countries
+    ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY delayed_jobs
+    ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: developments_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY developments
+    ADD CONSTRAINT developments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY doctors
+    ADD CONSTRAINT doctors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: downloads_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY downloads
+    ADD CONSTRAINT downloads_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: educations_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY educations
+    ADD CONSTRAINT educations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: employments_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY employments
+    ADD CONSTRAINT employments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY friendly_id_slugs
+    ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: identities_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY identities
+    ADD CONSTRAINT identities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY images
+    ADD CONSTRAINT images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: infos_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY infos
+    ADD CONSTRAINT infos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lessions_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY lessions
+    ADD CONSTRAINT lessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: movies_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY movies
+    ADD CONSTRAINT movies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patients_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT patients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pictures_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY pictures
+    ADD CONSTRAINT pictures_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: portfolios_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY portfolios
+    ADD CONSTRAINT portfolios_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problems_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY problems
+    ADD CONSTRAINT problems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: solutions_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY solutions
+    ADD CONSTRAINT solutions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY states
+    ADD CONSTRAINT states_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: students_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY students
+    ADD CONSTRAINT students_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: taggings_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY taggings
+    ADD CONSTRAINT taggings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY tags
+    ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY teachers
+    ADD CONSTRAINT teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: technologies_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY technologies
+    ADD CONSTRAINT technologies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
+
+
+--
+-- Name: index_answers_on_problem_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_answers_on_problem_id ON answers USING btree (problem_id);
+
+
+--
+-- Name: index_answers_on_user_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_answers_on_user_id ON answers USING btree (user_id);
+
+
+--
+-- Name: index_comments_on_comment_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_comment_id ON comments USING btree (comment_id);
+
+
+--
+-- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON friendly_id_slugs USING btree (slug, sluggable_type);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON friendly_id_slugs USING btree (slug, sluggable_type, scope);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON friendly_id_slugs USING btree (sluggable_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USING btree (sluggable_type);
+
+
+--
+-- Name: index_identities_on_user_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_identities_on_user_id ON identities USING btree (user_id);
+
+
+--
+-- Name: index_images_on_imageable_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_images_on_imageable_id ON images USING btree (imageable_id);
+
+
+--
+-- Name: index_infos_on_user_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_infos_on_user_id ON infos USING btree (user_id);
+
+
+--
+-- Name: index_pictures_on_picturable_type_and_picturable_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_pictures_on_picturable_type_and_picturable_id ON pictures USING btree (picturable_type, picturable_id);
+
+
+--
+-- Name: index_posts_on_user_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_posts_on_user_id ON posts USING btree (user_id);
+
+
+--
+-- Name: index_problems_on_solution_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_problems_on_solution_id ON problems USING btree (solution_id);
+
+
+--
+-- Name: index_problems_on_user_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_problems_on_user_id ON problems USING btree (user_id);
+
+
+--
+-- Name: index_states_on_country_id; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_states_on_country_id ON states USING btree (country_id);
+
+
+--
+-- Name: index_taggings_on_taggable_id_and_taggable_type_and_context; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE INDEX index_taggings_on_taggable_id_and_taggable_type_and_context ON taggings USING btree (taggable_id, taggable_type, context);
+
+
+--
+-- Name: index_tags_on_name; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_tags_on_name ON tags USING btree (name);
+
+
+--
+-- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON users USING btree (confirmation_token);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_users_on_unlock_token; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_unlock_token ON users USING btree (unlock_token);
+
+
+--
+-- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
+
+
+--
+-- Name: taggings_idx; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX taggings_idx ON taggings USING btree (tag_id, taggable_id, taggable_type, context, tagger_id, tagger_type);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: snmmaurya; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_rails_5373344100; Type: FK CONSTRAINT; Schema: public; Owner: snmmaurya
+--
+
+ALTER TABLE ONLY identities
+    ADD CONSTRAINT fk_rails_5373344100 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

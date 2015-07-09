@@ -1,0 +1,37 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+           Movie
+           <small>Show Movie</small>
+        </h1>                
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Movie Content -->
+<div class="row">
+  <div class="control-group form-group">
+    <div class="controls">
+      <label>Name</label>
+      <a href="#" editable-text="movie.name" onbeforesave="updateMovie({name: $data, id: movie.id})">{{ movie.name || 'empty' }}</a>
+    </div>
+    <div class="controls">
+      <label>Email</label>
+      <a href="#" editable-email="movie.email" onbeforesave="updateMovie({email: $data, id: movie.id})">{{ movie.email || 'empty' }}</a>
+    </div>
+    <div class="controls">
+      <label>Contact</label>
+      <a href="#" editable-tel="movie.contact" onbeforesave="updateMovie({contact: $data, id: movie.id})">{{ movie.contact || 'empty' }}</a>
+    </div>
+    <div class="controls">
+      <label>Create AT</label>
+      {{movie.created_at}}
+    </div>
+    <div class="controls">
+      <a ng-href="#/movies" class="btn btn-default">Back</a>
+      <a ng-href="#/movies/{{movie.id}}/edit" class="btn btn-info">Edit</a>
+      <!-- <a href="javascript: void(0)" ng-click="deleteMovie(movie)" class="btn btn-danger">Delete</a> -->
+    </div>
+   </div>
+</div>
