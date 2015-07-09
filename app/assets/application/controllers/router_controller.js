@@ -74,12 +74,38 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
   $routeProvider.
     when('/sign_in', {
       templateUrl: '/assets/templates/devise/sessions/new.html',
-      controller: 'homeController'
+      controller: 'deviseController'
     }).
     otherwise({
       redirectTo: '/'
     });
 }]);
+
+
+
+snmmaurya.config(['$routeProvider',function($routeProvider) {
+  $routeProvider.
+    when('/livecruds', {
+      templateUrl: 'livecruds',
+      controller: 'livecrudsController'
+    }).
+    when('/livecruds/:id/show', {
+      templateUrl: 'livecruds-show',
+      controller: 'livecrudsController'
+    }).
+    when('/livecruds/:id/edit', {
+      templateUrl: 'livecruds-edit',
+      controller: 'livecrudsController'
+    }).
+    when('/livecruds/new', {
+      templateUrl: 'livecruds-new',
+      controller: 'livecrudsController'
+    }).
+    otherwise({
+      redirectTo: '/'
+    });
+}]);
+
 /*----------------------------------------------------------------------------------------
 End Router controller
------------------------------------------------------------------------------------------*/
+-----------------------------------------------------------------------------------------

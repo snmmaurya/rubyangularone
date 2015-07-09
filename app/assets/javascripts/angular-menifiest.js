@@ -21,7 +21,9 @@ Library Related JS
 //= require bootstrap/bootstrap.js
 //= require angular/angular-route.js
 //= require angular/angular-resource.js
+//= require angular/angular-xeditable-0.1.8/xeditable.js
 //= require bootstrap/pagination/ui-bootstrap-tpls-0.13.0.js
+//= require modules/modules.js
 
 //= require angular-devise
 /*----------------------------------------------------------------------------
@@ -37,13 +39,14 @@ Controllers related JS
 //= require controllers/snmmaurya_controller.js
 //= require controllers/programmers/solutions_controller.js
 //= require controllers/router_controller.js
-// require controllers/lives/customer_controller.js
 //= require controllers/programmers/problems_controller.js
 //= require controllers/programmers/answers_controller.js
 //= require controllers/lives/movies_controller.js
 //= require controllers/lives/lives_controller.js
 //= require controllers/pagination_controller.js
 //= require controllers/configuration_controller.js
+
+//= require controllers/lives/livecruds_controller.js
 /*----------------------------------------------------------------------------
 END Controllers related JS
 -----------------------------------------------------------------------------*/

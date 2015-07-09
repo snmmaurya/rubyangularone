@@ -32,7 +32,6 @@
             <td>{{movie.created_at}}</td>
             <td>
               <a href="javascript: void(0);" ng-click="open({size: '', templateUrl: 'movieShowModel', data: movie})" class="btn btn-xs btn-default">View</a>
-              <a ng-href="#/movies/{{movie.id}}/show" class="btn btn-xs btn-default">Show</a>
               <a ng-href="#/movies/{{movie.id}}/edit" class="btn btn-xs btn-info">Edit</a>
               <a href="javascript: void(0)" ng-click="deleteMovie(movie)" class="btn btn-xs btn-danger">Delete</a>
             </td>                           

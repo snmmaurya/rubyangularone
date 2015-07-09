@@ -7,13 +7,14 @@ snmmaurya.controller("moviesController", function($controller, $scope, $http, $l
   }
 
   $scope.getMovie = function(id){
-    $scope.movie = MovieFactory.getMovie(id).then(function(response){
+    MovieFactory.getMovie(id).then(function(response){
       $scope.movie = response.data;
     });
   }
 
 
   $scope.createMovie = function (movie) {
+    console.log(movie);
     MovieFactory.createMovie(movie).then(function(response){
       $scope.response ={status: response.data.status };
     });

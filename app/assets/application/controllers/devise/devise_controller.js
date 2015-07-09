@@ -1,6 +1,6 @@
 snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
     // Customize login
-    AuthProvider.loginMethod('GET');
+    AuthProvider.loginMethod('POST');
     AuthProvider.loginPath('/users/sign_in.json');
 
     // Customize logout
@@ -18,6 +18,7 @@ snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
     // Customize user parsing
     // NOTE: **MUST** return a truth-y expression
     AuthProvider.parse(function(response) {
+      //alert(response.data.user);
         return response.data.user;
     });
 
@@ -27,10 +28,11 @@ snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
 });
 
 
-    snmmaurya.controller('deviseController', function(Auth, $scope, $http) {
+    snmmaurya.controller('deviseController', function(Auth, $scope, $http, flashMessage, $location) {
         this.credentials = {
             email: 'administrator@snmmaurya.com',
-            password: 'administrator'
+            password: 'administrator',
+            login: 'administrator@snmmaurya.com'
         };
 
          this.configuration = {
@@ -41,9 +43,11 @@ snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
 
         this.signIn = function(){
           Auth.login(this.credentials, this.configuration).then(function(user) {
-              console.log(user); // => {id: 1, ect: '...'}
+            flashMessage.setFlashMessage("Signed in Successfully", 'success');
+             $location.path('/');
           }, function(error) {
-              // Authentication failed...
+              flashMessage.setFlashMessage("Login Credentials Error", 'danger');
+              //$location.path("");
           });
         };
 
@@ -54,10 +58,14 @@ snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
 
         $scope.$on('devise:new-session', function(event, currentUser) {
             // user logged in by Auth.login({...})
-            alert(currentUser);
+            //alert(currentUser);
         });
 
         $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
           deferred.reject(xhr);
         });
+
+        this.currentUser = function(){
+            console.log(Auth._currentUser);
+        }
     });

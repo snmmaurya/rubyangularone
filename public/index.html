@@ -8,8 +8,10 @@
 <body>
   <div ng-controller="menuController">
     <div ng-include="'/assets/templates/shared/menu.html'"></div>
+    <div class="text-center" id="flash-messages-container" ng-hide="flashMessage.message==''">
+      <p class="{{flashMessage.type}} alert alert-{{flashMessage.type}}">{{flashMessage.message}}</p>
+    </div>
   </div>
-  <div id="flash-messages-container" class="text-center">
   </div>
   <div class="container">
     <div ng-view></div>
@@ -66,6 +68,23 @@
 <!-- END ========================================================================= -->
 
 
+<!-- livecruds ==================================================================== -->
+<script type="text/ng-template" id="livecruds">
+  <div ng-include="'assets/templates/lives/livecruds/index.html'"></div>
+</script>
+<script type="text/ng-template" id="livecruds-show">
+  <div ng-include="'assets/templates/lives/livecruds/show.html'"></div>
+</script>
+<script type="text/ng-template" id="livecruds-edit">
+  <div ng-include="'assets/templates/lives/livecruds/edit.html'"></div>
+</script>
+<script type="text/ng-template" id="livecruds-new">
+  <div ng-include="'assets/templates/lives/livecruds/new.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+
+
 
 <!-- Movies ==================================================================== -->
 <script type="text/ng-template" id="movies">
@@ -81,6 +100,9 @@
   <div ng-include="'assets/templates/lives/movies/new.html'"></div>
 </script>
 <!-- END ========================================================================= -->
+
+
+
 
 <script type="text/ng-template" id="directives">
   <div ng-include="'assets/templates/lives/directives/index.html'"></div>
