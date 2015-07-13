@@ -31,7 +31,7 @@ Rails.application.routes.draw do
         resources :problems do
           resources :answers do
           end
-        end  
+        end
       end
     end
   end
@@ -81,11 +81,25 @@ Rails.application.routes.draw do
       match "/programmers/solutions", to: "programmers/solutions#index", via: :get
       match "/contact", to: "snmmaurya#contact", via: :post
       match "/lives/directives", to: "lives#directives", via: :get
-      match "/programmers/solution/:solution_id/problems", to: "programmers/problems#index", via: :get
-      match "/programmers/solution/:solution_id/problem/:problem_id/answers", to: "programmers/answers#index", via: :get
+      # match "/programmers/solution/:solution_id/problems", to: "programmers/problems#index", via: :get
+      # match "/programmers/solution/:solution_id/problem/:problem_id/answers", to: "programmers/answers#index", via: :get
       # match "/programmers/solutions", to: "programmers/solutions#index", via: :get
+      namespace :programmers do
+        resources :solutions do 
+          resources :problems do
+            resources :answers
+          end  
+        end        
+      end
 
-
+      namespace :profile do
+        resources :users
+      end
+      namespace :studies do
+        resources :books do
+          resources :lessions
+        end  
+      end  
 
       resources :movies
       resources :livecruds
@@ -95,52 +109,4 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
   
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-end
+  end

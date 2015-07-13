@@ -44,9 +44,9 @@ class ApplicationController < ActionController::Base
 #------------------- Changing views depend on plateform --------------------#
 
 	def configure_permitted_parameters
-	  devise_parameter_sanitizer.for(:sign_up) { |u| u.permit({ roles: [] }, :username, :email, :password, :password_confirmation, :uid, :provider, :remote_image_url, infos_attributes: [:fname, :lname]) }
+	  devise_parameter_sanitizer.for(:sign_up) { |u| u.permit({ roles: [] }, :username, :email, :password, :password_confirmation, :current_password, :uid, :provider, :remote_image_url, infos_attributes: [:id, :fname, :lname, :about_yourself, :contact, :gender, :martial_status, :address]) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
+    # devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password, :uid, :provider, :remote_image_url, infos_attributes: [:id, :fname, :lname, :about_yourself, :contact, :gender, :martial_status, :address]) }
 	end
 
 	def user

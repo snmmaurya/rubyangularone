@@ -1,0 +1,17 @@
+<div class="controls">
+  <%= form.label :Title %>
+  <%= form.text_field :title, class: "form-control", required: false, maxlength: 250 %>
+</div>
+<div class="controls">
+  <%= form.label :Description %>
+  <%= form.text_area :description, class: "form-control text-etitor", rows: 20 %>
+</div>
+<div class="controls">
+  <br>
+  <%= link_to :Back, studies_books_path, class: "btn btn-default" %>
+  <%= buttons if (defined? buttons) %>
+  <%= form.submit "Submit", class: "btn btn-primary" %>
+</div>
+<script type="text/javascript">
+	NAMESPACE.snm.textEditor();
+</script>

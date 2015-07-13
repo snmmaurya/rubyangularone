@@ -14,3 +14,18 @@ snmmaurya.filter('escapeHtml', function () {
       });
   }
 });
+
+
+snmmaurya.filter('prettyHtml', function ($sce) {
+  return function(htmlCode) {
+    return $sce.trustAsHtml(htmlCode);
+  }
+});
+
+
+snmmaurya.filter('limitText', function () {
+  return function(data) {
+    return data.substring(0,100);
+  }
+});
+

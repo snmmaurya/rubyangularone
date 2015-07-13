@@ -1,71 +1,137 @@
-snmmaurya.config(function(AuthProvider, AuthInterceptProvider) {
-    // Customize login
-    AuthProvider.loginMethod('POST');
-    AuthProvider.loginPath('/users/sign_in.json');
+/*----------------------------------------------------------------------------------------
+START Devise specific configuration
+-----------------------------------------------------------------------------------------*/
+snmmaurya.config(function(AuthProvider, AuthInterceptProvider, $locationProvider, $httpProvider) {
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+  $httpProvider.defaults.headers.common['ClientType'] = 'browser';
+  AuthProvider.loginMethod('POST');
+  AuthProvider.loginPath('/users/sign_in.json');
+  AuthProvider.logoutMethod('DELETE');
+  AuthProvider.logoutPath('/users/sign_out.json');
+  AuthProvider.registerMethod('POST');
+  AuthProvider.registerPath('/users.json');
+  //AuthProvider.resourceName('user'); namespaced under like user[:email] here user is namespace
 
-    // Customize logout
-    AuthProvider.logoutMethod('DELETE');
-    AuthProvider.logoutPath('/users/sign_out.json');
+  //Parse response after Auth.currentUser
+  AuthProvider.parse(function(response) {
+      return response.data;
+  });
 
-    // Customize register
-    AuthProvider.registerMethod('POST');
-    AuthProvider.registerPath('/users.json');
-
-    // Customize the resource name data use namespaced under
-    // Pass false to disable the namespace altogether.
-    AuthProvider.resourceName('user');
-
-    // Customize user parsing
-    // NOTE: **MUST** return a truth-y expression
-    AuthProvider.parse(function(response) {
-      //alert(response.data.user);
-        return response.data.user;
-    });
-
-    // Intercept 401 Unauthorized everywhere
-    // Enables `devise:unauthorized` interceptor
-    AuthInterceptProvider.interceptAuth(true);
+  // Intercept 401 Unauthorized everywhere | Enables `devise:unauthorized` interceptor
+  AuthInterceptProvider.interceptAuth(true);
 });
+/*----------------------------------------------------------------------------------------
+END Devise specific configuration
+-----------------------------------------------------------------------------------------*/
 
 
-    snmmaurya.controller('deviseController', function(Auth, $scope, $http, flashMessage, $location) {
-        this.credentials = {
-            email: 'administrator@snmmaurya.com',
-            password: 'administrator',
-            login: 'administrator@snmmaurya.com'
-        };
 
-         this.configuration = {
-            headers: {
-                'X-HTTP-Method-Override': 'POST'
-            }
-        };
+/*----------------------------------------------------------------------------------------
+START Sessions controller
+-----------------------------------------------------------------------------------------*/
+snmmaurya.controller('sessionsController', function(Auth, $scope, $http, flashMessage, $location, $rootScope) {
+  $scope.credentials = {
+      email: '',
+      password: '',
+      login: ''
+  };
 
-        this.signIn = function(){
-          Auth.login(this.credentials, this.configuration).then(function(user) {
-            flashMessage.setFlashMessage("Signed in Successfully", 'success');
-             $location.path('/');
-          }, function(error) {
-              flashMessage.setFlashMessage("Login Credentials Error", 'danger');
-              //$location.path("");
-          });
-        };
+  $scope.configuration = {
+    headers: {
+        'X-HTTP-Method-Override': 'POST'
+    }
+  };
 
-        $scope.$on('devise:login', function(event, currentUser) {
-            // after a login, a hard refresh, a new tab
-            alert(currentUser);
-        });
-
-        $scope.$on('devise:new-session', function(event, currentUser) {
-            // user logged in by Auth.login({...})
-            //alert(currentUser);
-        });
-
-        $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
-          deferred.reject(xhr);
-        });
-
-        this.currentUser = function(){
-            console.log(Auth._currentUser);
-        }
+  $scope.signIn = function(){
+    $scope.credentials.login = $scope.credentials.email;
+    console.log($scope.credentials);
+    Auth.login($scope.credentials).then(function(user) {
+      flashMessage.setFlashMessage("Signed in Successfully", 'success');
+       $location.path('/');
+    }, function(error) {
+        //flashMessage.setFlashMessage(error.data.error, 'success');
+        $scope.loginError = true;
+        $scope.message = {message: "Login Error: "+error.data.error+" If you forgot password try to restore your password using forgot password button.", type: "danger"};
     });
+  };
+
+  $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
+    deferred.reject(xhr);
+  });
+
+  $scope.$on('devise:login', function(event, currentUser) {
+    $scope.isAuthenticated = true;
+  });
+
+  $scope.$on('devise:new-session', function(event, currentUser) {
+    $scope.isAuthenticated = true;
+  });
+
+  $scope.$on('devise:logout', function(event, oldCurrentUser) {
+    $scope.isAuthenticated = false;
+  });
+
+
+  $scope.signOut = function() {
+    Auth.logout().then(function(oldUser) {
+     flashMessage.setFlashMessage("Signed Out Successfully", 'success');
+      $location.path("/");
+    }, function(error) {
+    });
+  };
+
+  $scope.currentUser = function(){
+    Auth.currentUser().then(function(user) {
+      $scope.currentUser = user;
+    }, function(error) { snmmaurya.console("User is not authenticated")});
+  };
+
+  Auth.currentUser().then(function(user) {
+    $scope.isAuthenticated = true;
+  }, function(error) {
+  });
+});
+/*----------------------------------------------------------------------------------------
+END Sessions controller
+-----------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------
+START Registrations controller
+-----------------------------------------------------------------------------------------*/
+snmmaurya.controller('registrationsController', function(Auth, $scope, $http, flashMessage, $location, $rootScope, globalAccess) {
+  $scope.credentials = {
+    email: 'administrator@snmmaurya.com',
+    username: 'administrator',
+    password: 'administrator',
+    password_confirmation: 'administrator',
+    infos_attributes: [{fname: 'Sawana', lname: 'Maurya'}]
+  };
+
+  $scope.configuration = {
+    headers: {
+        'X-HTTP-Method-Override': 'POST'
+    }
+  };
+
+  $scope.signUp = function(){
+    Auth.register($scope.credentials).then(function(registeredUser) {
+      globalAccess.setGlobalAccess("email", $scope.credentials.email);
+      $rootScope.$evalAsync(function() {
+      $location.path("/thank_you");
+    });
+
+    }, function(error) {
+      $scope.errors = error.data.errors;
+      $scope.errorExists = true;
+      console.log("Registration falied")
+    });
+  };
+
+  $scope.$on('devise:new-registration', function(event, user) {
+    $scope.isAuthenticated = true;
+  });
+});
+/*----------------------------------------------------------------------------------------
+END Registrations controller
+-----------------------------------------------------------------------------------------*/

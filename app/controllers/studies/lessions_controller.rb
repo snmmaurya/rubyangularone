@@ -4,7 +4,7 @@ class Studies::LessionsController < ApplicationController
 	before_action :initialiaze_lessions, only: [:index, :show]
 
 	def index
-		@book= Book.friendly.find params[:book_id]		
+		@book= Book.friendly.find params[:book_id]
 	end
 
 	def show

@@ -18,6 +18,8 @@
  *= require bootstrap-wysihtml5
  *= require carousel
  *= require angular/angular-xeditable-0.1.8/xeditable.css
+ *= require angular/styles.css
+ * require angular/text-angular/style.css
 
 
  *= require jquery-ui/all.css

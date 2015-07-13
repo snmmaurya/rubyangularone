@@ -1,0 +1,13 @@
+<div class="row">
+<ul class="pagination">
+  <li class="">
+    <%= link_to :Back, studies_book_lession_path(@book, previous_object("Lession", @lession)), title: :Back %>
+  </li>
+  <li class="active">
+  &nbsp;
+  </li>
+  <li>
+    <%= link_to :Next, studies_book_lession_path(@book, next_object("Lession", @lession)), title: :Next %>
+  </li>
+</ul>
+</div>

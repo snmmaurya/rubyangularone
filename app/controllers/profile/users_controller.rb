@@ -6,12 +6,12 @@ class Profile::UsersController < ApplicationController
 	end
 
 	def edit
-		@user = User.find params[:id]
+		@user = User.friendly.find(params[:id])
 	end
 
 	def update
-		@user = User.find params[:id]
-		if @user.update_attributes(user_params)
+		@user = User.friendly.find(params[:id])
+		if @user.update(user_params)
 			flash[:notice] = "Your Profile Informations Updated Successfully"
 			redirect_to edit_profile_user_path @user
 		else
@@ -20,6 +20,6 @@ class Profile::UsersController < ApplicationController
 	end
 
 	def user_params
-		params.require(:user).permit(:image, :resume_doc, :resume_pdf, infos_attributes: [:id, :fname, :lname, :contact, :address, :gender, :about_yourself, :martial_status, :_destroy])
+		params.require(:user).permit(:email, :username, :password, :image, :resume_doc, :resume_pdf, infos_attributes: [:id, :fname, :lname, :contact, :address, :gender, :about_yourself, :martial_status])
 	end
 end

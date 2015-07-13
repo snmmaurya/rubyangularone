@@ -1,11 +1,44 @@
+/*----------------------------------------------------------------------------------------
+Start ngWelcome directive
+-----------------------------------------------------------------------------------------*/
 snmmaurya.directive('ngWelcome', function() {
   return {
     restrict: 'AE',
     template: 'Welcome at My Site!'
   }
 });
+/*----------------------------------------------------------------------------------------
+END ngWelcome directive
+-----------------------------------------------------------------------------------------*/
 
 
+/*----------------------------------------------------------------------------------------
+Start flashMessage directive
+-----------------------------------------------------------------------------------------*/
+snmmaurya.directive('flashMessage', function ($timeout) {
+    return {
+      restrict: 'E',
+      templateUrl: '/assets/templates/shared/flash_message.html',
+      scope: true, /*share scope between flashes directives*/
+      link: function (scope) {
+        scope.flashes = [];
+        scope.$on('flashMessage', function (event, flash) {
+          var newLength = scope.flashes.push({type: flash.type, message: flash.message});
+          $timeout(function() {
+            scope.flashes.splice((newLength-1), 1);
+          }, 3000);
+        });
+      }
+    };
+  });
+/*----------------------------------------------------------------------------------------
+END flashMessage directive
+-----------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------
+Start snmColor directive
+-----------------------------------------------------------------------------------------*/
 snmmaurya.directive("snmColor", function() {
   return {
     restrict: 'AE',
@@ -24,3 +57,6 @@ snmmaurya.directive("snmColor", function() {
     }
   }
 });
+/*----------------------------------------------------------------------------------------
+END snmColor directive
+-----------------------------------------------------------------------------------------*/

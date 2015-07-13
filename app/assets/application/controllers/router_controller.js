@@ -15,11 +15,11 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
       templateUrl: 'solutions',
       controller: 'programmersSolutionsController'
     }).
-    when('/programmers/solution/:solution_id/problems', {
+    when('/programmers/solutions/:solution_id/problems', {
       templateUrl: 'problems',
       controller: 'programmersSolutionsProblemsController'
     }).
-    when('/programmers/solution/:solution_id/problem/:problem_id/answers', {
+    when('/programmers/solutions/:solution_id/problems/:problem_id/answers', {
       templateUrl: 'answers',
       controller: 'programmersSolutionsProblemsAnswersController'
     }).
@@ -63,6 +63,14 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
       templateUrl: 'lives',
       controller: 'livesController'
     }).
+    when('/thank_you', {
+      templateUrl: '/assets/templates/thank_you.html',
+      controller: 'thankYouController'
+    }).
+    when("/profile/users/:user_id", {
+      templateUrl: '/assets/templates/profile/users/show.html',
+      controller: 'usersController'
+    }).
     otherwise({
       redirectTo: '/'
     });
@@ -72,9 +80,13 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
 
 snmmaurya.config(['$routeProvider',function($routeProvider) {
   $routeProvider.
-    when('/sign_in', {
+    when('/signin', {
       templateUrl: '/assets/templates/devise/sessions/new.html',
-      controller: 'deviseController'
+      controller: 'sessionsController'
+    }).
+    when('/signup', {
+      templateUrl: '/assets/templates/devise/registrations/new.html',
+      controller: 'registrationsController'
     }).
     otherwise({
       redirectTo: '/'
@@ -100,6 +112,26 @@ snmmaurya.config(['$routeProvider',function($routeProvider) {
     when('/livecruds/new', {
       templateUrl: 'livecruds-new',
       controller: 'livecrudsController'
+    }).
+    otherwise({
+      redirectTo: '/'
+    });
+}]);
+
+
+snmmaurya.config(['$routeProvider',function($routeProvider) {
+  $routeProvider.
+    when('/studies/books', {
+      templateUrl: '/assets/templates/studies/books/index.html',
+      controller: 'booksController'
+    }).
+    when('/studies/books/:book_id/lessions', {
+      templateUrl: '/assets/templates/studies/lessions/index.html',
+      controller: 'lessionsController'
+    }).
+    when('/studies/books/:book_id/lessions/:id', {
+      templateUrl: '/assets/templates/studies/lessions/show.html',
+      controller: 'lessionsController'
     }).
     otherwise({
       redirectTo: '/'
