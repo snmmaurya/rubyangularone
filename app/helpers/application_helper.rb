@@ -64,7 +64,7 @@ module ApplicationHelper
 	def solutions 
 		solutions_html = ""
 		Solution.where(status: :ACTIVE).each do |solution| 
-    	solutions_html += "<a href='#{programmers_solution_problems_path(solution)}'><div class='col-sm-2 col-sm-12'> #{(image_tag (solution.image), size: "700x400", title: solution.solution, alt: solution.solution, class: "img-responsive")}</div></a>"
+    	solutions_html += "<a href='#{programmers_solution_problems_path(solution)}'><div class='col-sm-2 col-sm-12'> #{(cl_image_tag (solution.image), width: "100", height: "100", title: solution.solution, alt: solution.solution, class: "img-responsive")}</div></a>"
 		end
 		solutions_html.html_safe
 	end

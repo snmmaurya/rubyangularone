@@ -4,27 +4,35 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  include CarrierWave::MiniMagick
+  # include CarrierWave::MiniMagick
+
+  # For cloudary uploader
+  include Cloudinary::CarrierWave
+
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
+
+  version :thumbnail do
+    resize_to_fit(55, 55)
+  end
+
+
+  def public_id
+    name = Cloudinary::PreloadedFile.split_format(original_filename).first + "_" + Cloudinary::Utils.random_public_id[0,5]
+    return "snmmaurya/#{Rails.env}/#{model.class.to_s.underscore}/#{name}"
+  end
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  # storage :file
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "uploads/images"
-  end
-
-  ## For cloudary uploader
-  # include Cloudinary::CarrierWave
-  # def public_id
-  #   name = Cloudinary::PreloadedFile.split_format(original_filename).first + "_" + Cloudinary::Utils.random_public_id[0,6]
-  #   return "linkisin/#{Rails.env}/#{model.class.to_s.underscore}/#{name}"
+  # def store_dir
+  #   "uploads/images"
   # end
 
-
-  
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:

@@ -16,7 +16,8 @@
     <div class="col-md-4 text-center">    
         <div class="thumbnail">
         <a href="<%=programmers_solution_problems_path(solution) %>">
-          <%= image_tag(solution.image, alt: solution.solution, class: "solutions-img-size") %>
+        <%= cl_image_tag(solution.image, width: "100", height: "100", crop: :fit, alt: solution.solution, title: solution.solution) %>
+          <%#= image_tag(solution.image, alt: solution.solution, class: "solutions-img-size") %>
         </a>
         <div class="caption">
           <h3>

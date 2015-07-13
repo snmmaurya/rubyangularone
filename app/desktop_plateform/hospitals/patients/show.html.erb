@@ -22,7 +22,7 @@
     </div>
     <div class="controls">
       <label>Profile Image</label>
-      <%= image_tag @patient.pictures.last.image_url, height: 150, width: 200, class: "img-responsive" if @patient.pictures.present? %>
+      <%= cl_image_tag(@patient.pictures.last.image_url, width: "100", height: "100", crop: :fit if @patient.pictures.present? %>      
     </div>
 		<div class="controls">
 			<%= link_to :Back, hospitals_patients_path, class: "btn btn-default" %>			

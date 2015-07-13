@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: snmmaurya
+  api_key: '573768158496929'
+  api_secret: saENwMFOSm_O0aICSPzsgd5bGv4
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: snmmaurya
+  api_key: '573768158496929'
+  api_secret: saENwMFOSm_O0aICSPzsgd5bGv4
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: snmmaurya
+  api_key: '573768158496929'
+  api_secret: saENwMFOSm_O0aICSPzsgd5bGv4
+  enhance_image_tag: true
+  static_image_support: false

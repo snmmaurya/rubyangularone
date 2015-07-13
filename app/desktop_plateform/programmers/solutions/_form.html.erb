@@ -10,7 +10,7 @@
   <%= form.label :Image %>
   <%= form.file_field :image, class: "form-control", required: false, maxlength: 250 %>
   <% if @solution.image.present? %>
-    <%= image_tag(@solution.image, size: "100x100", alt: @solution.solution, class: "img-responsive") %>
+    <%= cl_image_tag(@solution.image, width: "25", height: "25", alt: @solution.solution, class: "img-responsive") %>
   <% end %>
 </div>
 <div class="controls">

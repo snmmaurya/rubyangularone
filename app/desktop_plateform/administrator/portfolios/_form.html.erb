@@ -18,7 +18,7 @@
   <%= form.label :Image %>
   <%= form.file_field :image, class: "form-control", required: false, maxlength: 250 %>
   <% if @portfolio.image.present? %>
-    <%= image_tag(@portfolio.image, size: "100x100", alt: @portfolio.title, class: "img-responsive border-gray") %>
+    <%= cl_image_tag(@portfolio.image, width: "25", height: "25", crop: :fit, alt: @portfolio.title, title: @portfolio.title) %>
   <% end %>
 </div>
 <div class="controls">

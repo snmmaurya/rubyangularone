@@ -11,7 +11,7 @@
 <!-- Portfolio Item Row -->
 <div class="row">
   <div class="col-md-8">
-      <%= image_tag(@portfolio.image, size: "700x400", alt: @portfolio.title, class: "img-responsive") %>
+      <%= cl_image_tag(@portfolio.image, width: "200", height: "200", crop: :fit, alt: @portfolio.title, title: @portfolio.title) %>
   </div>
 
   <div class="col-md-4">

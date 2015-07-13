@@ -71,7 +71,7 @@
 			<div class="col-sm-12">
 				<div class="col-sm-4">
 				<% if @profile.present? %>
-					<%= image_tag @profile.image.url, size: "50x50" %>
+					<%= cl_image_tag(@profile.image.url, width: "25", height: "25", crop: :fit %>
 				<% else %>
 					<%= image_tag default_image, size: "50x50" %>
 				<% end %>	
@@ -87,7 +87,7 @@
 			<div class="col-sm-12">
 				<div class="col-sm-4">
 					<% if @profile.present? %>
-					<%= image_tag @profile.image.url, size: "50x50" %>
+					<%= cl_image_tag(@profile.image.url, width: "25", height: "25", crop: :fit %>
 					<% else %>
 						<%= image_tag default_image, size: "50x50" %>
 					<% end %>
