@@ -1,0 +1,3 @@
+<div ng-repeat="lession in lessions">
+  <a href="#/studies/books/{{book.id}}/lessions/{{lession.id}}" ng-class="{'snm-selected':selectedLession === '{{book.id}}'}" ng-click="selectedLession = '{{book.id}}'">{{lession.title}}</a><hr>
+</div>

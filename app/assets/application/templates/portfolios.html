@@ -16,10 +16,8 @@
       </a>
        <a ng-href="#/portfolios/{{portfolio.id}}">{{portfolio.title}}</a>
       </h3>
-      <p>{{portfolio.description}}
-          <!-- <button class="btn btn-default" ng-click="open('portfolioModel')">Open me!</button> -->
-      </p>
-  </div>
+      <p ng-bind-html="portfolio.description | limitText | prettyHtml"></p>
+      </div>
 </div>
 <!-- /.row -->
 
@@ -37,7 +35,7 @@
         <li data-ng-repeat="tool in tools">{{tool}}</li>
       </ul>
       <h4>Description:</h4>
-      <div>{{modalContents.description}}</div>      
+      <div ng-bind-html="modalContents.description | prettyHtml"></div>      
   </div>
   <div class="modal-footer">
       <button class="btn btn-primary" ng-click="ok()">OK</button>

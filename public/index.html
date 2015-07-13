@@ -4,16 +4,22 @@
   <title>{{title}}</title>
   <link rel="stylesheet" type="text/css" href="/assets/angular-menifiest.css">
   <script type="text/javascript" src="/assets/angular-menifiest.js"></script>
+  <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon">
 </head>
 <body>
   <div ng-controller="menuController">
     <div ng-include="'/assets/templates/shared/menu.html'"></div>
-    <div class="text-center" id="flash-messages-container" ng-hide="flashMessage.message==''">
-      <p class="{{flashMessage.type}} alert alert-{{flashMessage.type}}">{{flashMessage.message}}</p>
+    <div class="text-center fadein fadeout" id="flash-messages-container" ng-show="flash">
+      <p class="{{flashes.type}} alert alert-{{flashes.type}}">{{flashes.message}}</p>
     </div>
+    <!-- <flash-message></flash-message> -->
   </div>
   </div>
-  <div class="container">
+  </div>
+  <div class="container" ng-controller="progressOFViewLoading">
+  <div class="col-sm-12 text-center" ng-show="isViewLoading">
+    <img src="/assets/welcome-two.png" />
+  </div>
     <div ng-view></div>
     <div class="row" ng-include="'/assets/templates/shared/solutions.html'" ng-controller="footerSolutions"></div>
     <hr>

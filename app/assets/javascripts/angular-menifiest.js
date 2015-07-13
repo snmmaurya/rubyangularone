@@ -21,11 +21,26 @@ Library Related JS
 //= require bootstrap/bootstrap.js
 //= require angular/angular-route.js
 //= require angular/angular-resource.js
+//= require angular/angular-animate.js
 //= require angular/angular-xeditable-0.1.8/xeditable.js
 //= require bootstrap/pagination/ui-bootstrap-tpls-0.13.0.js
 //= require modules/modules.js
 
 //= require angular-devise
+
+
+//= require angular/text-angular/textAngular-rangy.min.js
+
+//= require angular/text-angular/textAngular-sanitize.min.js
+
+//= require angular/text-angular/textAngular.min.js
+
+//= require angular/text-angular/textAngular-rangy.min.js
+
+//= require angular/prettify.js
+
+//= require angular/infolinks_main.js
+
 /*----------------------------------------------------------------------------
 END Library Related JS
 -----------------------------------------------------------------------------*/
@@ -45,6 +60,9 @@ Controllers related JS
 //= require controllers/lives/lives_controller.js
 //= require controllers/pagination_controller.js
 //= require controllers/configuration_controller.js
+//= require controllers/profile/users_controller.js
+//= require controllers/studies/books_controller.js
+//= require controllers/studies/lessions_controller.js
 
 //= require controllers/lives/livecruds_controller.js
 /*----------------------------------------------------------------------------

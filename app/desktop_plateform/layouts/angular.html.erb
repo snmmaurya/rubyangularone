@@ -2,13 +2,10 @@
 <html>
 <head>
   <title>SnmMaurya</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'angularmenifiest', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'angular-menifiest', media: 'all' %>
+  <%= javascript_include_tag 'angular-menifiest' %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
-
-  <%= display_meta_tags title: "SnmMaurya", description: "Ocean of Programming Solutions", keywords: ["Snm", "Maurya", "Ocean", "Solutions", "Programming", "Ruby", "Ruby On Rails"] %>
-
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -17,23 +14,111 @@
 	<![endif]-->
 </head>
 <body>
-	<!-- menu -->
-	<div ng-include="'/assets/templates/shared/menu.html'" data-ng-controller="menuController"></div>
-	<div id="flash-messages-container" class="text-center">
-		<!-- flash message -->
-	</div>
-	<div class="container">	
-		<!-- content -->
-		<hr>
-		<!-- Footer -->
-		<footer>
-			<div class="row">
-				<div class="col-lg-12">
-					<p>Copyright &copy; SnmMaurya.com 2015-2020</p>
-				</div>
-			</div>
-		</footer>
-	</div>
-	<!-- /.container -->
+  <div ng-controller="menuController">
+    <div ng-include="'/assets/templates/shared/menu.html'"></div>
+    <!-- <div class="text-center" id="flash-messages-container" ng-hide="flashMessage.message==''">
+      <p class="{{flashMessage.type}} alert alert-{{flashMessage.type}}">{{flashMessage.message}}</p>
+    </div> -->
+    <flash-notification ng-model="flashMessage">
+  </div>
+  </div>
+  </div>
+  <div class="container">
+    <div ng-view></div>
+    <div class="row" ng-include="'/assets/templates/shared/solutions.html'" ng-controller="footerSolutions"></div>
+    <hr>
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright &copy; SnmMaurya.com 2015-2020</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- /container -->
 </body>
 </html>
+
+<!-- Snmmaurya ==================================================================== -->
+<script type="text/ng-template" id="home">
+  <div ng-include="'/assets/templates/home.html'"></div>
+</script>
+
+<script type="text/ng-template" id="about">
+  <div ng-include="'/assets/templates/about.html'"></div>
+</script>
+
+<script type="text/ng-template" id="contact">
+  <div ng-include="'/assets/templates/contact.html'"></div>
+</script>
+
+<script type="text/ng-template" id="portfolios">
+  <div ng-include="'/assets/templates/portfolios.html'"></div>
+</script>
+
+<script type="text/ng-template" id="portfolio">
+  <div ng-include="'/assets/templates/portfolio.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+
+<!-- Solutions ==================================================================== -->
+<script type="text/ng-template" id="solutions">
+  <div ng-include="'/assets/templates/programmers/solutions/index.html'"></div>
+</script>
+
+<script type="text/ng-template" id="problems">
+  <div ng-include="'/assets/templates/programmers/problems/index.html'"></div>
+</script>
+
+<script type="text/ng-template" id="answers">
+  <div ng-include="'/assets/templates/programmers/answers/index.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+
+<!-- livecruds ==================================================================== -->
+<script type="text/ng-template" id="livecruds">
+  <div ng-include="'assets/templates/lives/livecruds/index.html'"></div>
+</script>
+<script type="text/ng-template" id="livecruds-show">
+  <div ng-include="'assets/templates/lives/livecruds/show.html'"></div>
+</script>
+<script type="text/ng-template" id="livecruds-edit">
+  <div ng-include="'assets/templates/lives/livecruds/edit.html'"></div>
+</script>
+<script type="text/ng-template" id="livecruds-new">
+  <div ng-include="'assets/templates/lives/livecruds/new.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+
+
+
+<!-- Movies ==================================================================== -->
+<script type="text/ng-template" id="movies">
+  <div ng-include="'assets/templates/lives/movies/index.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-show">
+  <div ng-include="'assets/templates/lives/movies/show.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-edit">
+  <div ng-include="'assets/templates/lives/movies/edit.html'"></div>
+</script>
+<script type="text/ng-template" id="movies-new">
+  <div ng-include="'assets/templates/lives/movies/new.html'"></div>
+</script>
+<!-- END ========================================================================= -->
+
+
+
+
+<script type="text/ng-template" id="directives">
+  <div ng-include="'assets/templates/lives/directives/index.html'"></div>
+</script>
+
+
+<script type="text/ng-template" id="lives">
+  <div ng-include="'assets/templates/lives/lives/index.html'"></div>
+</script>

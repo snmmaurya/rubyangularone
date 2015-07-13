@@ -12,7 +12,23 @@
 <div class="row">
   <div ng-include="'assets/templates/programmers/answers/_answer.html'"></div>
 </div>
+<div class="row">
+  <div class="container lighter">
+    <form name="answerForm" ng-submit="createAnswer()">
 
+    <div class="control-group form-group">
+      <div class="controls">
+          <label>Contribute your solution here!</label>
+          <div text-angular ng-model="answer.htmlContent" name="htmlContent" ta-text-editor-class="border-around container" ta-html-editor-class="border-around" required></div>
+          <br><br>
+          <div style="color:red" ng-show="answerForm.htmlContent.$dirty && answerForm.htmlContent.$invalid">
+            <span ng-show="answerForm.htmlContent.$error.required">Error: Without solution you can not submit.</span>
+          </div>
+       </div>   
+      <button type="submit" class="btn btn-primary" ng-disabled="answerForm.$invalid">Contribute Solution</button>
+    </form>
+  </div>
+</div>
 
 
 

@@ -6,4 +6,4 @@ class DownloadWorker
     download = Download.find download_id
     download.start_create_upload informations
   end  
-end  
+end

@@ -13,7 +13,7 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right" ng-init="selectedMenu = 'home'">
+        <ul class="nav navbar-nav navbar-right" ng-init="selectedMenu = 'home'" ng-controller="sessionsController">
           <li ng-class="{'active':selectedMenu === 'home'}" ng-click="selectedMenu = 'home'">
             <a ng-href="#/">Home</a>
           </li>
@@ -23,6 +23,9 @@
           <li ng-class="{'active':selectedMenu === 'solutions'}" ng-click="selectedMenu = 'solutions'">
             <a ng-href="#/programmers/solutions">Solutions</a>
           </li>
+          <li ng-class="{'active':selectedMenu === 'studies'}" ng-click="selectedMenu = 'studies'">
+            <a ng-href="#/studies/books">Studies</a>
+          </li>
           <li ng-class="{'active':selectedMenu === 'contact'}" ng-click="selectedMenu = 'contact'">
             <a ng-href="#/contact">Contact</a>
           </li>
@@ -30,51 +33,44 @@
           <li ng-class="{'active':selectedMenu === 'portfolios'}" ng-click="selectedMenu = 'portfolios'">
             <a ng-href="#/portfolios">Portfolio</a>
           </li>
-          <li class="dropdown">
+
+          <li class="dropdown" ng-class="{'active':selectedMenu === 'movies' || selectedMenu === 'lives' || selectedMenu === 'liveCruds'}">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                 Others<b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu">
-                    
-                    <li>
+                <ul class="dropdown-menu">                    
+                    <li ng-class="{'active':selectedMenu === 'movies'}" ng-click="selectedMenu = 'movies'">
                       <a ng-href="#/movies">Movies</a>
                     </li>
-                    <li>
+                    <li ng-class="{'active':selectedMenu === 'liveCruds'}" ng-click="selectedMenu = 'liveCruds'">
                       <a ng-href="#/livecruds">Live Cruds</a>
                     </li>
 
-                    <li>
-                      <a ng-href="#lives">Livs</a>                             
+                    <li ng-class="{'active':selectedMenu === 'lives'}" ng-click="selectedMenu = 'lives'">
+                      <a ng-href="#lives">Lives</a>                             
                     </li>
                                   
                 </ul>
             </li>
 
-            <li ng-class="{'active':selectedMenu === 'sign_up'}" ng-click="selectedMenu = 'sign_up'" ng-if="current_user==undefined">
-              <a ng-href="#/users/sign_up">Signup</a>
-            </li>
-            <li ng-class="{'active':selectedMenu === 'sign_in'}" ng-click="selectedMenu = 'sign_in'" ng-if="current_user==undefined">
-              <a ng-href="#/sign_in">Signin</a>
-            </li>                   
-            <li class="dropdown" ng-if="current_user.id">
+            <li class="dropdown" ng-show="isAuthenticated"  ng-controller="menuController">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                {{current_user.username}} <b class="caret"></b>
+                {{currentUser.username}} <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu">
-                    <li>
-                       <a href="">Settings</a>
+                <ul class="dropdown-menu">                    
+                    <li ng-class="{'active':selectedMenu === 'profile'}" ng-click="selectedMenu = 'profile'">
+                      <a href="#/profile/users/{{currentUser.id}}">Profile</a>
                     </li>
                     <li>
-                      <a href="">Settings</a>
-                    </li>
-                    <li>
-                      <a href="">Settings</a>                             
-                    </li>
-                    
-                      <li ng-if="current_user.role_id==1">
-                        <a href="">Settings</a>
+                      <a href="#" ng-click="signOut()">Sign out</a>
                     </li>                   
                 </ul>
+            </li>
+            <li ng-class="{'active':selectedMenu === 'signup'}" ng-click="selectedMenu = 'signup'" ng-hide="isAuthenticated">
+              <a ng-href="#/signup">Signup</a>
+            </li>
+            <li ng-class="{'active':selectedMenu === 'signin'}" ng-click="selectedMenu = 'signin'" ng-hide="isAuthenticated">
+              <a ng-href="#/signin">Signin</a>
             </li>
       </ul>
     </div>

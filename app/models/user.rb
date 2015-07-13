@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
 
   # validates_associated :infos
-  validates :username, presence: true
   #File uploading through carrierwave gem
   mount_uploader :image, FileUploader
   mount_uploader :resume_pdf, FileUploader

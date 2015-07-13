@@ -10,21 +10,20 @@ snmmaurya.controller("moviesController", function($controller, $scope, $http, $l
     MovieFactory.getMovie(id).then(function(response){
       $scope.movie = response.data;
     });
-  }
+  };
 
 
   $scope.createMovie = function (movie) {
-    console.log(movie);
     MovieFactory.createMovie(movie).then(function(response){
       $scope.response ={status: response.data.status };
     });
-  }
+  };
 
   $scope.updateMovie = function (movie) {
     MovieFactory.updateMovie(movie).then(function(response){
       $scope.response ={status: response.data.status };
     });
-  }
+  };
 
   $scope.deleteMovie = function (movie) {
     if(confirm("Are you sure?"))
@@ -35,16 +34,16 @@ snmmaurya.controller("moviesController", function($controller, $scope, $http, $l
     {
       return false;
     }    
-  }
+  };
  
   $scope.init = function(){
     $scope.getMovies();
-  }
+  };
 
   $scope.init();
 
   if($routeParams.id != undefined)
   {
     $scope.getMovie($routeParams.id);
-  }  
+  };
 });

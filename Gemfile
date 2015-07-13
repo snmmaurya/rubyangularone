@@ -34,11 +34,11 @@ group :development, :production do
   gem 'rails_12factor'  
   gem 'therubyracer'    
   gem 'pg'
+  gem 'pry'
 end
 
 group :test do
   gem 'web-console', '~> 2.0'
-  gem 'pry'
 end
 
 gem 'redis'

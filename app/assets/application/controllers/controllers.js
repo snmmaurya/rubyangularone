@@ -1,6 +1,6 @@
 'use strict';
 
-var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise", "globalModule", "xeditable"]);
+var snmmaurya = angular.module("snmmaurya", ["ngRoute", "ngResource", "ui.bootstrap", "Devise", "globalModule", "xeditable", "deviseModule", "ngAnimate", "textAngular"]);
 
 
 snmmaurya.run(function(editableOptions) {
@@ -20,16 +20,22 @@ ENE Header controller
 /*----------------------------------------------------------------------------------------
 START Menu controller
 -----------------------------------------------------------------------------------------*/
-snmmaurya.controller("menuController", function($scope, $http, flashMessage){
-  snmmaurya.console("Getting Current User");
-  url = "/api/v1/get_current_user";
-  $http.get(url, {format: 'json'}).success( function(response) {
-    $scope.current_user = response;
-    snmmaurya.console($scope.current_user);
-  });
+snmmaurya.controller("menuController", function(globalAccess, $scope, $http, flashMessage, $controller, deviseService, $timeout){
+  $scope.$on('$routeChangeStart', function(next, current) {
+    $scope.flash = false;
 
-  $scope.$on('$routeChangeStart', function(next, current) { 
-    $scope.flashMessage = flashMessage.getFlashMessage();
+    $scope.flashes = flashMessage.getFlashMessage();
+
+    if($scope.flashes.message !="")
+    {
+      $scope.flash = true;
+      $timeout(function () { $scope.flash = false; }, 5000);
+    }
+
+    deviseService.currentUser().then(function(user) {
+      $scope.currentUser = user;
+    }, function(error) { });
+
   });
 });
 /*----------------------------------------------------------------------------------------
@@ -52,6 +58,21 @@ snmmaurya.controller("footerSolutions", function($scope, $http){
 /*----------------------------------------------------------------------------------------
 END Solutions controller
 -----------------------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------------------
+START Menu controller
+-----------------------------------------------------------------------------------------*/
+snmmaurya.controller("thankYouController", function(globalAccess, $location, $scope, $http, flashMessage, $controller, deviseService, $timeout){
+  $scope.email = globalAccess.getGlobalAccess("email");
+  flashMessage.setFlashMessage("Please confirm you email, by openeing and following confirmatin link.", "success");
+  $timeout(function () { $location.path("/") }, 5000);
+});
+/*----------------------------------------------------------------------------------------
+END Menu controller
+-----------------------------------------------------------------------------------------*/
+
+
+
 
 
 /*----------------------------------------------------------------------------------------
