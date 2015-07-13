@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   def update
     # authorize! :update, @user
     respond_to do |format|
-      binding.pry
       if @user.update(user_params)
         sign_in(@user == current_user ? @user : current_user, :bypass => true)
         format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
@@ -38,7 +37,6 @@ class UsersController < ApplicationController
   end
 
   def edit_email
-  binding.pry
   # format.html {render layout: false}
   end
 
