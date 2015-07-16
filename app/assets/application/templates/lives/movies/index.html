@@ -5,7 +5,7 @@
            Movies
            <small>All Movie</small>
            <a ng-href="#/movies/new" class="btn btn-xs btn-primary">New Movie</a>
-           <input type="text" ng-model="searchText">
+           <input type="text" ng-model="searchText.name">
         </h1>                
     </div>
 </div>
@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody ng-show="movies.length > 0">
-          <tr ng-repeat="movie in movies | filter:searchText">
+          <tr ng-repeat="movie in movies | filter:searchText.name">
             <td>{{movie.id}}</td>
             <td>{{movie.name}}</td>
             <td>{{movie.email}}</td>

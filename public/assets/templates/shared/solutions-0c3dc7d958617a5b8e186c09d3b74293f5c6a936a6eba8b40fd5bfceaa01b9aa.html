@@ -1,0 +1,8 @@
+<div class="col-lg-12">
+  <h2 class="page-header">My Solutions</h2>
+</div>
+<a ng-repeat="solution in response" href="#/programmers/solutions/{{solution.id}}/problems">
+  <div class="col-sm-2 col-sm-12"> 
+    <img width="700" height="400" src="{{solution.image.url}}" class="img-responsive" alt="{{solution.title}}" title="{{solution.title}}">
+  </div>
+</a>

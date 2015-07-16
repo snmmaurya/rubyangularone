@@ -1,0 +1,8 @@
+<div class="text-danger" ng-show="errorExists">
+  <div class="alert alert-danger">
+    The form contains following errors:
+  </div>
+  <ul style="background-color: #CCC;">
+    <li ng-repeat="(key, error) in errors">{{key}} {{error[0]}}</li>
+  </ul>
+</div>

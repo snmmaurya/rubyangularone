@@ -134,6 +134,51 @@ END Answer Factory
 
 
 
+/*----------------------------------------------------------------------------------------
+START Answer Factory
+-----------------------------------------------------------------------------------------*/
+snmmaurya.factory('problemFactory', function($resource, $http, $routeParams) {
+ var factory = {};
+ var answerFactoryBaseUrl = "";
+
+ factory.createUrl = function(){
+    problemFactoryBaseUrl = "/api/v1/programmers/solutions/"+$routeParams.solution_id+"/problems/";
+ };
+
+ factory.problems = function(){
+  factory.createUrl();
+  return $http.get(problemFactoryBaseUrl, {format: 'json'});
+ }
+
+ factory.getProblem = function(id){
+  factory.createUrl();
+  return $http.get(problemFactoryBaseUrl+""+id+"/edit", {format: 'json'});
+ }
+
+ factory.create = function (problem) {
+   factory.createUrl();
+   return $http.post(problemFactoryBaseUrl, problem);
+ }
+
+ factory.update = function (problem) {
+   factory.createUrl(); 
+   console.log(problemFactoryBaseUrl+" "+problem);
+   return $http.put(problemFactoryBaseUrl+"/"+problem.id, {problem: {problem: problem.problem}});
+ }
+
+factory.deleteAnswer = function (problem) {
+  factory.createUrl();
+  return $http.delete(problemFactoryBaseUrl+""+problem.id).then(function (status) {
+    return status.data;
+  });
+}
+ return factory;
+});
+/*----------------------------------------------------------------------------------------
+END Answer Factory
+-----------------------------------------------------------------------------------------*/
+
+
 
 /*----------------------------------------------------------------------------------------
 START User Factory

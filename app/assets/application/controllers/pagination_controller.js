@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------------------
-Start Pagination controller
+START Pagination controller
 -----------------------------------------------------------------------------------------*/
 snmmaurya.controller('paginationController', function ($scope, $log, $http, $controller, $location, $rootScope, globalAccess) {
   var keys = globalAccess.globalAccess();
@@ -14,3 +14,6 @@ snmmaurya.controller('paginationController', function ($scope, $log, $http, $con
     $log.log('Page changed to: ' + $scope.currentPage);
   };
 });
+/*----------------------------------------------------------------------------------------
+END Pagination controller
+-----------------------------------------------------------------------------------------*/

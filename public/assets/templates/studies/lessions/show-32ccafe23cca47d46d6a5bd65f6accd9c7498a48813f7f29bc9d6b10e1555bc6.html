@@ -1,0 +1,28 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+      <div class="col-sm-12">
+        <h1 class="page-header">Studies [{{book.title}}]
+            <small>{{lession.title}}</small>
+        </h1>
+      </div>  
+     <!--  <div class="col-sm-6">
+        <%#= render partial: "previous_next" %>
+      </div>  -->                 
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Team Members -->
+<div class="row">
+  <div class="col-sm-3">
+    <div ng-include="'/assets/templates/studies/lessions/_lession.html'"></div>
+  </div>
+  <div class="col-sm-9">
+    <div class="row">
+      <p  ng-bind-html="lession.description | prettyHtml"></p>
+    </div>
+    <!-- include next back for lession -->
+  </div>
+</div>
+<!-- /.row -->

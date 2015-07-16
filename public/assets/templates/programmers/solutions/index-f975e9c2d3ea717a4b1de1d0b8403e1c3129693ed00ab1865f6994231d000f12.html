@@ -1,0 +1,28 @@
+<!-- Page Heading/Breadcrumbs -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Solutions
+            <small>All Solutions</small>
+        </h1>
+    </div>
+</div>
+<!-- /.row -->
+
+<!-- Team Members -->
+<div class="row" data-ng-controller="programmersSolutionsController">
+    <div class="col-md-4 text-center" ng-repeat="solution in response">    
+        <div class="thumbnail">
+        <a href="#/programmers/solutions/{{solution.id}}/problems">
+          <img src="{{solution.image.url}}" size="700x400" alt="{{solution.solution}}" class="img-responsive">
+        </a>
+        <div class="caption">
+          <h3>
+            <a href="#/programmers/solutions/{{solution.id}}/problems">
+              {{solution.solution}}
+            </a>
+          </h3>
+          <p  ng-bind-html="solution.description | limitText | prettyHtml"></p>
+        </div>
+        </div>      
+    </div>  
+</div>

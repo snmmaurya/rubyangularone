@@ -40,7 +40,6 @@ class Hospitals::DoctorsController < ApplicationController
         @doctor.pictures.last.update_attributes({image: params[:image]})
         # @doctor.pictures.build({image: params[:image]}).save
       end
-      binding.pry
       flash[:success] = "Updated Successfully!"
       redirect_to hospitals_doctors_path
     else

@@ -12,3 +12,20 @@
 <div class="row" data-ng-controller="programmersSolutionsProblemsController">
   <div ng-include="'assets/templates/programmers/problems/_problem.html'"></div>
 </div>
+<div class="row">
+  <div class="container lighter">
+    <form name="problemForm" ng-submit="createProblem()">
+
+    <div class="control-group form-group">
+      <div class="controls">
+          <label>Contribute your solution here!</label>
+          <div text-angular ng-model="problem.htmlContent" name="htmlContent" ta-text-editor-class="border-around container" ta-html-editor-class="border-around" required></div>
+          <br><br>
+          <div style="color:red" ng-show="problemForm.htmlContent.$dirty && problemForm.htmlContent.$invalid">
+            <span ng-show="problemForm.htmlContent.$error.required">Error: Without solution you can not submit.</span>
+          </div>
+       </div>   
+      <button type="submit" class="btn btn-primary" ng-disabled="problemForm.$invalid">Contribute Solution</button>
+    </form>
+  </div>
+</div>

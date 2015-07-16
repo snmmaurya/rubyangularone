@@ -22,36 +22,26 @@ globalModule.service("flashMessage", function($rootScope){
   };
 });
 
-
-
 globalModule.factory("globalAccess", function(){
-
   var factory = { };
-
   var accesses = {
     email: "", username: "",
     title: "Snm Maurya | Solutions",
     totalItems: 10,
     itemsPerPage: 2,
     numPerPage: 2
-  }
-
+  };
   factory.getGlobalAccess = function(key){
     return accesses[key];
   };
-
   factory.globalAccess = function(){
     return accesses;
   };
-
   factory.setGlobalAccess = function(key, data){
     accesses[key] = data;
   };
-
   return factory;
 });
-
-
 
 
 globalModule.controller("progressOFViewLoading", function($scope){
@@ -68,13 +58,9 @@ globalModule.controller("progressOFViewLoading", function($scope){
 });
 
 
-
-
 var deviseModule = angular.module('deviseModule', ["Devise"]);
   deviseModule.service("deviseService", function(Auth){
-
   this.currentUser = function(){
-    //console.log("**********************"+Auth.currentUser());
     return Auth.currentUser();
   };
 });
