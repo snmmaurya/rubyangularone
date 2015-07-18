@@ -70,7 +70,8 @@
               <a ng-href="#/signup">Signup</a>
             </li>
             <li ng-class="{'active':selectedMenu === 'signin'}" ng-click="selectedMenu = 'signin'" ng-hide="isAuthenticated">
-              <a ng-href="#/signin">Signin</a>
+              <a herf="javascript: void(0)" ng-click="open({size: '', templateUrl: 'signinModel', data: ''})">Signin</a>
+              <!-- <a href="javascript: void(0);" ng-click="open({size: '', templateUrl: 'portfolioModel', data: portfolio})"> -->
             </li>
       </ul>
     </div>

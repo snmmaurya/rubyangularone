@@ -29,7 +29,8 @@ END Devise specific configuration
 /*----------------------------------------------------------------------------------------
 START Sessions controller
 -----------------------------------------------------------------------------------------*/
-snmmaurya.controller('sessionsController', function(Auth, $scope, $http, flashMessage, $location, $rootScope) {
+snmmaurya.controller('sessionsController', function(Auth, $controller, $scope, $http, flashMessage, $location, $rootScope) {
+  $controller('ModelController', {$scope: $scope});
   $scope.credentials = {
       email: '',
       password: '',
@@ -42,10 +43,11 @@ snmmaurya.controller('sessionsController', function(Auth, $scope, $http, flashMe
     }
   };
 
-  $scope.signIn = function(){
+  $scope.signIn = function(){    
     $scope.credentials.login = $scope.credentials.email;
     console.log($scope.credentials);
     Auth.login($scope.credentials).then(function(user) {
+      $scope.cancel(); //Close model pup up here!
       flashMessage.setFlashMessage("Signed in Successfully", 'success');
        $location.path('/');
     }, function(error) {

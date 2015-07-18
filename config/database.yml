@@ -4,24 +4,24 @@ development:
   encoding: unicode
   host: localhost
   database: snm_development
-  username: snmmaurya
-  password: snmmaurya
+  username: snm
+  password: snm
 
 test:
   adapter: postgresql
   encoding: unicode
   database: snm_test
   host: localhost
-  username: snmmaurya
-  password: snmmaurya
+  username: snm
+  password: snm
 
 production:
   adapter: postgresql
   encoding: unicode
   database: snm
   host: localhost
-  username: snmmaurya
-  password: snmmaurya
+  username: snm
+  password: snm
 
 
 
@@ -30,23 +30,23 @@ production:
 # development:
 #   adapter: postgresql
 #   host: localhost
-#   database: snmmaurya_development
-#   username: snmmaurya
-#   password: snmmaurya
+#   database: snm_development
+#   username: snm
+#   password: snm
 
 # test:
 #   adapter: postgresql
 #   database: whatsapp-visit
 #   host: localhost
-#   username: snmmaurya_test
-#   password: snmmaurya
+#   username: snm_test
+#   password: snm
 
 # production:
 #   adapter: postgresql
-#   database: snmmaurya_production
+#   database: snm_production
 #   host: localhost
-#   username: snmmaurya
-#   password: snmmaurya
+#   username: snm
+#   password: snm
 
 
 
@@ -55,7 +55,7 @@ production:
 #   adapter:  postgresql
 #   host:     localhost
 #   encoding: utf8
-#   database: snmmaurya
+#   database: snm
 #   pool:     5
 #   username: <%= ENV['PG_USERNAME'] %>
 #   password: <%= ENV['PG_PASSWORD'] %>
@@ -66,7 +66,7 @@ production:
 #    adapter:  postgresql
 #    host:     127.0.0.1
 #    encoding: utf8
-#    database: snmmaurya
+#    database: snm
 #    pool:     5
 #    username: <%= ENV['PG_USERNAME'] %>
 #    password: <%= ENV['PG_PASSWORD'] %>
@@ -77,7 +77,7 @@ production:
 #   adapter:  postgresql
 #   host:     127.0.0.1
 #   encoding: utf8
-#   database: snmmaurya
+#   database: snm
 #   pool:     5
 #   username: <%= ENV['PG_USERNAME'] %>
 #   password: <%= ENV['PG_PASSWORD'] %>
