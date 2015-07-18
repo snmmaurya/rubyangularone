@@ -1,6 +1,6 @@
 class Api::V1::Programmers::ProblemsController < Api::V1::BaseApiController
   def index
-    @problems = Problem.where(solution_id: params[:solution_id]).order(updated_at: :asc).offset("#{params[:begins] || 1}").limit("10")
+    @problems = Problem.where(solution_id: params[:solution_id]).order(updated_at: :desc)#.offset("#{params[:begins] || 1}").limit("10")
     @total_problems = Problem.where(solution_id: params[:solution_id]).count
     render json: {problems: @problems, total_problems: @total_problems}
   end
@@ -15,6 +15,10 @@ class Api::V1::Programmers::ProblemsController < Api::V1::BaseApiController
       status = "ERROR"
     end  
     render json: {status: status}
+  end
+
+  def show
+    render json: (Problem.find params[:id])
   end
 
   def update

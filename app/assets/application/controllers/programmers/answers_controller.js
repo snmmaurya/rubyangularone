@@ -37,7 +37,7 @@ snmmaurya.controller("programmersSolutionsProblemsAnswersController", function($
 
   $scope.initialize = function(){
     $scope.getAnswers();
-    $scope.answer = {htmlContent: "Contribute/Write you solution here!"};
+    $scope.answer = {htmlContent: "Contribute/Write your answer here!"};
   };
   $scope.initialize();
 

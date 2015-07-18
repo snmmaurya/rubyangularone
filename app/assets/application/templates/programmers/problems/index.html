@@ -9,7 +9,7 @@
 <!-- /.row -->
 
 <!-- Team Members -->
-<div class="row" data-ng-controller="programmersSolutionsProblemsController">
+<div class="row">
   <div ng-include="'assets/templates/programmers/problems/_problem.html'"></div>
 </div>
 <div class="row">
@@ -18,11 +18,11 @@
 
     <div class="control-group form-group">
       <div class="controls">
-          <label>Contribute your solution here!</label>
+          <label>Create your problem here!</label>
           <div text-angular ng-model="problem.htmlContent" name="htmlContent" ta-text-editor-class="border-around container" ta-html-editor-class="border-around" required></div>
           <br><br>
           <div style="color:red" ng-show="problemForm.htmlContent.$dirty && problemForm.htmlContent.$invalid">
-            <span ng-show="problemForm.htmlContent.$error.required">Error: Without solution you can not submit.</span>
+            <span ng-show="problemForm.htmlContent.$error.required">Error: Without problem you can not submit.</span>
           </div>
        </div>   
       <button type="submit" class="btn btn-primary" ng-disabled="problemForm.$invalid">Contribute Solution</button>

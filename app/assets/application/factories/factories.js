@@ -152,7 +152,7 @@ snmmaurya.factory('problemFactory', function($resource, $http, $routeParams) {
 
  factory.getProblem = function(id){
   factory.createUrl();
-  return $http.get(problemFactoryBaseUrl+""+id+"/edit", {format: 'json'});
+  return $http.get(problemFactoryBaseUrl+""+id, {format: 'json'});
  }
 
  factory.create = function (problem) {
