@@ -1,27 +1,27 @@
 ######################## Localhost #######################
-development:
-  adapter: postgresql
-  encoding: unicode
-  host: localhost
-  database: snm_development
-  username: snm
-  password: snm
+# development:
+#   adapter: postgresql
+#   encoding: unicode
+#   host: localhost
+#   database: snm_development
+#   username: snm
+#   password: snm
 
-test:
-  adapter: postgresql
-  encoding: unicode
-  database: snm_test
-  host: localhost
-  username: snm
-  password: snm
+# test:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: snm_test
+#   host: localhost
+#   username: snm
+#   password: snm
 
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: snm
-  host: localhost
-  username: snm
-  password: snm
+# production:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: snm
+#   host: localhost
+#   username: snm
+#   password: snm
 
 
 
@@ -51,35 +51,35 @@ production:
 
 
 
-# development:
-#   adapter:  postgresql
-#   host:     localhost
-#   encoding: utf8
-#   database: snm
-#   pool:     5
-#   username: <%= ENV['PG_USERNAME'] %>
-#   password: <%= ENV['PG_PASSWORD'] %>
-#   template: template0
-#   # others options
+development:
+  adapter:  postgresql
+  host:     localhost
+  encoding: utf8
+  database: snm
+  pool:     5
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
+  template: template0
+  # others options
 
-# test:
-#    adapter:  postgresql
-#    host:     127.0.0.1
-#    encoding: utf8
-#    database: snm
-#    pool:     5
-#    username: <%= ENV['PG_USERNAME'] %>
-#    password: <%= ENV['PG_PASSWORD'] %>
-#    template: template0
-#    # others options
+test:
+   adapter:  postgresql
+   host:     127.0.0.1
+   encoding: utf8
+   database: snm
+   pool:     5
+   username: <%= ENV['PG_USERNAME'] %>
+   password: <%= ENV['PG_PASSWORD'] %>
+   template: template0
+   # others options
 
-# production:
-#   adapter:  postgresql
-#   host:     127.0.0.1
-#   encoding: utf8
-#   database: snm
-#   pool:     5
-#   username: <%= ENV['PG_USERNAME'] %>
-#   password: <%= ENV['PG_PASSWORD'] %>
-#   template: template0
-#   # others options
+production:
+  adapter:  postgresql
+  host:     127.0.0.1
+  encoding: utf8
+  database: snm
+  pool:     5
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
+  template: template0
+  # others options
