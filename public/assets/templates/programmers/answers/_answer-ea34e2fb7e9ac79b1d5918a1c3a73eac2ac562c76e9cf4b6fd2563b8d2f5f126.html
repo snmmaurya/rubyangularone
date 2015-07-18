@@ -1,0 +1,22 @@
+<div class="col-lg-12" ng-repeat="answer in answers">
+  <div class="well">
+    <p ng-bind-html="answer.answer | prettyHtml" editable-textarea="answer.answer" e-form="textEditableButtonForm" onbeforesave="updateAnswer({answer: $data, id: answer.id})" e-rows="7" e-cols="100">
+      
+    </p>
+    <div class="panel-body">
+      <div class="col-sm-12 col-lg-3">
+      </div>
+      <div class="col-sm-12 col-lg-3">
+        <!-- Creted At [{{answer.created_at}}] -->
+      </div>
+      <div class="col-sm-12 col-lg-3 text-right period">
+        <!-- Created By [<em><a href="#/profile/users/{{answer.id}}">Snmmaurya</a></em>] -->
+      </div>
+      <div class="col-sm-12 col-lg-3 text-right period" ng-show="currentUser.id==answer.user_id">
+        <button class="btn btn-default" ng-click="textEditableButtonForm.$show()" ng-hide="textEditableButtonForm.$visible">
+          edit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

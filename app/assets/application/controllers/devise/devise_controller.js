@@ -46,10 +46,10 @@ snmmaurya.controller('sessionsController', function(Auth, $controller, $scope, $
   $scope.signIn = function(){    
     $scope.credentials.login = $scope.credentials.email;
     console.log($scope.credentials);
-    Auth.login($scope.credentials).then(function(user) {
-      $scope.cancel(); //Close model pup up here!
-      flashMessage.setFlashMessage("Signed in Successfully", 'success');
+    Auth.login($scope.credentials).then(function(user) {      
+      flashMessage.setFlashMessage("Signed in Successfully", 'success');      
        $location.path('/');
+       $scope.ok(); //Close model pup up here!
     }, function(error) {
         //flashMessage.setFlashMessage(error.data.error, 'success');
         $scope.loginError = true;
