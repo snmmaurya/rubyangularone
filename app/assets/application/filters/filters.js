@@ -16,6 +16,29 @@ snmmaurya.filter('escapeHtml', function () {
 });
 
 
+snmmaurya.filter('friendlyHtml', function () {
+  var entityMap = {
+      "&": " ",
+      "<": "",
+      ">": "",
+      '"': "",
+      "'": " ",
+      "/": " ",
+      "?": "",
+      "!": " ",
+      "*": " ",
+      ".": "-",
+      " ": "-"
+  };
+
+  return function(str) {
+      return String(str).replace(/[&<>"'\/]/g, function (s) {
+          return entityMap[s];
+      });
+  }
+});
+
+
 snmmaurya.filter('prettyHtml', function ($sce) {
   return function(htmlCode) {
     return $sce.trustAsHtml(htmlCode);

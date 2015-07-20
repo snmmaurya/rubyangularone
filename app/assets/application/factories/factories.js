@@ -90,12 +90,13 @@ END Movie Factory
 /*----------------------------------------------------------------------------------------
 START Answer Factory
 -----------------------------------------------------------------------------------------*/
-snmmaurya.factory('answerFactory', function($resource, $http, $routeParams) {
+snmmaurya.factory('answerFactory', function($resource, $http, $routeParams, $location) {
  var factory = {};
  var answerFactoryBaseUrl = "";
 
  factory.createUrl = function(){
-    answerFactoryBaseUrl = "/api/v1/programmers/solutions/"+$routeParams.solution_id+"/problems/"+$routeParams.problem_id+"/answers";
+    answerFactoryBaseUrl = "/api/v1"+$location.path();
+    //"/api/v1/programmers/solutions/"+$routeParams.solution_id+"/problems/"+$routeParams.problem_id+"/answers";
  };
 
  factory.answers = function(){
@@ -137,12 +138,13 @@ END Answer Factory
 /*----------------------------------------------------------------------------------------
 START Answer Factory
 -----------------------------------------------------------------------------------------*/
-snmmaurya.factory('problemFactory', function($resource, $http, $routeParams) {
+snmmaurya.factory('problemFactory', function($resource, $http, $routeParams, $location) {
  var factory = {};
  var answerFactoryBaseUrl = "";
 
  factory.createUrl = function(){
-    problemFactoryBaseUrl = "/api/v1/programmers/solutions/"+$routeParams.solution_id+"/problems/";
+    problemFactoryBaseUrl = "/api/v1"+$location.path();
+    //"/api/v1/programmers/solutions/"+$routeParams.solution_id+"/problems/";
  };
 
  factory.problems = function(){

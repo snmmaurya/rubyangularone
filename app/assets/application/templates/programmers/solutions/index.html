@@ -12,12 +12,12 @@
 <div class="row" data-ng-controller="programmersSolutionsController">
     <div class="col-md-4 text-center" ng-repeat="solution in response">    
         <div class="thumbnail">
-        <a href="#/programmers/solutions/{{solution.id}}/problems">
+        <a href="#/programmers/solutions/{{solution.slug}}/problems">
           <img src="{{solution.image.url}}" size="700x400" alt="{{solution.solution}}" class="img-responsive">
         </a>
         <div class="caption">
           <h3>
-            <a href="#/programmers/solutions/{{solution.id}}/problems">
+            <a href="#/programmers/solutions/{{solution.slug}}/problems">
               {{solution.solution}}
             </a>
           </h3>
